@@ -1,0 +1,11 @@
+---
+import type { GuideLevel, GuidePage } from '../types/guide';
+
+const { page, level } = Astro.props as { page: GuidePage; level: GuideLevel };
+---
+<a class="card" href={`/guide/${page.slug}`}>
+  <span class="card-kicker">Рівень {level.number} · Урок {page.order}</span>
+  <h3>{page.title}</h3>
+  <p>{page.description}</p>
+  <span class="card-meta"><span>Відкрити урок</span><span aria-hidden="true">→</span></span>
+</a>

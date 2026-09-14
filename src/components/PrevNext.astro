@@ -1,0 +1,21 @@
+---
+import type { GuidePage } from '../types/guide';
+
+const { previous, next } = Astro.props as { previous?: GuidePage; next?: GuidePage };
+---
+{(previous || next) && (
+  <nav class="prev-next" aria-label="Навігація між уроками">
+    {previous ? (
+      <a href={`/guide/${previous.slug}`}>
+        <small>← Попередній урок</small>
+        {previous.title}
+      </a>
+    ) : <span></span>}
+    {next ? (
+      <a href={`/guide/${next.slug}`}>
+        <small>Наступний урок →</small>
+        {next.title}
+      </a>
+    ) : <span></span>}
+  </nav>
+)}

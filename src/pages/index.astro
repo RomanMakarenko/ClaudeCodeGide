@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { guideLevels, guidePages, getPagesForLevel } from '../data/guide';
+import { guideContentByLevel } from '../data/content';
+
+const availableLevels = guideLevels.filter((level) => getPagesForLevel(level.id).length > 0);
+const authoredPageIds = new Set(Object.values(guideContentByLevel).flatMap((content) => Object.keys(content)));
+const authoredPages = guidePages.filter((page) => authoredPageIds.has(page.id));
+const plannedPages = guideLevels.reduce((total, level) => total + level.planned, 0);
+---
+<BaseLayout title="Практичний гайд" description="Український практичний гайд із Claude Code для розробників.">
+  <div class="page-shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Claude Code · guide in progress</p>
+        <h1>Працюй із Claude Code як із командою, а не як із чат-ботом.</h1>
+        <p class="lead">Послідовний український гайд про mental model, робочі поверхні та інженерний workflow. Починаємо з основ і додаємо матеріали поступово.</p>
+        <div class="actions">
+          <a class="button" href="/guide">Почати гайд <span aria-hidden="true">→</span></a>
+          <a class="button secondary" href="/artifacts">Каталог артефактів</a>
+          <a class="button secondary" href="#levels">Подивитися рівні</a>
+        </div>
+      </div>
+      <aside class="hero-note" aria-label="Стан гайда">
+        <strong>Поточний стан</strong>
+        <p><b>{guidePages.length}</b> source-backed уроків зареєстровано; <b>{authoredPages.length}</b> уже мають повний авторський контент. У roadmap — {plannedPages} матеріалів, без вигаданих сторінок.</p>
+      </aside>
+    </section>
+
+    <section id="levels">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Маршрут навчання</p>
+          <h2>Рухайся від mental model до перевірюваних змін.</h2>
+        </div>
+        <p>{availableLevels.length} рівні вже мають маршрути</p>
+      </div>
+      <div class="level-grid">
+        {guideLevels.map((level) => {
+          const pages = getPagesForLevel(level.id);
+          return (
+            <article class="card level-card">
+              <span class="card-kicker">Рівень {level.number}</span>
+              <h3>{level.title}</h3>
+              <p>{level.description}</p>
+              <div class="card-meta"><span>{pages.length} доступних уроків</span><a href={pages.length ? `/guide/${pages[0].slug}` : '/guide'}>{pages.length ? 'Почати →' : 'Незабаром'}</a></div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  </div>
+</BaseLayout>

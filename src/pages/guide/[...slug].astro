@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import GuideNav from '../../components/GuideNav.astro';
+import PrevNext from '../../components/PrevNext.astro';
+import type { GuidePage } from '../../types/guide';
+import { guidePages, getLevel, getPagesForLevel } from '../../data/guide';
+import { guideContentByLevel } from '../../data/content';
+import { artifacts } from '../../data/artifacts';
+
+export function getStaticPaths() {
+  return guidePages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}
+
+const { page } = Astro.props as { page: GuidePage };
+const level = getLevel(page.levelId)!;
+const levelPages = getPagesForLevel(page.levelId);
+const index = levelPages.findIndex((item) => item.id === page.id);
+const previous = levelPages[index - 1];
+const next = levelPages[index + 1];
+const sections = guideContentByLevel[page.levelId as keyof typeof guideContentByLevel]?.[page.id] ?? [];
+---
+<BaseLayout title={page.title} description={page.description}>
+  <div class="page-shell guide-page">
+    <Breadcrumbs items={[{ label: 'Головна', href: '/' }, { label: 'Гайд', href: '/guide' }, { label: `Рівень ${level.number}`, href: '/guide' }, { label: page.title }]} />
+    <div class="mobile-nav">
+      <details>
+        <summary>Зміст рівнів</summary>
+        <GuideNav activeSlug={page.slug} />
+      </details>
+    </div>
+    <div class="guide-layout">
+      <aside class="sidebar"><GuideNav activeSlug={page.slug} /></aside>
+      <article class="article">
+        <header class="article-header">
+          <p class="eyebrow">Рівень {level.number} · Урок {page.order}</p>
+          <h1>{page.title}</h1>
+          <p class="lead">{page.description}</p>
+        </header>
+        <div class="article-body">
+          {sections.length > 0 ? sections.map((section) => (
+            <section class="article-section">
+              <h2>{section.heading}</h2>
+              {section.paragraphs?.map((paragraph) => <p>{paragraph}</p>)}
+              {section.bullets && (
+                <ul>
+                  {section.bullets.map((bullet) => <li set:html={bullet.replaceAll(/`([^`]+)`/g, '<code>$1</code>')} />)}
+                </ul>
+              )}
+              {section.steps && (
+                <ol>
+                  {section.steps.map((step) => <li set:html={step.replaceAll(/`([^`]+)`/g, '<code>$1</code>')} />)}
+                </ol>
+              )}
+              {section.table && (
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr>{section.table.headers.map((header) => <th scope="col">{header}</th>)}</tr></thead>
+                    <tbody>
+                      {section.table.rows.map((row) => <tr>{row.map((cell) => <td set:html={cell.replaceAll(/`([^`]+)`/g, '<code>$1</code>')} />)}</tr>)}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+              {section.code?.map((block) => (
+                <figure class="code-block">
+                  {block.caption && <figcaption>{block.caption}</figcaption>}
+                  <pre><code class={`language-${block.language}`}>{block.code}</code></pre>
+                </figure>
+              ))}
+              {section.note && <aside class="article-note"><strong>Практичний акцент</strong><p>{section.note}</p></aside>}
+              {section.artifactIds?.length ? (
+                <aside class="artifact-references">
+                  <strong>Практичні артефакти</strong>
+                  <ul class="artifact-reference-list">
+                    {section.artifactIds.map((artifactId) => {
+                      const artifact = artifacts.find((item) => item.id === artifactId);
+                      return artifact ? <li><a href={`/artifacts#${artifact.id}`}>{artifact.name}</a><span>{artifact.role}</span></li> : null;
+                    })}
+                  </ul>
+                </aside>
+              ) : null}
+              {section.lab && (
+                <aside class="lab-card">
+                  <p class="lab-kicker">Практична лабораторія</p>
+                  <h3>{section.lab.title}</h3>
+                  <p class="lab-goal"><strong>Мета:</strong> {section.lab.goal}</p>
+                  {section.lab.inputs?.length ? <div class="lab-meta"><strong>Вхідні дані</strong><ul>{section.lab.inputs.map((input) => <li>{input}</li>)}</ul></div> : null}
+                  <div class="lab-meta"><strong>Кроки</strong><ol class="lab-list">{section.lab.steps.map((step) => <li set:html={step.replaceAll(/`([^`]+)`/g, '<code>$1</code>')} />)}</ol></div>
+                  {section.lab.outputs?.length ? <div class="lab-meta"><strong>Очікуваний результат</strong><ul>{section.lab.outputs.map((output) => <li>{output}</li>)}</ul></div> : null}
+                  {section.lab.verification?.length ? <div class="lab-meta"><strong>Перевірка</strong><ul>{section.lab.verification.map((check) => <li>{check}</li>)}</ul></div> : null}
+                  {section.lab.stopCondition && <p class="lab-stop"><strong>Зупиніться, якщо:</strong> {section.lab.stopCondition}</p>}
+                  {section.lab.artifactIds?.length ? <div class="lab-artifacts"><strong>Артефакти лабораторії</strong><ul class="artifact-reference-list">{section.lab.artifactIds.map((artifactId) => { const artifact = artifacts.find((item) => item.id === artifactId); return artifact ? <li><a href={`/artifacts#${artifact.id}`}>{artifact.name}</a><span>{artifact.role}</span></li> : null; })}</ul></div> : null}
+                  <div class="lab-sources"><strong>Джерела:</strong> {section.lab.sourceRefs.join(' · ')}</div>
+                </aside>
+              )}
+            </section>
+          )) : (
+            <>
+              <p>Цей матеріал входить до рівня <strong>«{level.title}»</strong>. На цій сторінці ми закріплюємо місце теми в робочому процесі та готуємо основу для практичного розбору.</p>
+              <h2>Про що цей урок</h2>
+              <p>Повний авторський матеріал буде доданий під час наступного етапу наповнення гайда.</p>
+            </>
+          )}
+          <div class="source-box">
+            <p><strong>Вихідне джерело</strong> · {page.sourceFile}</p>
+            {page.sourceUrl && <a href={page.sourceUrl} target="_blank" rel="noreferrer">Відкрити матеріал JavaRush <span aria-hidden="true">↗</span></a>}
+          </div>
+        </div>
+        <PrevNext previous={previous} next={next} />
+      </article>
+    </div>
+  </div>
+</BaseLayout>

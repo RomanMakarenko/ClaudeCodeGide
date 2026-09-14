@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+
+type Props = {
+  title: string;
+  description?: string;
+};
+
+const { title, description = 'Практичний український гайд із Claude Code.' } = Astro.props;
+---
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" />
+    <title>{title} · Claude Code Guide</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Перейти до основного вмісту</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/">
+          <span class="brand-mark" aria-hidden="true">⌘</span>
+          <span class="brand-text"><strong>Claude Code Guide</strong><span>український практичний гайд</span></span>
+        </a>
+        <nav class="header-nav" aria-label="Основна навігація">
+          <a href="/">Головна</a>
+          <a href="/guide">Усі рівні</a>
+          <a href="/artifacts">Артефакти</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>Перший каркас гайда · контент розвивається поступово</p>
+        <p>Статичний сайт без backend</p>
+      </div>
+    </footer>
+  </body>
+</html>

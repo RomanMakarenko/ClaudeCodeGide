@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GuideCard from '../../components/GuideCard.astro';
+import GuideNav from '../../components/GuideNav.astro';
+import { guideLevels, guidePages, getPagesForLevel } from '../../data/guide';
+import { guideContentByLevel } from '../../data/content';
+
+const authoredPageIds = new Set(Object.values(guideContentByLevel).flatMap((content) => Object.keys(content)));
+const authoredPages = guidePages.filter((page) => authoredPageIds.has(page.id));
+---
+<BaseLayout title="Усі матеріали" description="Каталог матеріалів українського гайда Claude Code.">
+  <div class="page-shell">
+    <div class="breadcrumbs"><a href="/">Головна</a><span aria-hidden="true">/</span><span aria-current="page">Гайд</span></div>
+    <section class="section-heading">
+      <div><p class="eyebrow">Навчальний маршрут</p><h1>Усі матеріали гайда</h1></div>
+      <p>{guidePages.length} маршрутів · {authoredPages.length} authored</p>
+    </section>
+    <p class="lead guide-intro">Маршрути всіх 25 рівнів зареєстровані й мають повний авторський контент. Окремий <a href="/artifacts">каталог артефактів</a> показує їхні ролі, поля, шляхи та межі використання.</p>
+    <div class="guide-layout catalog-layout">
+      <aside class="sidebar"><GuideNav /></aside>
+      <div class="catalog-content">
+        {guideLevels.map((level) => {
+          const pages = getPagesForLevel(level.id);
+          return (
+            <section class="catalog-level">
+              <div class="section-heading"><div><p class="eyebrow">Рівень {level.number}</p><h2>{level.title}</h2></div><p>{pages.length} уроків</p></div>
+              {pages.length ? <div class="page-grid">{pages.map((page) => <GuideCard page={page} level={level} />)}</div> : <div class="empty-state">Матеріали цього рівня будуть додані в наступних ітераціях.</div>}
+            </section>
+          );
+        })}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

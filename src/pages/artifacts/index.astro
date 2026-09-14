@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { artifacts, artifactCategories } from '../../data/artifacts';
+
+const statusLabels = {
+  present: 'Є в цьому repository',
+  'documented-example': 'Документований приклад',
+  variant: 'Варіант назви або шляху',
+  'external-source': 'Операційний або зовнішній артефакт'
+};
+---
+<BaseLayout title="Каталог артефактів" description="Каталог артефактів Claude Code з ролями, полями та умовами використання.">
+  <div class="page-shell">
+    <div class="breadcrumbs"><a href="/">Головна</a><span aria-hidden="true">/</span><span aria-current="page">Артефакти</span></div>
+    <section class="section-heading">
+      <div><p class="eyebrow">Artifact-first навігація</p><h1>Каталог артефактів</h1></div>
+      <p>{artifacts.length} описів · {artifactCategories.length} категорій</p>
+    </section>
+    <p class="lead guide-intro">Це curated registry артефактів, згаданих у гайді та присутніх у цьому repository. Статус «документований приклад» означає, що матеріали описують форму артефакта, але файла в цьому repository немає.</p>
+    <nav class="artifact-cloud" aria-label="Швидкий перехід до артефакта">
+      <span class="artifact-cloud-label">Швидкий перехід</span>
+      <div class="artifact-cloud-links">
+        {artifacts.map((artifact) => <a href={`#${artifact.id}`}>{artifact.name}</a>)}
+      </div>
+    </nav>
+
+    <figure class="code-block">
+      <figcaption>Приклад організації в проекті</figcaption>
+      <pre><code>{`some-project/
+├── CLAUDE.md                         # project instructions
+├── README.md                         # project entry point
+├── TASK_SPEC.md                      # task contract
+├── SPEC.md                           # project specification
+├── CAPSTONE_BRIEF.md                 # capstone brief
+├── EVIDENCE.md                       # verification record
+├── EVIDENCE_LOG.md                   # legacy evidence alias
+├── HANDOFF_NOTE.md                   # handoff context
+├── CHANGELOG.md                      # release notes
+├── .claude/
+│   ├── CLAUDE.local.md               # local context
+│   ├── settings.json                 # shared project settings
+│   ├── settings.local.json           # local settings
+│   ├── rules/                        # scoped rules
+│   ├── skills/
+│   │   └── SKILL.md                  # repeatable workflow
+│   ├── agents/
+│   │   └── reviewer.md               # custom subagent
+│   ├── hooks/                        # hook configuration
+│   └── mcp/                          # MCP server/config
+├── docs/
+│   ├── SPEC.md                       # SPEC path variant
+│   ├── EVIDENCE.md                   # EVIDENCE path variant
+│   ├── CODEBASE_INVENTORY.md         # codebase map
+│   └── API_MAP.md                    # integration map
+├── backlog/
+│   └── roadmap                       # backlog / roadmap
+├── src/
+├── scripts/
+│   └── internal checks                # Repository validation scripts
+├── plugins/
+│   └── plugin-package                # Plugin distribution
+├── .git/
+│   └── commit message                # Commit metadata
+├── worktree/                         # Optional Git worktree
+├── working diff                      # Current Git diff
+└── external/
+    └── PR description                # Pre-merge delivery artifact`}</code></pre>
+    </figure>
+    <p class="artifact-example-note">Це умовна схема: конкретний набір файлів і каталогів залежить від проєкту. Елементи показано як можливі місця або форми організації, а не як обов’язкову структуру.</p>
+
+    {artifactCategories.map((category) => (
+      <section class="artifact-category" id={category.toLowerCase().replaceAll(' ', '-')}>
+        <div class="section-heading"><div><p class="eyebrow">Категорія</p><h2>{category}</h2></div><p>{artifacts.filter((artifact) => artifact.category === category).length} артефактів</p></div>
+        <div class="artifact-grid">
+          {artifacts.filter((artifact) => artifact.category === category).map((artifact) => (
+            <article class="artifact-card" id={artifact.id}>
+              <div class="artifact-card-header"><div><span class="card-kicker">{artifact.name}</span><h3>{artifact.responsibility}</h3></div><span class={`status status-${artifact.status}`}>{statusLabels[artifact.status]}</span></div>
+              <p>{artifact.role}</p>
+              <div class="artifact-block"><strong>Де знаходиться</strong><ul>{artifact.paths.map((path) => <li><code>{path.value}</code> <span class="path-scope">({path.scope}; {statusLabels[path.status].toLowerCase()})</span></li>)}</ul></div>
+              <div class="artifact-block"><strong>Усі поля</strong><div class="field-list">{artifact.fields.map((field) => <div class="field-row"><code>{field.name}</code><span><b>{field.requirement}</b> — {field.description}{field.example ? ` Приклад: ${field.example}` : ''}</span></div>)}</div></div>
+              <figure class="code-block artifact-template">
+                <figcaption><span>Шаблон {artifact.name}</span><button type="button" class="copy-button" data-copy-target={`artifact-template-${artifact.id}`} aria-label={`Скопіювати шаблон ${artifact.name}`}>Скопіювати шаблон</button></figcaption>
+                <pre><code id={`artifact-template-${artifact.id}`}>{artifact.template}</code></pre>
+              </figure>
+              <div class="copy-feedback" data-copy-feedback={artifact.id} role="status" aria-live="polite" aria-atomic="true"></div>
+              <div class="artifact-columns"><div><strong>Коли використовувати</strong><p>{artifact.whenToUse}</p></div><div><strong>Коли це поганий вибір</strong><p>{artifact.poorChoiceWhen}</p></div></div>
+              {artifact.aliases?.length ? <div class="artifact-block"><strong>Аліаси та варіанти</strong><p>{artifact.aliases.join(' · ')}</p></div> : null}
+              {artifact.versionNote ? <p class="artifact-note"><strong>Примітка</strong>{artifact.versionNote}</p> : null}
+              <div class="artifact-sources"><strong>Джерела</strong> {artifact.sourceRefs.join(' · ')}</div>
+            </article>
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+  <script>
+    const fallbackCopy = (text: string) => {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      let copied = false;
+      try {
+        const execCommand = (document as unknown as { execCommand?: (commandId: string) => boolean }).execCommand;
+        copied = execCommand?.call(document, 'copy') ?? false;
+      } catch {
+        copied = false;
+      }
+      textarea.remove();
+      return copied;
+    };
+
+    const copyTemplate = async (button: HTMLButtonElement) => {
+      const targetId = button.dataset.copyTarget;
+      const target = targetId ? document.getElementById(targetId) : null;
+      const feedback = button.closest('.artifact-template')?.nextElementSibling;
+      const text = target?.textContent ?? '';
+      let copied = false;
+
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(text);
+          copied = true;
+        }
+      } catch {
+        copied = fallbackCopy(text);
+      }
+
+      if (!copied && !navigator.clipboard?.writeText) copied = fallbackCopy(text);
+      button.textContent = copied ? 'Скопійовано' : 'Не вдалося скопіювати';
+      if (feedback instanceof HTMLElement) feedback.textContent = copied ? 'Шаблон скопійовано.' : 'Виділіть текст вручну.';
+      window.setTimeout(() => {
+        button.textContent = 'Скопіювати шаблон';
+        if (feedback instanceof HTMLElement) feedback.textContent = '';
+      }, 2200);
+    };
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target instanceof HTMLButtonElement && target.matches('[data-copy-target]')) {
+        void copyTemplate(target);
+      }
+    });
+  </script>
+</BaseLayout>

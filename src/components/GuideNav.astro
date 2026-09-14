@@ -1,0 +1,26 @@
+---
+import { guideLevels, getPagesForLevel } from '../data/guide';
+
+const { activeSlug } = Astro.props as { activeSlug?: string };
+---
+<nav aria-label="Навігація гайда">
+  {guideLevels.map((level) => {
+    const pages = getPagesForLevel(level.id);
+    return (
+      <div class="nav-group">
+        <div class="sidebar-title">Рівень {level.number}</div>
+        {pages.length > 0 ? (
+          <div class="nav-items">
+            {pages.map((page) => (
+              <a href={`/guide/${page.slug}`} aria-current={activeSlug === page.slug ? 'page' : undefined}>
+                {page.order}. {page.title}
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="nav-muted">Матеріали готуються</p>
+        )}
+      </div>
+    );
+  })}
+</nav>
