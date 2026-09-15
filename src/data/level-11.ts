@@ -122,6 +122,7 @@ Stop: повернути звіт після перевірки визначен
   'l11-03': [
     {
       heading: 'Custom subagent — це версіонований workflow',
+      artifactIds: ['subagent'],
       paragraphs: [
         'Кастомний subagent зберігає повторювані правила роботи в Markdown-файлі. Проєктна команда може переглядати його в Git, обговорювати зміни та перевіряти, чи не розширилися його дозволи непомітно.',
         'Файл описує роль і контракт, але не робить результат автоматично правильним. Його scope, інструменти й інструкції мають відповідати реальній задачі.'
@@ -301,6 +302,10 @@ suggested action і confidence. Непідтверджене познач [hypot
     },
     {
       heading: 'Контрольний список перед рішенням',
+      additionalMaterials: [
+        { label: 'Презентація рівня 11', href: 'https://ua-claude-code-07-c130.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 11', href: 'https://www.youtube.com/watch?v=YGMqSqn_x6k', kind: 'video' },
+      ],
       steps: [
         'Чи відповідає роль конкретному питанню?',
         'Чи має звіт file:line та evidence?',

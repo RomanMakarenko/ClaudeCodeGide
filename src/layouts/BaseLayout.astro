@@ -4,9 +4,14 @@ import '../styles/global.css';
 type Props = {
   title: string;
   description?: string;
+  robots?: string;
 };
 
-const { title, description = 'Практичний український гайд із Claude Code.' } = Astro.props;
+const {
+  title,
+  description = 'Практичний український гайд із Claude Code.',
+  robots
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="uk">
@@ -14,11 +19,13 @@ const { title, description = 'Практичний український гай
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
+    {robots && <meta name="robots" content={robots} />}
     <link rel="icon" href="/favicon.svg" />
     <title>{title} · Claude Code Guide</title>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Перейти до основного вмісту</a>
+    <div class="page-top-sentinel" id="page-top" aria-hidden="true"></div>
     <header class="site-header">
       <div class="header-inner">
         <a class="brand" href="/">
@@ -35,11 +42,83 @@ const { title, description = 'Практичний український гай
     <main id="main-content">
       <slot />
     </main>
+    <a class="back-to-top" href="#page-top" aria-label="Повернутися до шапки сторінки">
+      На початок <span aria-hidden="true">↑</span>
+    </a>
     <footer class="site-footer">
       <div class="footer-inner">
         <p>Перший каркас гайда · контент розвивається поступово</p>
         <p>Статичний сайт без backend</p>
       </div>
     </footer>
+    <script>
+      const desktopGuideSidebar = document.querySelector<HTMLElement>('.guide-page .sidebar-scroll');
+      const desktopGuideViewport = window.matchMedia('(min-width: 801px)');
+      const desktopGuideSidebarKey = 'guide-sidebar-scroll';
+
+      if (desktopGuideSidebar) {
+        const saveSidebarPosition = () => {
+          if (!desktopGuideViewport.matches) return;
+          try {
+            sessionStorage.setItem(desktopGuideSidebarKey, String(desktopGuideSidebar.scrollTop));
+          } catch {
+            // Storage may be unavailable in private or restricted browsing modes.
+          }
+        };
+
+        const restoreSidebarPosition = () => {
+          if (!desktopGuideViewport.matches) return;
+          let savedPosition: string | null = null;
+          try {
+            savedPosition = sessionStorage.getItem(desktopGuideSidebarKey);
+          } catch {
+            return;
+          }
+          if (savedPosition === null) return;
+          const scrollTop = Number(savedPosition);
+          if (!Number.isFinite(scrollTop)) return;
+          window.requestAnimationFrame(() => {
+            desktopGuideSidebar.scrollTop = scrollTop;
+          });
+        };
+
+        desktopGuideSidebar.addEventListener('scroll', saveSidebarPosition, { passive: true });
+        restoreSidebarPosition();
+        window.addEventListener('pageshow', restoreSidebarPosition);
+      }
+
+      const materialsUnlockKey = 'materials-unlocked';
+      const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a', 'Enter'];
+      let konamiIndex = 0;
+
+      const unlockMaterials = () => {
+        document.body.classList.add('materials-unlocked');
+        try {
+          sessionStorage.setItem(materialsUnlockKey, 'true');
+        } catch {
+          // Storage may be unavailable in private or restricted browsing modes.
+        }
+      };
+
+      try {
+        if (sessionStorage.getItem(materialsUnlockKey) === 'true') unlockMaterials();
+      } catch {
+        // Storage may be unavailable in private or restricted browsing modes.
+      }
+
+      document.addEventListener('keydown', (event) => {
+        if (event.repeat) return;
+        const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+        if (key === konamiSequence[konamiIndex]) {
+          konamiIndex += 1;
+          if (konamiIndex === konamiSequence.length) {
+            unlockMaterials();
+            konamiIndex = 0;
+          }
+          return;
+        }
+        konamiIndex = key === konamiSequence[0] ? 1 : 0;
+      });
+    </script>
   </body>
 </html>

@@ -12,6 +12,12 @@ export type GuideCodeBlock = {
   caption?: string;
 };
 
+export type GuideLink = {
+  label: string;
+  href: string;
+  kind: 'presentation' | 'video' | 'optional-resource';
+};
+
 export type GuideTable = {
   headers: string[];
   rows: string[][];
@@ -39,6 +45,7 @@ export type GuideSection = {
   table?: GuideTable;
   note?: string;
   artifactIds?: string[];
+  additionalMaterials?: GuideLink[];
   lab?: GuideLab;
 };
 
@@ -49,6 +56,5 @@ export type GuidePage = {
   levelId: string;
   order: number;
   description: string;
-  sourceFile: string;
-  sourceUrl?: string;
+  sourceUrl: string;
 };

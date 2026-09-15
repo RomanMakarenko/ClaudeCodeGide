@@ -352,6 +352,10 @@ export const levelFiveContent: Record<string, GuideSection[]> = {
     },
     {
       heading: 'Робочий ритуал життєвого циклу',
+      additionalMaterials: [
+        { label: 'Презентація рівня 5', href: 'https://ua-claude-code-03-4bf0.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 5', href: 'https://www.youtube.com/watch?v=WdgntBO1QQE', kind: 'video' },
+      ],
       steps: [
         'Витягніть із TASK_SPEC.md мету, scope, обмеження й критерії.',
         'Додайте лише необхідні файли, тести, логи та reproduction steps.',

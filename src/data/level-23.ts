@@ -262,6 +262,7 @@ PAYMENT_API_KEY=<set-locally-never-commit>`
     },
     {
       heading: 'Практичний sandbox workflow',
+      artifactIds: ['clawd-yolo'],
       steps: [
         'Класифікуйте ризик задачі.',
         'Оберіть branch, worktree, container або VM.',
@@ -344,7 +345,7 @@ PAYMENT_API_KEY=<set-locally-never-commit>`
         verification: ['Немає конфлікту між policy та технічним enforcement.', 'Власник рішення і rollback path названі явно.'],
         stopCondition: 'незрозуміла capability surface, відсутній owner або немає rollback path.',
         artifactIds: ['ai-coding-policy', 'codeowners', 'review-notes'],
-        sourceRefs: ['level-23', 'TASK_SPEC4.md']
+        sourceRefs: ['level-23']
       },
       bullets: [
         'класифікація ризику;',
@@ -383,6 +384,10 @@ Not delegated: production deploy, tag, publish`
     },
     {
       heading: 'Перед deployment потрібен rollback',
+      additionalMaterials: [
+        { label: 'Презентація рівня 23', href: 'https://ua-claude-code-19-29b5.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 23', href: 'https://www.youtube.com/watch?v=hComjsqiSwI', kind: 'video' },
+      ],
       steps: [
         'Визначте стабільний tag або іншу точку повернення.',
         'Опишіть спосіб скасування версії або вимкнення feature flag.',

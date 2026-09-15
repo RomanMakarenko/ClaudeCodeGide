@@ -316,6 +316,10 @@ refund-регресії: назви з префіксом Refund
     },
     {
       heading: 'Типові failure modes',
+      additionalMaterials: [
+        { label: 'Презентація рівня 12', href: 'https://ua-claude-code-08-fbba.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 12', href: 'https://www.youtube.com/watch?v=zRlJpF-UzKs', kind: 'video' },
+      ],
       table: {
         headers: ['Проблема', 'Дія'],
         rows: [

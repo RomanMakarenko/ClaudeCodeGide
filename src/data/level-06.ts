@@ -75,7 +75,7 @@ git diff --stat`
         verification: ['Інший учасник може зрозуміти стан без усної передачі.', 'У summary немає неперевірених тверджень як фактів.'],
         stopCondition: 'diff виходить за scope або перевірка не відтворюється.',
         artifactIds: ['plan-md', 'run-status-yaml'],
-        sourceRefs: ['level-06', 'TASK_SPEC4.md']
+        sourceRefs: ['level-06']
       },
       code: [
         {
@@ -243,6 +243,7 @@ git diff`
   'l6-04': [
     {
       heading: 'Гілка, сесія і worktree — різні рівні',
+      artifactIds: ['git-review-artifacts'],
       paragraphs: [
         'Гілка належить Git і визначає історію змін. Сесія Claude зберігає контекст діалогу та фокус. Worktree — це додаткова фізична папка того самого репозиторію зі спільною Git-історією.',
         'Нова гілка не створює автоматично нову сесію, а нова сесія не ізолює файли. Дві редагувальні сесії в одному checkout можуть взаємно змінювати один стан.'
@@ -345,7 +346,7 @@ git branch -d hotfix/refund-amount-typo`
         verification: ['Шляхи та команди існують або явно позначені як приклади.', 'Reviewer може відрізнити підтверджене від відкритого питання.'],
         stopCondition: 'не можна підтвердити ключовий результат або scope передачі нечіткий.',
         artifactIds: ['handoff-note', 'handoff-review', 'contract-md'],
-        sourceRefs: ['level-06', 'TASK_SPEC4.md']
+        sourceRefs: ['level-06']
       },
       code: [
         {
@@ -398,6 +399,7 @@ git branch -d hotfix/refund-amount-typo`
     },
     {
       heading: 'Не плутайте інженерні артефакти',
+      artifactIds: ['pr-description', 'commit-message', 'changelog'],
       table: {
         headers: ['Артефакт', 'Роль'],
         rows: [

@@ -4,6 +4,7 @@ export const levelThreeContent: Record<string, GuideSection[]> = {
   'l3-01': [
     {
       heading: 'Task spec — робочий контракт задачі',
+      artifactIds: ['task-spec', 'contract-md', 'plan-md'],
       paragraphs: [
         'Нечітке прохання залишає Claude простір для припущень: він може сам обрати файли, зачепити суміжну логіку або розширити обсяг роботи. Task spec перетворює побажання на короткий робочий контракт для coding agent.',
         '`CLAUDE.md` описує стабільні правила репозиторію, а `TASK_SPEC.md` — межі конкретної задачі. Issue пояснює команді бізнес-потребу, тоді як task spec додатково визначає спосіб контрольованої роботи з кодом.'
@@ -353,6 +354,10 @@ export const levelThreeContent: Record<string, GuideSection[]> = {
     },
     {
       heading: 'Фінальний чекліст меж',
+      additionalMaterials: [
+        { label: 'Презентація рівня 3', href: 'https://ua-claude-code-02-abb4.javarush-university.workers.dev/#slide-20', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 3', href: 'https://www.youtube.com/watch?v=w8kk_rGnL10', kind: 'video' },
+      ],
       steps: [
         'Goal описує поведінковий результат.',
         'Current і Desired behavior розділені та перевірювані.',

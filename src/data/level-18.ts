@@ -4,6 +4,7 @@ export const levelEighteenContent: Record<string, GuideSection[]> = {
   'l18-01': [
     {
       heading: 'Керована реалізація — це короткі контрольовані ітерації',
+      artifactIds: ['plan-md'],
       paragraphs: [
         'Claude Code не видає готову істину: він пропонує зміни, які потрібно перевірити через diff, тести та інші докази. Керований цикл бере один пункт затвердженого плану, виконує його в обмеженій області й лише потім переходить далі.',
         'Такий підхід зберігає автономність агента, але не дозволяє йому непомітно реалізувати весь issue, додати супутній рефакторинг або змінити контракт без людського checkpoint.'
@@ -158,6 +159,7 @@ Separate evidence, hypothesis, and unknowns.`
   'l18-03': [
     {
       heading: 'Bugfix-loop: від відтворення до regression evidence',
+      artifactIds: ['evidence'],
       paragraphs: [
         'Зникнення помилки саме по собі не доводить, що дефект усунуто. AI може перехопити виняток надто широко або приховати симптом. Надійний fix спирається на встановлену першопричину, regression test і фактичні результати перевірок.'
       ],
@@ -231,6 +233,7 @@ Diff review: only approved files changed`
   'l18-04': [
     {
       heading: 'Файл, коміт і PR мають різні ролі',
+      artifactIds: ['commit-message', 'changelog'],
       paragraphs: [
         'Збереження файлів захищає поточну роботу. Коміт фіксує завершений, зрозумілий і потенційно відкотний крок. PR пояснює повну зміну: мету, реалізацію, перевірки, ризики та межі.',
         'Гілка описує задачу загалом, а коміти — окремі етапи її виконання. Великий змішаний коміт ускладнює review, пошук причин і rollback.'
@@ -278,7 +281,7 @@ docs(api): описати відповідь для порожнього кош�
         verification: ['До і після fix наведені фактичні результати.', 'Diff не містить неповʼязаного refactor.', 'Непідтверджені твердження позначені явно.'],
         stopCondition: 'гіпотеза не підтверджується, diff розширюється або regression check не відтворюється.',
         artifactIds: ['pr-description', 'review-notes', 'diagnosis-json'],
-        sourceRefs: ['level-18', 'TASK_SPEC4.md']
+        sourceRefs: ['level-18']
       },
       bullets: [
         'Що зроблено — компоненти, логіка та додані тести.',
@@ -320,6 +323,7 @@ docs(api): описати відповідь для порожнього кош�
   'l18-05': [
     {
       heading: 'Diff — джерело правди для L1 review',
+      artifactIds: ['git-review-artifacts'],
       paragraphs: [
         'Diff показує фактичний результат, а не задум або історію діалогу з Claude. Verification відповідає на питання «якими перевірками це підтверджено», а L1 review — «хто переглянув зміну, які ризики знайшов і чи можна її прийняти».',
         'Review має бути сфокусованим на конкретному diff у межах approved scope, а не перетворюватися на повторне дослідження всього проєкту.'
@@ -394,6 +398,10 @@ Decision: ready for human merge approval`
     },
     {
       heading: 'Зелений тест не замінює diff review',
+      additionalMaterials: [
+        { label: 'Презентація рівня 18', href: 'https://ua-claude-code-14-cc74.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 18', href: 'https://www.youtube.com/watch?v=-RXCIM6GSJY', kind: 'video' },
+      ],
       bullets: [
         'Перевірте, що тест відтворює реальний root cause.',
         'Переконайтеся, що рівень тесту відповідає прояву проблеми.',

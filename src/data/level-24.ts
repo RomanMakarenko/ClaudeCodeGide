@@ -83,7 +83,7 @@ export const levelTwentyFourContent: Record<string, GuideSection[]> = {
       table: {
         headers: ['Артефакт', 'Що фіксує'],
         rows: [
-          ['TASK_SPEC.md', 'Мету, межі та критерії приймання'],
+          ['Мету, межі та критерії приймання'],
           ['CODEBASE_INVENTORY.md / API_MAP.md', 'Джерела аналізу та контекст системи'],
           ['EVIDENCE_LOG.md', 'Симптом, гіпотези, файли, перевірки й обґрунтування'],
           ['Git diff і коміти', 'Фактичний обсяг та історію змін'],
@@ -202,7 +202,7 @@ export const levelTwentyFourContent: Record<string, GuideSection[]> = {
         verification: ['Policy не обіцяє того, чого не enforce-ить tooling.', 'Кожна high-risk дія має явну точку людського рішення.'],
         stopCondition: 'правило неоднозначне, enforcement відсутній або потрібні неперевірені production твердження.',
         artifactIds: ['ai-coding-policy', 'codeowners', 'postmortem'],
-        sourceRefs: ['level-24', 'TASK_SPEC4.md']
+        sourceRefs: ['level-24']
       },
       bullets: [
         'чи однозначно зрозуміло, що дозволяється без додаткового погодження;',
@@ -218,6 +218,7 @@ export const levelTwentyFourContent: Record<string, GuideSection[]> = {
   'l24-04': [
     {
       heading: 'Коли локальний workflow стає командним активом',
+      artifactIds: ['runbook-md'],
       paragraphs: [
         'Governance — це спосіб зробити командні активи зрозумілими, повторюваними, контрольованими та такими, що легко вимикаються. Особистий script або skill стає shared asset лише після документації, перевірки користі для інших і визначення owner.',
         'Не починайте з plugin, hook або MCP, якщо команда ще не має спільних правил, шаблонів і зрозумілого процесу review.'
@@ -289,6 +290,7 @@ export const levelTwentyFourContent: Record<string, GuideSection[]> = {
     },
     {
       heading: 'Шість принципів команди',
+      artifactIds: ['review-notes'],
       table: {
         headers: ['Принцип', 'Практична поведінка'],
         rows: [
@@ -322,6 +324,10 @@ export const levelTwentyFourContent: Record<string, GuideSection[]> = {
     },
     {
       heading: 'Що робити після повторного збою',
+      additionalMaterials: [
+        { label: 'Презентація рівня 24', href: 'https://ua-claude-code-20-1f05.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 24', href: 'https://www.youtube.com/watch?v=7EpPNs4_drw', kind: 'video' },
+      ],
       steps: [
         'Зафіксуйте симптом і контекст, у якому він повторюється.',
         'Знайдіть першопричину та відокремте її від поверхневого workaround.',

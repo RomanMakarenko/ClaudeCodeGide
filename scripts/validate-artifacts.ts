@@ -1,4 +1,4 @@
-import { artifacts } from '../src/data/artifacts';
+import { artifacts, artifactQuickJumpGroups } from '../src/data/artifacts';
 import { guideContentByLevel } from '../src/data/content';
 
 const errors: string[] = [];
@@ -57,6 +57,21 @@ for (const levelContent of Object.values(guideContentByLevel)) {
 
 for (const artifactId of referencedArtifactIds) {
   if (!ids.has(artifactId)) errors.push(`Unknown referenced artifact: ${artifactId}`);
+}
+
+const quickJumpIds = new Set<string>();
+for (const group of artifactQuickJumpGroups) {
+  if (!group.label.trim()) errors.push('Empty quick-jump group label');
+  if (!group.description.trim()) errors.push(`Empty quick-jump group description: ${group.label}`);
+  for (const artifactId of group.artifactIds) {
+    if (!ids.has(artifactId)) errors.push(`Unknown quick-jump artifact: ${artifactId}`);
+    if (quickJumpIds.has(artifactId)) errors.push(`Duplicate quick-jump artifact: ${artifactId}`);
+    quickJumpIds.add(artifactId);
+  }
+}
+
+for (const artifactId of ids) {
+  if (!quickJumpIds.has(artifactId)) errors.push(`Artifact missing from quick-jump: ${artifactId}`);
 }
 
 if (ids.has('validation-script')) errors.push('Internal guide validator must not be a catalog artifact: validation-script');

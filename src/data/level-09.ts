@@ -4,6 +4,7 @@ export const levelNineContent: Record<string, GuideSection[]> = {
   'l9-01': [
     {
       heading: 'Починайте з проблеми, а не з розширення',
+      artifactIds: ['plugin'],
       paragraphs: [
         'Розширення Claude Code не замінюють task spec, керування контекстом, докази, Git, diff і review. Вони потрібні, щоб повторюваний процес зробити стабільним, зрозумілим і переносним.',
         'Перед вибором механізму визначте, чи це одноразова дія, постійне правило, scoped-обмеження, повторюваний workflow, ізольоване дослідження, зовнішня інтеграція або реакція на подію.'
@@ -106,6 +107,7 @@ export const levelNineContent: Record<string, GuideSection[]> = {
     },
     {
       heading: 'Bundled і custom skills',
+      artifactIds: ['skill-md'],
       paragraphs: [
         'Bundled skill постачається разом із Claude Code і формує змістовний результат: аналіз, ревʼю або пропозицію покращення. Custom skill живе у конкретному репозиторії чи наборі workflow і доступний лише там, де його додали.',
         'На відміну від `/clear`, skill не керує історією сесії, а запускає повторювану процедуру.'
@@ -330,6 +332,7 @@ when_to_use: Коли потрібно спочатку проаналізува
     },
     {
       heading: 'Файли поруч із skill',
+      artifactIds: ['claude-rules'],
       code: [
         {
           language: 'text',
@@ -365,6 +368,10 @@ when_to_use: Коли потрібно спочатку проаналізува
     },
     {
       heading: 'Антипатерни dynamic context',
+      additionalMaterials: [
+        { label: 'Презентація рівня 9', href: 'https://ua-claude-code-06-26ef.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 9', href: 'https://www.youtube.com/watch?v=cbfnfAyQ2NI', kind: 'video' },
+      ],
       bullets: [
         'передавати весь репозиторій без потреби;',
         'додавати великі застарілі логи та обговорення;',

@@ -1,6 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { artifacts, artifactCategories } from '../../data/artifacts';
+import { artifacts, artifactCategories, artifactQuickJumpGroups } from '../../data/artifacts';
+import { guidePages } from '../../data/guide';
+import { guideContentByLevel } from '../../data/content';
+import type { Artifact } from '../../types/artifact';
+import type { GuidePage } from '../../types/guide';
 
 const statusLabels = {
   present: 'Є в цьому repository',
@@ -8,6 +12,20 @@ const statusLabels = {
   variant: 'Варіант назви або шляху',
   'external-source': 'Операційний або зовнішній артефакт'
 };
+
+const levelRefPattern = /^level-\d{2}$/;
+
+const getArtifactLessonSources = (artifact: Artifact) => artifact.sourceRefs.map((sourceRef) => {
+  if (!levelRefPattern.test(sourceRef)) return { sourceRef, pages: [] as GuidePage[] };
+
+  const pages = guidePages.filter((page) => {
+    if (page.levelId !== sourceRef) return false;
+    const sections = guideContentByLevel[page.levelId as keyof typeof guideContentByLevel]?.[page.id] ?? [];
+    return sections.some((section) => section.artifactIds?.includes(artifact.id) || section.lab?.artifactIds?.includes(artifact.id));
+  });
+
+  return { sourceRef, pages };
+});
 ---
 <BaseLayout title="Каталог артефактів" description="Каталог артефактів Claude Code з ролями, полями та умовами використання.">
   <div class="page-shell">
@@ -17,10 +35,27 @@ const statusLabels = {
       <p>{artifacts.length} описів · {artifactCategories.length} категорій</p>
     </section>
     <p class="lead guide-intro">Це curated registry артефактів, згаданих у гайді та присутніх у цьому repository. Статус «документований приклад» означає, що матеріали описують форму артефакта, але файла в цьому repository немає.</p>
-    <nav class="artifact-cloud" aria-label="Швидкий перехід до артефакта">
-      <span class="artifact-cloud-label">Швидкий перехід</span>
-      <div class="artifact-cloud-links">
-        {artifacts.map((artifact) => <a href={`#${artifact.id}`}>{artifact.name}</a>)}
+    <nav class="artifact-cloud" aria-labelledby="artifact-cloud-title">
+      <div class="artifact-cloud-heading">
+        <p class="artifact-cloud-label" id="artifact-cloud-title">Швидкий перехід</p>
+        <p class="artifact-cloud-intro">Оберіть, що ви хочете зробити, щоб перейти до відповідних артефактів.</p>
+      </div>
+      <div class="artifact-cloud-groups">
+        {artifactQuickJumpGroups.map((group, index) => (
+          <section class="artifact-cloud-group" aria-labelledby={`artifact-cloud-group-${index}`}>
+            <div class="artifact-cloud-group-heading">
+              <h2 id={`artifact-cloud-group-${index}`}>{group.label}</h2>
+              <span>{group.artifactIds.length}</span>
+            </div>
+            <p>{group.description}</p>
+            <ul class="artifact-cloud-links">
+              {group.artifactIds.map((artifactId) => {
+                const artifact = artifacts.find((item) => item.id === artifactId);
+                return artifact ? <li><a href={`#${artifact.id}`}>{artifact.name}</a></li> : null;
+              })}
+            </ul>
+          </section>
+        ))}
       </div>
     </nav>
 
@@ -86,7 +121,16 @@ const statusLabels = {
               <div class="artifact-columns"><div><strong>Коли використовувати</strong><p>{artifact.whenToUse}</p></div><div><strong>Коли це поганий вибір</strong><p>{artifact.poorChoiceWhen}</p></div></div>
               {artifact.aliases?.length ? <div class="artifact-block"><strong>Аліаси та варіанти</strong><p>{artifact.aliases.join(' · ')}</p></div> : null}
               {artifact.versionNote ? <p class="artifact-note"><strong>Примітка</strong>{artifact.versionNote}</p> : null}
-              <div class="artifact-sources"><strong>Джерела</strong> {artifact.sourceRefs.join(' · ')}</div>
+              <div class="artifact-sources">
+                <strong>Джерела</strong>
+                <span class="artifact-source-list">
+                  {getArtifactLessonSources(artifact).map(({ sourceRef, pages }) => pages.length ? (
+                    pages.map((page) => <a href={`/guide/${page.slug}`} class="artifact-source-link">{sourceRef} · Урок {page.order} — {page.title}</a>)
+                  ) : (
+                    <span class="artifact-source-text">{sourceRef}</span>
+                  ))}
+                </span>
+              </div>
             </article>
           ))}
         </div>

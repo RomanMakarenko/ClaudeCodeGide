@@ -156,7 +156,7 @@ export const levelTwentyContent: Record<string, GuideSection[]> = {
         verification: ['Тест перевіряє observable behavior, а не приватну структуру.', 'Baseline зелений до початку рефакторингу.'],
         stopCondition: 'очікування не підтверджене фактичним запуском або тест фіксує implementation detail.',
         artifactIds: ['plan-md', 'review-notes'],
-        sourceRefs: ['level-20', 'TASK_SPEC4.md']
+        sourceRefs: ['level-20']
       },
       paragraphs: [
         'Lightweight characterization — невеликий тест, який фіксує, що код робить зараз у конкретному сценарії перед рефакторингом. Він захищає вузьку ділянку від випадкової зміни, але не стверджує, що поточна поведінка правильна з бізнесового погляду.',
@@ -353,6 +353,10 @@ Stop: if another module or contract must change`
     },
     {
       heading: 'Роль людини у прийманні',
+      additionalMaterials: [
+        { label: 'Презентація рівня 20', href: 'https://ua-claude-code-16-06a6.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 20', href: 'https://www.youtube.com/watch?v=MSQYbc7vung', kind: 'video' },
+      ],
       paragraphs: [
         'Інструменти та тести надають докази, але не визначають межі задачі самостійно. Людина вирішує, чи є зміна справді рефакторингом, чи потрібно розділити роботу, чи покращує interface архітектурну межу і чи достатньо зрозумілий PR для безпечного приймання.',
         'В описі PR окремо покажіть мету, affected files, non-goals, виконані команди, оцінку ризику та статус збереження поведінки.'

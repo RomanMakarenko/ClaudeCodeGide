@@ -4,6 +4,7 @@ export const levelTwentyFiveContent: Record<string, GuideSection[]> = {
   'l25-01': [
     {
       heading: 'Capstone починається з brief, а не з коду',
+      artifactIds: ['capstone-brief'],
       paragraphs: [
         'Фінальний проєкт оцінює не масштаб застосунку, а здатність організувати AI-assisted розробку як керований інженерний процес. Першою точкою є capstone brief: він допомагає обрати формат, один наскрізний сценарій, межі та необхідні докази.',
         'Цінність проєкту — у відтворюваному робочому сценарії й прозорому процесі. Розширені механізми Claude Code не потрібні, якщо вони не розвʼязують конкретну проблему формату.'
@@ -141,6 +142,7 @@ export const levelTwentyFiveContent: Record<string, GuideSection[]> = {
   'l25-03': [
     {
       heading: 'SPEC.md — особистий контракт проєкту',
+      artifactIds: ['spec', 'task-spec'],
       paragraphs: [
         'SPEC.md створюють до написання коду. Він зменшує невизначеність для автора, Claude, ментора й ревʼюера та описує, що саме будується, чого не буде і як довести результат.',
         'CAPSTONE_BRIEF.md містить спільні правила capstone, а SPEC.md фіксує конкретний контракт вашого проєкту. EVIDENCE.md згодом зберігає фактичні перевірки, рішення та зміни scope.'
@@ -271,7 +273,7 @@ export const levelTwentyFiveContent: Record<string, GuideSection[]> = {
         verification: ['Результати відрізняються від припущень.', 'У записі немає вигаданих запусків, approvals або production claims.'],
         stopCondition: 'ключовий check не виконано або scope першої задачі вже розширився.',
         artifactIds: ['evidence', 'commands-md'],
-        sourceRefs: ['level-25', 'TASK_SPEC4.md']
+        sourceRefs: ['level-25']
       },
       bullets: [
         'що було доручено Claude;',
@@ -298,6 +300,7 @@ export const levelTwentyFiveContent: Record<string, GuideSection[]> = {
   'l25-05': [
     {
       heading: 'Capstone ведеться як milestone roadmap',
+      artifactIds: ['backlog-roadmap'],
       paragraphs: [
         'Дорожня карта capstone — це послідовність перевірюваних етапів, а не довгий список задумів. Ключовим результатом залишається один core flow, який можна запустити, перевірити й показати.',
         'Якщо функціональність не додає інженерної цінності, її краще вилучити. Scope freeze перед demo захищає результат від останньої хвилі неперевірених ідей.'
@@ -359,6 +362,9 @@ export const levelTwentyFiveContent: Record<string, GuideSection[]> = {
     },
     {
       heading: 'Фінальний checklist перед demo',
+      additionalMaterials: [
+        { label: 'YouTube-відео рівня 25', href: 'https://www.youtube.com/watch?v=YjaPX453KrM', kind: 'video' },
+      ],
       bullets: [
         'core flow запускається локально;',
         'README дає змогу повторити запуск;',

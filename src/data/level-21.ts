@@ -231,7 +231,7 @@ jobs:
         verification: ['Секрети та зайві логи очищені.', 'Класифікація має конкретний доказ.', 'Наступна дія не запускає небезпечну automation без approval.'],
         stopCondition: 'лог неповний, failure не класифікується або потрібен доступ до секретних даних.',
         artifactIds: ['clawd-runner', 'run-status-yaml', 'diagnosis-json'],
-        sourceRefs: ['level-21', 'TASK_SPEC4.md']
+        sourceRefs: ['level-21']
       },
       steps: [
         'Підготуйте конкретний вхідний файл: diff, build log або test log.',
@@ -463,6 +463,12 @@ Do not edit files, disable tests, or hide the failure.`
     },
     {
       heading: 'Flaky-тести, rerun і evidence',
+      additionalMaterials: [
+        { label: 'Презентація рівня 21', href: 'https://ua-claude-code-17-54d2.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 21', href: 'https://www.youtube.com/watch?v=C8JXMu693Bg', kind: 'video' },
+        { label: 'Факультативне YouTube-відео', href: 'https://www.youtube.com/watch?v=bk-aYpap4nc', kind: 'optional-resource' },
+      ],
+      artifactIds: ['postmortem'],
       paragraphs: [
         'Один успішний rerun не доводить, що проблема зникла. Він лише показує, що тест може проходити нестабільно. Зафіксуйте частоту, умови, логи та свідоме рішення щодо ізоляції або виправлення.',
         'Тимчасове вимкнення тесту робить pipeline зеленим, але прибирає сигнал регресії. Замість цього відокремте code, test, environment, dependency, flaky або infrastructure причину.'

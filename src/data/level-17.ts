@@ -351,6 +351,11 @@ Rollback: revert this slice without touching HTTP mapping`
     },
     {
       heading: 'Коли декомпозиція готова',
+      additionalMaterials: [
+        { label: 'Презентація рівня 17', href: 'https://ua-claude-code-13-1dca.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 17', href: 'https://www.youtube.com/watch?v=7HYJWtAJTTE', kind: 'video' },
+        { label: 'Факультативне YouTube-відео', href: 'https://www.youtube.com/watch?v=VgbNrmtXZ0k', kind: 'optional-resource' },
+      ],
       bullets: [
         'Інший інженер розуміє призначення кожного кроку без усного пояснення.',
         'Кожен slice має обмежену область файлів.',

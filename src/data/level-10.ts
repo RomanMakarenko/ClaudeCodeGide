@@ -4,6 +4,7 @@ export const levelTenContent: Record<string, GuideSection[]> = {
   'l10-01': [
     {
       heading: 'Від skill до plugin — це еволюція workflow',
+      artifactIds: ['plugin'],
       paragraphs: [
         'Skill описує одну повторювану процедуру. Plugin додає до неї доставку, встановлення, версіонування, namespace і правила підтримки. Тому plugin не є автоматично кращим за локальний skill: він потрібен лише тоді, коли workflow став командним активом.',
         'Зрілість процесу зазвичай розвивається так: одноразовий prompt → правила в `CLAUDE.md` або `rules` → повторюваний skill → спільний plugin.'
@@ -274,7 +275,7 @@ Scope: local
         verification: ['Поведінка відповідає описаному scope.', 'Відомі команди disable/uninstall і власник наступної перевірки.'],
         stopCondition: 'походження, дозволи або побічні ефекти не можна пояснити.',
         artifactIds: ['clawd-yolo', 'commands-md'],
-        sourceRefs: ['level-10', 'TASK_SPEC4.md']
+        sourceRefs: ['level-10']
       },
       code: [
         {
@@ -371,6 +372,9 @@ review-kit:project-setup`
     },
     {
       heading: 'Критерій готовності для команди',
+      additionalMaterials: [
+        { label: 'Факультативне YouTube-відео', href: 'https://www.youtube.com/watch?v=ywy2uii9V9I', kind: 'optional-resource' },
+      ],
       steps: [
         'Інший розробник знаходить plugin у репозиторії.',
         'Самостійно читає README і розуміє призначення.',

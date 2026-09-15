@@ -54,6 +54,7 @@ if (refundRequest.isUrgent() || refundRequest.amount() > 100) {
     },
     {
       heading: 'Підготовка середовища',
+      artifactIds: ['settings-json', 'readme'],
       paragraphs: [
         'Для першого запуску підготуйте Git і Node.js LTS. Після встановлення відкрийте новий термінал, щоб оновився PATH, і перевірте версії.'
       ],
@@ -325,6 +326,7 @@ claude --worktree ../commerce-os-exp`
     },
     {
       heading: 'Команди активної сесії',
+      artifactIds: ['commands-md'],
       bullets: [
         '`/help` показує можливості конкретної версії.',
         '`/status` допомагає перевірити поточний стан сесії та авторизації.',
@@ -427,6 +429,10 @@ claude`
     },
     {
       heading: 'Ревʼю diff',
+      additionalMaterials: [
+        { label: 'Презентація рівня 1', href: 'https://ua-claude-code-01-0c10.javarush-university.workers.dev/#slide-26', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 1', href: 'https://www.youtube.com/watch?v=jrjATP_wyGA&feature=youtu.be', kind: 'video' },
+      ],
       bullets: [
         'Порахуйте змінені файли та порівняйте їх із початковим scope.',
         'Переконайтеся, що сигнатури й сусідній код не змінено без потреби.',

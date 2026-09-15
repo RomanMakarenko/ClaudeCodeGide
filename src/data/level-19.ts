@@ -341,6 +341,9 @@ amount: 42.00`
     },
     {
       heading: 'Ревʼю тестів — те саме питання, що й для коду',
+      additionalMaterials: [
+        { label: 'Презентація рівня 19', href: 'https://ua-claude-code-15-9643.javarush-university.workers.dev/', kind: 'presentation' },
+      ],
       bullets: [
         'Чи тестує сценарій зовнішню поведінку, а не приватний метод?',
         'Чи є змістовні assertions?',

@@ -15,7 +15,7 @@ export const artifacts: Artifact[] = [
     ],
     whenToUse: 'Коли правило стабільне, командне й потрібне в більшості задач.',
     poorChoiceWhen: 'Для одноразової гіпотези, task-specific деталей, секретів або повної енциклопедії проєкту.',
-    status: 'present', sourceRefs: ['level-02', 'CLAUDE.md']
+    status: 'present', sourceRefs: ['level-02']
   },
   {
     id: 'claude-local-md', name: 'CLAUDE.local.md', category: 'Контекст і правила',
@@ -81,7 +81,7 @@ export const artifacts: Artifact[] = [
     ],
     whenToUse: 'Перед реалізацією feature, bugfix або refactor і щоразу, коли змінюється scope.',
     poorChoiceWhen: 'Для стабільних repository rules, фактичного evidence log або довгого raw transcript.',
-    status: 'present', sourceRefs: ['level-03', 'level-25', 'TASK_SPEC.md']
+    status: 'present', sourceRefs: ['level-03', 'level-25']
   },
   {
     id: 'spec', name: 'SPEC.md', category: 'Постановка задачі',
@@ -99,7 +99,7 @@ export const artifacts: Artifact[] = [
     ],
     whenToUse: 'Для project contract, який живе довше за одну задачу.',
     poorChoiceWhen: 'Для короткої одноразової нотатки, поточного evidence або детального implementation plan.',
-    status: 'variant', aliases: ['docs/SPEC.md'], sourceRefs: ['level-25', 'EVIDENCE.md']
+    status: 'variant', aliases: ['docs/SPEC.md'], sourceRefs: ['level-25']
   },
   {
     id: 'evidence', name: 'EVIDENCE.md', category: 'Докази й доставка',
@@ -115,7 +115,7 @@ export const artifacts: Artifact[] = [
     ],
     whenToUse: 'Після аналізу, review або implementation, коли потрібен короткий фактичний trace.',
     poorChoiceWhen: 'Для вимог, raw logs без висновків або повного діалогу сесії.',
-    status: 'variant', aliases: ['EVIDENCE_LOG.md', 'docs/EVIDENCE.md'], versionNote: 'У навчальних матеріалах назва EVIDENCE_LOG.md використовується як legacy/concept variant; canonical filename треба узгодити.', sourceRefs: ['level-04', 'level-18', 'level-25', 'EVIDENCE.md']
+    status: 'variant', aliases: ['EVIDENCE_LOG.md', 'docs/EVIDENCE.md'], versionNote: 'У навчальних матеріалах назва EVIDENCE_LOG.md використовується як legacy/concept variant; canonical filename треба узгодити.', sourceRefs: ['level-04', 'level-18', 'level-25']
   },
   {
     id: 'codebase-inventory', name: 'CODEBASE_INVENTORY.md', category: 'Розуміння codebase',
@@ -166,7 +166,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'name', description: 'Стабільний ідентифікатор workflow.', requirement: 'required', example: 'issue-analysis' }, { name: 'description', description: 'Що робить skill і який результат повертає.', requirement: 'required' }, { name: 'argument-hint', description: 'Підказка щодо аргументів slash-команди.', requirement: 'optional', example: '[input-path] [focus]' }, { name: 'when_to_use', description: 'Умови запуску.', requirement: 'conventional' }, { name: 'allowed_tools', description: 'Мінімальний набір дозволених інструментів.', requirement: 'conventional', example: 'read, grep' }, { name: 'instructions/templates', description: 'Основна процедура та допоміжні шаблони.', requirement: 'required' }],
     whenToUse: 'Коли одна процедура повторюється і має стабільний контракт.',
     poorChoiceWhen: 'Для одноразової думки, нестабільного експерименту або permission enforcement.',
-    status: 'documented-example', versionNote: 'Поля з прикладу TASK_SPEC є project convention; точний frontmatter залежить від актуальної версії Claude Code.', sourceRefs: ['level-09', 'TASK_SPEC.md']
+    status: 'documented-example', versionNote: 'Поля з прикладу TASK_SPEC є project convention; точний frontmatter залежить від актуальної версії Claude Code.', sourceRefs: ['level-09']
   },
   {
     id: 'subagent', name: 'Custom subagent', category: 'Повторювані workflow',
@@ -232,7 +232,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'setup', description: 'Вимоги та команди запуску.', requirement: 'required' }, { name: 'scope', description: 'Що входить у поточну ітерацію.', requirement: 'required' }, { name: 'structure', description: 'Де знаходяться ключові частини.', requirement: 'required' }, { name: 'status/review notes', description: 'Поточні результати та обмеження.', requirement: 'optional' }],
     whenToUse: 'На вході в repository або коли змінюється setup і scope.',
     poorChoiceWhen: 'Для детального task contract, evidence log або внутрішніх секретів.',
-    status: 'present', sourceRefs: ['README.md']
+    status: 'present', sourceRefs: ['level-01']
   },
   {
     id: 'capstone-brief', name: 'CAPSTONE_BRIEF.md', category: 'Постановка задачі',
@@ -298,7 +298,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'workflow', description: 'Процес або сценарій, якому належить команда.', requirement: 'required' }, { name: 'run context', description: 'Каталог, середовище та передумови запуску.', requirement: 'required' }, { name: 'expected result', description: 'Спостережуваний результат і stop condition.', requirement: 'required' }],
     whenToUse: 'Коли команди повторюються й коротка довідка зменшує помилки запуску.',
     poorChoiceWhen: 'Як заміна task spec, повного README або прихований automation script.',
-    status: 'documented-example', sourceRefs: ['level-01', 'level-10', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-01', 'level-10']
   },
   {
     id: 'clawd-wisdom', name: 'CLAWD Wisdom', category: 'Розуміння codebase',
@@ -309,7 +309,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'context', description: 'Сценарій, у якому висновок справедливий.', requirement: 'required' }, { name: 'evidence', description: 'Доказ, на якому ґрунтується висновок.', requirement: 'required' }, { name: 'limitation', description: 'Межі застосування та version-sensitive застереження.', requirement: 'required' }],
     whenToUse: 'Для стислих перевірених lessons learned, які корисні в наступних задачах.',
     poorChoiceWhen: 'Для неперевірених припущень, особистого щоденника або повного логу сесії.',
-    status: 'documented-example', sourceRefs: ['level-08', 'level-16', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-08', 'level-16']
   },
   {
     id: 'clawd-yolo', name: 'CLAWD YOLO', category: 'Повторювані workflow',
@@ -320,7 +320,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'allowed scope', description: 'Точні шляхи, дії та середовище.', requirement: 'required' }, { name: 'guardrails', description: 'Заборонені дії та обмеження ризику.', requirement: 'required' }, { name: 'human checkpoint', description: 'Момент обовʼязкового людського рішення.', requirement: 'required' }],
     whenToUse: 'Для низькоризикової повторюваної роботи з коротким feedback loop.',
     poorChoiceWhen: 'Для production, auth, secrets, платежів, destructive commands або невизначеного scope.',
-    status: 'documented-example', sourceRefs: ['level-15', 'level-23', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-15', 'level-23']
   },
   {
     id: 'clawd-runner', name: 'CLAWD Runner', category: 'Виконання і якість',
@@ -331,7 +331,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'input', description: 'Вхідні дані або ідентифікатор задачі.', requirement: 'required' }, { name: 'command/environment', description: 'Що і де було запущено.', requirement: 'required' }, { name: 'status/output', description: 'Фактичний стан і посилання на результат.', requirement: 'required' }],
     whenToUse: 'Коли запуск треба повторити, перевірити або передати іншому учаснику.',
     poorChoiceWhen: 'Для довільного raw log без висновку або як заміна CI provider record.',
-    status: 'documented-example', sourceRefs: ['level-21', 'level-22', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-21', 'level-22']
   },
   {
     id: 'locales-json', name: 'locales.json', category: 'Виконання і якість',
@@ -342,7 +342,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'defaultLocale', description: 'Локаль за замовчуванням.', requirement: 'required' }, { name: 'supportedLocales', description: 'Які локалі реально підтримуються.', requirement: 'required' }, { name: 'fallbackLocale/namespaces', description: 'Fallback і групи перекладів.', requirement: 'required' }],
     whenToUse: 'Коли locale behavior має бути єдиним контрактом для кількох шарів системи.',
     poorChoiceWhen: 'Для одного текстового перекладу або як заміна локалізаційним файлам і тестам.',
-    status: 'documented-example', sourceRefs: ['level-04', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-04']
   },
   {
     id: 'locale-bundle', name: 'Locale API/UI/test bundle', category: 'Виконання і якість',
@@ -353,7 +353,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'locale/keys', description: 'Локаль і змінені translation keys.', requirement: 'required' }, { name: 'layers', description: 'Повʼязані API, UI та test paths.', requirement: 'required' }, { name: 'verification', description: 'Перевірка fallback, rendering і тестів.', requirement: 'required' }],
     whenToUse: 'Для змін, де одна локаль повинна узгоджено пройти кілька шарів.',
     poorChoiceWhen: 'Для зміни лише одного тексту без cross-layer поведінки.',
-    status: 'documented-example', sourceRefs: ['level-04', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-04']
   },
   {
     id: 'handoff-review', name: 'HANDOFF_REVIEW.md', category: 'Докази й доставка',
@@ -364,7 +364,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'source/scope', description: 'Який handoff і межі перевірено.', requirement: 'required' }, { name: 'confirmed/findings', description: 'Підтвердження та зауваження з evidence.', requirement: 'required' }, { name: 'next decision', description: 'Наступна дія і відповідальна роль.', requirement: 'required' }],
     whenToUse: 'Перед передачею milestone або залученням fresh reviewer.',
     poorChoiceWhen: 'Для повторення повного handoff, PR summary або неперевіреного статусу.',
-    status: 'documented-example', sourceRefs: ['level-06', 'level-16', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-06', 'level-16']
   },
   {
     id: 'contract-md', name: 'CONTRACT.md', category: 'Постановка задачі',
@@ -375,7 +375,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'parties', description: 'Хто або що взаємодіє.', requirement: 'required' }, { name: 'input/output', description: 'Формат і зміст передачі.', requirement: 'required' }, { name: 'invariants/failures', description: 'Незмінні умови та stop conditions.', requirement: 'required' }],
     whenToUse: 'Коли кілька ролей або етапів мають працювати незалежно через стабільну межу.',
     poorChoiceWhen: 'Для простої одноетапної правки або як заміна domain/API specification.',
-    status: 'documented-example', sourceRefs: ['level-03', 'level-15', 'level-16', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-03', 'level-15', 'level-16']
   },
   {
     id: 'plan-md', name: 'PLAN.md', category: 'Постановка задачі',
@@ -386,7 +386,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'goal/scope', description: 'Результат і дозволена зона роботи.', requirement: 'required' }, { name: 'steps', description: 'Послідовність малих дій.', requirement: 'required' }, { name: 'risks/stop condition', description: 'Ризики та умова зупинки.', requirement: 'required' }],
     whenToUse: 'Перед multi-file, ризиковою або делегованою зміною.',
     poorChoiceWhen: 'Для стабільних правил, фактичного звіту або плану без acceptance criteria.',
-    status: 'documented-example', sourceRefs: ['level-03', 'level-15', 'level-18', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-03', 'level-15', 'level-18']
   },
   {
     id: 'workflow-md', name: 'workflow.md', category: 'Повторювані workflow',
@@ -397,7 +397,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'trigger/inputs', description: 'Умови запуску та вхідні дані.', requirement: 'required' }, { name: 'stages/owners', description: 'Етапи й відповідальність.', requirement: 'required' }, { name: 'evidence/failure path', description: 'Вихідні артефакти та обробка збою.', requirement: 'required' }],
     whenToUse: 'Коли процес повторюється і його потрібно передати або відтворити.',
     poorChoiceWhen: 'Для одноразового prompt, низькорівневого script або policy-only правила.',
-    status: 'documented-example', sourceRefs: ['level-14', 'level-16', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-14', 'level-16']
   },
   {
     id: 'research-digest', name: 'research-digest.md', category: 'Розуміння codebase',
@@ -408,7 +408,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'question', description: 'Питання або гіпотеза дослідження.', requirement: 'required' }, { name: 'sources/findings', description: 'Джерела та підтверджені висновки.', requirement: 'required' }, { name: 'unknowns/recommendation', description: 'Невідоме та безпечний наступний крок.', requirement: 'required' }],
     whenToUse: 'Після широкого discovery, external research або read-only subagent роботи.',
     poorChoiceWhen: 'Для сирих нотаток, implementation plan або висновку без посилань на джерела.',
-    status: 'documented-example', sourceRefs: ['level-08', 'level-13', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-08', 'level-13']
   },
   {
     id: 'run-status-yaml', name: 'run-status.yaml', category: 'Виконання і якість',
@@ -419,7 +419,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'workflow/status', description: 'Workflow і загальний стан запуску.', requirement: 'required' }, { name: 'stages', description: 'Стани окремих етапів та evidence.', requirement: 'required' }, { name: 'run_id/updated_at', description: 'Trace identifier і час оновлення.', requirement: 'conventional' }],
     whenToUse: 'Для статусу довгого або багатостадійного локального/CI запуску.',
     poorChoiceWhen: 'Для людиночитного postmortem або одноразової команди без етапів.',
-    status: 'documented-example', sourceRefs: ['level-16', 'level-21', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-16', 'level-21']
   },
   {
     id: 'diagnosis-json', name: 'diagnosis.json', category: 'Виконання і якість',
@@ -430,7 +430,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'status/class', description: 'Загальний стан і категорія проблеми.', requirement: 'required' }, { name: 'evidence', description: 'Мінімальні очищені докази.', requirement: 'required' }, { name: 'confidence/nextAction', description: 'Впевненість і безпечна наступна дія.', requirement: 'required' }],
     whenToUse: 'Коли failure треба відрізнити від flaky, environment або contract проблеми.',
     poorChoiceWhen: 'Для автоматичного виправлення без human review або публікації сирих секретних логів.',
-    status: 'documented-example', sourceRefs: ['level-18', 'level-21', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-18', 'level-21']
   },
   {
     id: 'ai-coding-policy', name: 'AI_CODING_POLICY.md', category: 'Контекст і правила',
@@ -441,7 +441,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'allowed/review/approval', description: 'Класи дій за рівнем контролю.', requirement: 'required' }, { name: 'data boundaries', description: 'Правила для secrets і чутливих даних.', requirement: 'required' }, { name: 'enforcement/owner', description: 'Технічне забезпечення та відповідальний.', requirement: 'required' }],
     whenToUse: 'Коли команді потрібне єдине трактування AI-дій і людських approvals.',
     poorChoiceWhen: 'Як заміна конкретним permissions, security standard, task spec або incident procedure.',
-    status: 'documented-example', sourceRefs: ['level-23', 'level-24', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-23', 'level-24']
   },
   {
     id: 'codeowners', name: 'CODEOWNERS', category: 'Контекст і правила',
@@ -452,7 +452,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'patterns', description: 'Шляхи або glob-патерни ownership.', requirement: 'required' }, { name: 'owners', description: 'Команди або ролі, що мають review.', requirement: 'required' }, { name: 'sensitive areas', description: 'Окремі правила для критичних шляхів.', requirement: 'optional' }],
     whenToUse: 'Коли ownership і required review треба застосувати послідовно через repository tooling.',
     poorChoiceWhen: 'Для одноразового погодження або як заміна human decision gate.',
-    status: 'documented-example', sourceRefs: ['level-23', 'level-24', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-23', 'level-24']
   },
   {
     id: 'postmortem', name: 'Postmortem', category: 'Докази й доставка',
@@ -463,7 +463,7 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'impact/timeline', description: 'Фактичний вплив і послідовність подій.', requirement: 'required' }, { name: 'cause/controls', description: 'Підтверджені причини та оцінка controls.', requirement: 'required' }, { name: 'actions/verification', description: 'Дії з owner і спосіб перевірки.', requirement: 'required' }],
     whenToUse: 'Після значного збою або повторюваної проблеми, щоб змінити процес, а не лише код.',
     poorChoiceWhen: 'Для пошуку гіпотези до збору evidence або для персонального звинувачення.',
-    status: 'documented-example', sourceRefs: ['level-21', 'level-24', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-21', 'level-24']
   },
   {
     id: 'review-notes', name: 'REVIEW_NOTES.md', category: 'Докази й доставка',
@@ -474,8 +474,368 @@ export const artifacts: Artifact[] = [
     fields: [{ name: 'scope/findings', description: 'Межі review та evidence-backed findings.', requirement: 'required' }, { name: 'checks', description: 'Фактично виконані перевірки.', requirement: 'required' }, { name: 'questions/verdict', description: 'Відкриті питання та обережний висновок.', requirement: 'required' }],
     whenToUse: 'Для окремого self-review, fresh-context review або quality gate.',
     poorChoiceWhen: 'Для PR summary без findings, raw transcript або автоматичного approval.',
-    status: 'documented-example', sourceRefs: ['level-18', 'level-22', 'level-24', 'TASK_SPEC4.md']
+    status: 'documented-example', sourceRefs: ['level-18', 'level-22', 'level-24']
   },
+  {
+    id: 'runbook-md', name: 'RUNBOOK.md', category: 'Докази й доставка',
+    responsibility: 'Фіксує хронологію реально виконаних project tasks, їхній scope, результат і verification.',
+    role: 'Внутрішній delivery history та repeatable handoff reference, а не production audit log.',
+    template: "# Project delivery runbook\n\n**Дата актуалізації:** <YYYY-MM-DD>\n\n## Task log\n\n### <task name> — `<implemented|reviewed|partially verified|not performed>`\n- Goal and scope: <what was requested>\n- Changed or reviewed files: `<paths>`\n- Result: <confirmed outcome>\n- Verification: `<command or manual check>` — <actual result>\n- Limitations: <known gap or none>\n\n## Open limitations\n- <unverified item or none>\n",
+    paths: [{ value: 'RUNBOOK.md', scope: 'repository', status: 'present' }],
+    fields: [
+      { name: 'task/date', description: 'Назва задачі та дата або порядок виконання.', requirement: 'required' },
+      { name: 'status', description: 'Чесний стан: implemented, reviewed, partially verified або not performed.', requirement: 'required' },
+      { name: 'scope/files', description: 'Межі задачі та змінені або перевірені шляхи.', requirement: 'required' },
+      { name: 'result', description: 'Підтверджений результат без вигаданих claims.', requirement: 'required' },
+      { name: 'verification/limitations', description: 'Фактичні перевірки та залишкові обмеження.', requirement: 'required' }
+    ],
+    whenToUse: 'Після серії повʼязаних milestone або перед handoff, коли потрібно відновити фактичну послідовність delivery.',
+    poorChoiceWhen: 'Для raw transcript, майбутнього task plan, user-visible changelog, конкретного review evidence, secret storage або вигаданого production record.',
+    status: 'present', sourceRefs: ['level-24']
+  },
+  {
+    id: 'debt-signals', name: 'DEBT_SIGNALS.md', category: 'Розуміння codebase',
+    responsibility: 'Фіксує обмежений набір evidence-backed static signals технічного боргу.',
+    role: 'Discovery log для пріоритизації подальшої перевірки, а не автоматичний список дефектів.',
+    template: "# DEBT_SIGNALS.md\n\n## Scope and date\n- Area: <module or flow>\n- Reviewed: <date or revision>\n\n## Signals\n| Area | Evidence | Risk | Next step |\n| --- | --- | --- | --- |\n| <area> | <path, command, report, or commit> | <possible impact> | <one concrete check> |\n\n## Limitations\n- A signal is an indicator, not proof of a defect.\n",
+    paths: [{ value: '{project}/DEBT_SIGNALS.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'scope/date', description: 'Область і revision context discovery.', requirement: 'required' },
+      { name: 'area/evidence', description: 'Одна зона та конкретний evidence anchor.', requirement: 'required' },
+      { name: 'risk', description: 'Можливий наслідок без перебільшення certainty.', requirement: 'required' },
+      { name: 'next step/limitation', description: 'Одна перевірка та межа висновку.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли потрібно звести максимум пʼять найсильніших static signals перед risk review.',
+    poorChoiceWhen: 'Для повного списку TODO, автоматичного defect report або заміни runtime і domain verification.',
+    status: 'documented-example', sourceRefs: ['level-26']
+  },
+  {
+    id: 'risk-map', name: 'RISK_MAP.md', category: 'Розуміння codebase',
+    responsibility: 'Поєднує business criticality, change risk, unknowns і конкретні дії.',
+    role: 'Decision map для визначення: змінювати, звузити scope, збирати evidence або hold.',
+    template: "# RISK_MAP.md\n\n## Risk entries\n| Area | Business criticality | Change risk | Categories | Evidence | Missing checks | Recommended action |\n| --- | --- | --- | --- | --- | --- | --- |\n| <area> | <low\|medium\|high> | <low\|medium\|high> | <categories> | <anchors> | <checks> | <decision> |\n\n## Unknowns\n- <unknown and owner or verification step>\n",
+    paths: [{ value: '{project}/RISK_MAP.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'area/criticality', description: 'Зона та business impact.', requirement: 'required' },
+      { name: 'change risk/categories', description: 'Ризик зміни та категорії впливу.', requirement: 'required' },
+      { name: 'evidence/missing checks', description: 'Докази й те, що ще не перевірено.', requirement: 'required' },
+      { name: 'recommended action', description: 'Конкретне рішення, owner або stop condition.', requirement: 'required' }
+    ],
+    whenToUse: 'Після legacy discovery, коли потрібно перетворити факти та unknowns на operational decisions.',
+    poorChoiceWhen: 'Для єдиного quality score, generic backlog або висновку без evidence і missing checks.',
+    status: 'documented-example', sourceRefs: ['level-26']
+  },
+  {
+    id: 'architecture-current', name: 'ARCHITECTURE_CURRENT.md', category: 'Розуміння codebase',
+    responsibility: 'Описує фактичну current-state architecture та її підтверджені межі.',
+    role: 'Стабільна карта today, яка відділяє facts, assumptions, manual verification і historical discrepancies.',
+    template: "# ARCHITECTURE_CURRENT.md\n\n## Що це за документ\n<actual current behavior, not desired architecture>\n\n## Підсистеми\n## Критичні потоки\n## Підтверджені факти\n## Припущення\n## Що потрібно перевірити вручну\n## Розбіжності з історичною документацією\n",
+    paths: [{ value: '{project}/ARCHITECTURE_CURRENT.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'purpose/revision', description: 'Межі документа та актуальний revision context.', requirement: 'required' },
+      { name: 'subsystems/flows', description: 'Підсистеми, boundaries та critical runtime flows.', requirement: 'required' },
+      { name: 'facts/assumptions', description: 'Розділені confirmed facts та inferred assumptions.', requirement: 'required' },
+      { name: 'manual checks/discrepancies', description: 'Неперевірене та конфлікти з historical docs.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли legacy-система потребує опису того, як вона працює сьогодні, до зміни або refactor.',
+    poorChoiceWhen: 'Для desired architecture, product roadmap, списку файлів або бездоказового переписування історичних docs.',
+    status: 'documented-example', sourceRefs: ['level-26']
+  },
+  {
+    id: 'behavior-inventory', name: 'BEHAVIOR_INVENTORY.md', category: 'Розуміння codebase',
+    responsibility: 'Інвентаризує бізнес-потоки, їхні inputs/outputs, тести та characterization candidates.',
+    role: 'Behavior-first baseline перед змінами в legacy або критичному домені.',
+    template: "# BEHAVIOR_INVENTORY.md\n\n## Flow: <business flow>\n- Поточна поведінка: <confirmed facts and confidence>\n- Входи: <reproducible inputs>\n- Виходи: <observable outputs>\n- Існуючі тести: <paths and level>\n- Бракує перевірок: <gaps>\n- Кандидат на characterization: <yes|no> — <reason>\n- Докази: <anchors>\n",
+    paths: [{ value: '{project}/BEHAVIOR_INVENTORY.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'flow/current behavior', description: 'Бізнес-потік і фактична поведінка.', requirement: 'required' },
+      { name: 'inputs/outputs', description: 'Відтворювані входи та observable outputs.', requirement: 'required' },
+      { name: 'tests/missing checks', description: 'Існуюче покриття та конкретні прогалини.', requirement: 'required' },
+      { name: 'characterization candidate', description: 'Явне yes/no з обґрунтуванням.', requirement: 'required' },
+      { name: 'evidence', description: 'Якорі source, tests, config, logs або reports.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед змінами, коли потрібно зберегти observable business behavior і вибрати сильні characterization candidates.',
+    poorChoiceWhen: 'Для переліку класів, бажаної архітектури, коду тестів або списку кожної малозначущої умови.',
+    status: 'documented-example', sourceRefs: ['level-26']
+  },
+  {
+    id: 'critical-flows', name: 'CRITICAL_FLOWS.md', category: 'Розуміння codebase',
+    responsibility: 'Описує наскрізні runtime-потоки, які мають високий вплив або високу ціну помилки.',
+    role: 'Карта трасування від trigger та input до side effects, output і failure path.',
+    template: "# CRITICAL_FLOWS.md\n\n## Flow: <name>\n- Trigger: <event or entry point>\n- Inputs: <state and data>\n- Steps: <ordered components>\n- Side effects: <writes, integrations, notifications>\n- Output: <observable result>\n- Failure path: <error, retry, rollback, or escalation>\n- Evidence: <anchors>\n",
+    paths: [{ value: '{project}/CRITICAL_FLOWS.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'trigger/inputs', description: 'Умова запуску та вхідний стан.', requirement: 'required' },
+      { name: 'steps/boundaries', description: 'Послідовність компонентів і integration boundaries.', requirement: 'required' },
+      { name: 'side effects/output', description: 'Зміни стану та observable result.', requirement: 'required' },
+      { name: 'failure path/evidence', description: 'Обробка помилки та доказові якорі.', requirement: 'required' }
+    ],
+    whenToUse: 'Для потоків, де зміна одного модуля може вплинути на гроші, дані, інтеграції або користувацький результат.',
+    poorChoiceWhen: 'Для повної dependency graph, кожного trivial helper або опису без failure path.',
+    status: 'documented-example', sourceRefs: ['level-26']
+  },
+  {
+    id: 'module-inventory', name: 'MODULE_INVENTORY.md', category: 'Розуміння codebase',
+    responsibility: 'Фіксує межі модулів, entry points, залежності, ownership і відкриті питання.',
+    role: 'Деталізований discovery index між загальним codebase inventory та runtime flow map.',
+    template: "# MODULE_INVENTORY.md\n\n## Module: <name>\n- Path: <path>\n- Responsibility: <observed responsibility>\n- Entry points: <symbols or routes>\n- Dependencies: <internal and external>\n- Tests: <paths and coverage signal>\n- Owner: <confirmed or inferred>\n- Risks and unknowns: <items>\n- Evidence: <anchors>\n",
+    paths: [{ value: '{project}/MODULE_INVENTORY.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'module/path', description: 'Назва модуля та фактичний шлях.', requirement: 'required' },
+      { name: 'responsibility/entry points', description: 'Спостережувана роль і точки входу.', requirement: 'required' },
+      { name: 'dependencies/tests', description: 'Залежності та наявні перевірки.', requirement: 'required' },
+      { name: 'owner/risks', description: 'Підтверджений або inferred owner і ризики.', requirement: 'required' },
+      { name: 'evidence', description: 'Anchors для кожного суттєвого твердження.', requirement: 'required' }
+    ],
+    whenToUse: 'Під час legacy discovery, коли потрібно розкласти system-level карту на reviewable module records.',
+    poorChoiceWhen: 'Для business behavior inventory, повної call graph або тверджень про ownership без evidence.',
+    status: 'documented-example', sourceRefs: ['level-26']
+  },
+  {
+    id: 'characterization-tests', name: 'CHARACTERIZATION_TESTS.md', category: 'Виконання і якість',
+    responsibility: 'Фіксує перевірки фактичної поведінки legacy-модуля до та під час modernization.',
+    role: 'Regression safety net для observable behavior, а не набір тестів «на всяк випадок».',
+    template: "# CHARACTERIZATION_TESTS.md\n\n## Scope and baseline\n- Module/flow: <area>\n- Revision: <commit or date>\n- Behavior under test: <observable contract>\n\n## Cases\n| Case | Inputs | Expected observable output | Side effects | Evidence |\n| --- | --- | --- | --- | --- |\n| <case> | <reproducible input> | <status, value, event, or error> | <effect or none> | <test/log/source> |\n\n## Invariants\n- <behavior that must remain unchanged>\n\n## Run and interpretation\n- Command: `<focused test command>`\n- Baseline result: <actual result>\n- Stop if: <unexpected behavior or missing evidence>\n\n## Limits\n- <unknown behavior or scenario not covered>\n",
+    paths: [{ value: '{project}/CHARACTERIZATION_TESTS.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'scope/baseline', description: 'Межі модуля, flow і revision, для якого зафіксовано поведінку.', requirement: 'required' },
+      { name: 'cases/inputs', description: 'Відтворювані сценарії та їхні вхідні дані.', requirement: 'required' },
+      { name: 'observable outputs/side effects', description: 'Очікувані результати, помилки та side effects.', requirement: 'required' },
+      { name: 'invariants/evidence', description: 'Поведінкові інваріанти й конкретні докази.', requirement: 'required' },
+      { name: 'run/limits', description: 'Команда запуску, baseline result і межі покриття.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли перед legacy refactoring потрібно закріпити критичну фактичну поведінку focused тестами.',
+    poorChoiceWhen: 'Для повного unit-test плану, тестування кожного implementation detail або заміни business requirements.',
+    status: 'documented-example', sourceRefs: ['level-27']
+  },
+  {
+    id: 'modernization-baseline', name: 'MODERNIZATION_BASELINE.md', category: 'Розуміння codebase',
+    responsibility: 'Фіксує спостережувану поведінку, інваріанти та safety checks legacy-модуля до modernization.',
+    role: 'Before-state contract для порівняння результатів малих змін і контрольованого rollback.',
+    template: "# MODERNIZATION_BASELINE.md\n\n## Scope and revision\n- Module/flow: <area>\n- Revision: <commit or date>\n\n## Observable behavior\n- Inputs: <inputs>\n- Outputs: <outputs>\n- Side effects: <effects>\n- Failure paths: <errors and recovery>\n\n## Invariants\n- <contract that must remain true>\n\n## Checks and observability\n- `<command or scenario>` — <actual result>\n\n## Rollback point and unknowns\n- Checkpoint: <reference>\n- Unknowns: <items>\n",
+    paths: [{ value: '{project}/MODERNIZATION_BASELINE.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'scope/revision', description: 'Межі модуля або flow та revision context.', requirement: 'required' },
+      { name: 'observable behavior', description: 'Inputs, outputs, side effects і failure paths.', requirement: 'required' },
+      { name: 'invariants', description: 'Контракти, які не можна змінити в structural slice.', requirement: 'required' },
+      { name: 'checks/rollback', description: 'Фактичні checks, checkpoint і невідомі питання.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед modernization або великим refactoring, коли потрібно мати перевірювану точку відліку.',
+    poorChoiceWhen: 'Для бажаної архітектури, повного тестового звіту або припущень без observable evidence.',
+    status: 'documented-example', sourceRefs: ['level-27']
+  },
+  {
+    id: 'refactoring-plan', name: 'REFACTORING_PLAN.md', category: 'Постановка задачі',
+    responsibility: 'Обмежує один incremental refactoring slice його метою, non-goals, checks і stop condition.',
+    role: 'Execution contract для structural зміни без змішування feature work або bugfix.',
+    template: "# REFACTORING_PLAN.md\n\n## Goal\n<one structural improvement>\n\n## Allowed scope\n- <paths, symbols, or seam>\n\n## Preserve\n- <public behavior and invariants>\n\n## Non-goals\n- <feature, dependency, or unrelated cleanup>\n\n## Steps\n1. <inspect>\n2. <change>\n3. <check and review>\n\n## Stop and rollback\n- <condition and checkpoint>\n",
+    paths: [{ value: '{project}/REFACTORING_PLAN.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'goal/scope', description: 'Одна structural мета та дозволена область.', requirement: 'required' },
+      { name: 'preserve/non-goals', description: 'Інваріанти й явно виключена робота.', requirement: 'required' },
+      { name: 'steps/checks', description: 'Малі кроки та focused verification.', requirement: 'required' },
+      { name: 'stop/rollback', description: 'Умова зупинки й точка повернення.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед одним інкрементальним refactoring кроком у legacy-модулі.',
+    poorChoiceWhen: 'Для повної modernization roadmap, feature specification або необмеженого cleanup.',
+    status: 'documented-example', sourceRefs: ['level-27']
+  },
+  {
+    id: 'seam-map', name: 'SEAM_MAP.md', category: 'Розуміння codebase',
+    responsibility: 'Картує точки розділення між callers, legacy implementation і майбутнім replacement.',
+    role: 'Boundary decision record для вибору testable та rollback-friendly seam.',
+    template: "# SEAM_MAP.md\n\n## Flow and boundary\n- Flow: <business or runtime flow>\n- Entry point: <caller>\n\n## Current path\n- Caller: <component>\n- Legacy callee: <component>\n- Side effects: <effects>\n\n## Candidate seam\n- Interface/adapter/event/routing: <boundary>\n- Dependency direction: <producer -> consumer>\n- Test seam: <how to observe it>\n\n## Migration risk and next slice\n- Risk: <risk>\n- Next check: <one verification>\n",
+    paths: [{ value: '{project}/SEAM_MAP.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'flow/current path', description: 'Flow, caller, callee та фактичний dependency path.', requirement: 'required' },
+      { name: 'candidate seam', description: 'Boundary, adapter або routing point для підміни.', requirement: 'required' },
+      { name: 'dependency/test direction', description: 'Напрям залежності та спосіб спостерігати seam.', requirement: 'required' },
+      { name: 'risk/next check', description: 'Міграційний ризик і конкретна наступна перевірка.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли legacy-модуль потрібно розділити на незалежні reviewable modernization slices.',
+    poorChoiceWhen: 'Для повної call graph, декоративної abstraction або seam без перевірюваного output.',
+    status: 'documented-example', sourceRefs: ['level-27']
+  },
+  {
+    id: 'strangler-slice', name: 'STRANGLER_SLICE.md', category: 'Виконання і якість',
+    responsibility: 'Описує bounded Strangler Fig slice зі старим і новим шляхом, coexistence та rollback.',
+    role: 'Migration contract для поступової підміни фрагмента без big-bang rewrite.',
+    template: "# STRANGLER_SLICE.md\n\n## Fragment and boundary\n<bounded behavior being replaced>\n\n## Paths\n- Legacy: <old path>\n- New: <new path>\n- Router: <explicit selection rule>\n\n## Compatibility and side effects\n- Contract: <preserved behavior>\n- Side effects: <single-write/idempotency rule>\n- Observability: <signals>\n\n## Rollout and rollback\n- Rollout: <small expansion>\n- Rollback: <switch and state recovery>\n\n## Retirement criteria\n- <evidence required before removing legacy>\n",
+    paths: [{ value: '{project}/STRANGLER_SLICE.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'fragment/paths', description: 'Межа fragment та legacy/new paths.', requirement: 'required' },
+      { name: 'routing/compatibility', description: 'Правило вибору path і збереження contract.', requirement: 'required' },
+      { name: 'side effects/observability', description: 'Coexistence, idempotency та сигнали результату.', requirement: 'required' },
+      { name: 'rollback/retirement', description: 'Повернення і докази для видалення legacy.', requirement: 'required' }
+    ],
+    whenToUse: 'Для поступової підміни ізольованого legacy-фрагмента з контрольованим coexistence.',
+    poorChoiceWhen: 'Для повного rewrite, непомітного dual-write або міграції без rollback і observability.',
+    status: 'documented-example', sourceRefs: ['level-27']
+  },
+  {
+    id: 'modernization-roadmap', name: 'MODERNIZATION_ROADMAP.md', category: 'Постановка задачі',
+    responsibility: 'Розкладає modernization на milestones з owner, evidence gates, dependencies та exit criteria.',
+    role: 'Risk-aware delivery roadmap, яка дозволяє proceed, narrow, hold або rollback.',
+    template: "# MODERNIZATION_ROADMAP.md\n\n## Outcome and constraints\n<why modernization matters and what is out of scope>\n\n## Milestones\n| Slice | Owner | Dependency | Evidence gate | Exit criteria | Rollback/hold |\n| --- | --- | --- | --- | --- | --- |\n| <slice> | <role> | <dependency> | <check> | <observable result> | <action> |\n\n## Retirement plan\n- <legacy removal condition>\n\n## Open risks\n- <risk and next decision>\n",
+    paths: [{ value: '{project}/MODERNIZATION_ROADMAP.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'outcome/constraints', description: 'Мета modernization та обмеження scope.', requirement: 'required' },
+      { name: 'milestones/owners', description: 'Послідовні slices і відповідальні ролі.', requirement: 'required' },
+      { name: 'dependencies/evidence gates', description: 'Передумови та перевірки переходу.', requirement: 'required' },
+      { name: 'exit/rollback/risks', description: 'Exit criteria, hold/rollback і відкриті ризики.', requirement: 'required' }
+    ],
+    whenToUse: 'Для modernization, що складається з кількох залежних slices та risk decisions.',
+    poorChoiceWhen: 'Для списку всіх бажаних refactors, календаря без gates або заміни поточного baseline.',
+    status: 'documented-example', sourceRefs: ['level-27']
+  },
+  {
+    id: 'modernization-anti-patterns', name: 'MODERNIZATION_ANTI_PATTERNS.md', category: 'Докази й доставка',
+    responsibility: 'Збирає сигнали небезпечних modernization-практик і безпечніші альтернативи.',
+    role: 'Review checklist для виявлення big-bang, scope mixing, відсутності baseline та rollback.',
+    template: "# MODERNIZATION_ANTI_PATTERNS.md\n\n## Anti-pattern: <name>\n- Signal: <observable warning>\n- Impact: <possible consequence>\n- Safer alternative: <bounded practice>\n- Stop condition: <when to pause>\n- Evidence: <anchor>\n",
+    paths: [{ value: '{project}/MODERNIZATION_ANTI_PATTERNS.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'anti-pattern/signal', description: 'Назва небезпечного патерну та його спостережуваний сигнал.', requirement: 'required' },
+      { name: 'impact', description: 'Можливий вплив без перебільшення certainty.', requirement: 'required' },
+      { name: 'safer alternative', description: 'Обмежена практика, яка зменшує ризик.', requirement: 'required' },
+      { name: 'stop condition/evidence', description: 'Умова паузи та evidence anchor.', requirement: 'required' }
+    ],
+    whenToUse: 'Під час review modernization plan або перед risk gate для наступного slice.',
+    poorChoiceWhen: 'Для blame list, автоматичного verdict або заміни фактичного baseline і risk map.',
+    status: 'documented-example', sourceRefs: ['level-27']
+  },
+  {
+    id: 'migration-discovery', name: 'MIGRATION_DISCOVERY.md', category: 'Розуміння codebase',
+    responsibility: 'Фіксує source-to-target межі міграції, стартову точку, evidence та невідомі питання.',
+    role: 'Read-only discovery record для визначення, чи готовий bounded migration slice до compatibility analysis.',
+    template: "# MIGRATION_DISCOVERY.md\n\n## Source and target\n- Source state: <runtime, framework, platform, or version>\n- Target state: <runtime, framework, platform, or version>\n- Migration slice: <bounded area>\n\n## Evidence\n- <repository, build, deployment, integration or official-doc anchor>\n\n## Known, assumed, unknown\n- Known: <confirmed fact>\n- Assumption: <assumption and owner>\n- Unknown: <question and next check>\n\n## Starting checkpoint\n- Revision/environment: <reference>\n- Baseline check: <command or scenario>\n\n## Stop conditions\n- <condition that blocks analysis or pilot>\n",
+    paths: [{ value: '{project}/MIGRATION_DISCOVERY.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'source/target scope', description: 'Source state, target intent і bounded migration area.', requirement: 'required' },
+      { name: 'evidence', description: 'Repository, runtime, deployment, integration або official-doc anchors.', requirement: 'required' },
+      { name: 'knowns/assumptions/unknowns', description: 'Розділені факти, припущення, невідомі питання та owners.', requirement: 'required' },
+      { name: 'starting checkpoint', description: 'Revision/environment і відтворюваний baseline.', requirement: 'required' },
+      { name: 'stop conditions', description: 'Умови, що блокують analysis або pilot.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед migration analysis, коли потрібно відділити read-only facts від target assumptions і визначити точку старту.',
+    poorChoiceWhen: 'Для загальної карти repository, виконаного migration report або списку dependencies без source-to-target scope.',
+    status: 'documented-example', sourceRefs: ['level-28']
+  },
+  {
+    id: 'changelog-research', name: 'CHANGELOG_RESEARCH.md', category: 'Розуміння codebase',
+    responsibility: 'Зіставляє зміни у version window з affected code, configuration, runtime та integration surfaces.',
+    role: 'Evidence-backed research record для breaking changes, deprecations і behavior changes перед migration pilot.',
+    template: "# CHANGELOG_RESEARCH.md\n\n## Version window\n- Source: <version>\n- Target: <version>\n\n## Findings\n| Version | Official section | Change type | Affected area | Impact | Confidence | Next check |\n| --- | --- | --- | --- | --- | --- | --- |\n| <version> | <URL or section> | <breaking/deprecated/behavior/config> | <path or component> | <possible impact> | <confirmed/needs verification/Unknown> | <check> |\n\n## Limits\n- <release or repository fact not verified>\n",
+    paths: [{ value: '{project}/CHANGELOG_RESEARCH.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'version window', description: 'Source і target versions та межі changelog search.', requirement: 'required' },
+      { name: 'official evidence', description: 'Версія, розділ, URL або repository anchor для finding.', requirement: 'required' },
+      { name: 'change and impact', description: 'Тип зміни, affected area та можливий вплив.', requirement: 'required' },
+      { name: 'confidence/next check', description: 'Рівень підтвердження і конкретна follow-up перевірка.', requirement: 'required' },
+      { name: 'limits', description: 'Недоступні, неоднозначні або неперевірені факти.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли migration проходить між версіями й потрібно перетворити офіційні release notes на перевірювані repository findings.',
+    poorChoiceWhen: 'Для загального release changelog, повного transcript або впевнених висновків без official source і affected-area check.',
+    status: 'documented-example', sourceRefs: ['level-28']
+  },
+  {
+    id: 'dependency-graph', name: 'DEPENDENCY_GRAPH.md', category: 'Розуміння codebase',
+    responsibility: 'Показує migration-impact nodes, напрямлені звʼязки, target constraints і affected flows.',
+    role: 'Карта впливу для визначення порядку compatibility checks та bounded migration slices.',
+    template: "# DEPENDENCY_GRAPH.md\n\n## Nodes\n| Node | Source | Target | Type | Evidence |\n| --- | --- | --- | --- | --- |\n| <component> | <source state> | <target state> | <runtime/framework/plugin/integration> | <anchor> |\n\n## Directed edges\n- <producer> -> <consumer>: <contract or version constraint>\n\n## Affected flows\n- <flow>: <entry point, path and side effects>\n\n## Hubs and unknowns\n- High-impact hub: <node and reason>\n- Unknown: <edge or constraint and next check>\n",
+    paths: [{ value: '{project}/DEPENDENCY_GRAPH.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'nodes/source-target', description: 'Компоненти graph і їхні source/target states.', requirement: 'required' },
+      { name: 'directed edges', description: 'Напрям залежності, contract або version constraint.', requirement: 'required' },
+      { name: 'affected flows', description: 'Runtime flows, entry points і side effects під впливом.', requirement: 'required' },
+      { name: 'evidence/unknowns', description: 'Anchors, high-impact hubs і непідтверджені edges.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед migration sequencing, коли version changes можуть зачепити direct/transitive dependencies або integration paths.',
+    poorChoiceWhen: 'Для простого списку модулів, повної call graph без migration scope або декоративної схеми без evidence.',
+    status: 'documented-example', sourceRefs: ['level-28']
+  },
+  {
+    id: 'compatibility-matrix', name: 'COMPATIBILITY_MATRIX.md', category: 'Розуміння codebase',
+    responsibility: 'Фіксує source-to-target compatibility decisions за технічними вимірами та їхніми evidence anchors.',
+    role: 'Decision matrix для розділення compatible, blocking, Unknown і requires-verification items.',
+    template: "# COMPATIBILITY_MATRIX.md\n\n## Scope\n- Source: <version or platform>\n- Target: <version or platform>\n\n## Decisions\n| Component/edge | API | Config | ABI | Runtime | Data format | Protocol | Operations | Status | Evidence | Owner |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| <item> | <status> | <status> | <status> | <status> | <status> | <status> | <status> | <compatible/blocking/Unknown> | <anchor> | <role> |\n\n## Blocking and unknown items\n- <item> — <next check or hold decision>\n",
+    paths: [{ value: '{project}/COMPATIBILITY_MATRIX.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'source/target scope', description: 'Пара станів, для якої приймається compatibility decision.', requirement: 'required' },
+      { name: 'technical dimensions', description: 'API, configuration, ABI, runtime, data, protocol і operations.', requirement: 'required' },
+      { name: 'status/evidence', description: 'Compatible, blocking, Unknown або requires verification з anchor.', requirement: 'required' },
+      { name: 'owner/next action', description: 'Відповідальна роль і перевірка для невизначених items.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли потрібно прийняти окремі технічні рішення про сумісність, а не звести ризики до одного score.',
+    poorChoiceWhen: 'Для загальної risk map, vendor claim без перевірки або compatibility verdict без component-level dimensions.',
+    status: 'documented-example', sourceRefs: ['level-28']
+  },
+  {
+    id: 'migration-plan', name: 'MIGRATION_PLAN.md', category: 'Постановка задачі',
+    responsibility: 'Розкладає migration на bounded phases із evidence gates, owners, rollback і exit criteria.',
+    role: 'Execution contract для переходу від source до target без неявного production або completion claim.',
+    template: "# MIGRATION_PLAN.md\n\n## Outcome and boundaries\n- Source: <current state>\n- Target: <target state>\n- Scope: <bounded slice>\n- Non-goals: <excluded changes>\n\n## Phases\n| Phase | Scope | Owner | Evidence gate | Exit criteria | Rollback/HOLD |\n| --- | --- | --- | --- | --- | --- |\n| Discovery | <facts and unknowns> | <role> | <anchor> | <result> | <hold action> |\n| Analysis | <compatibility work> | <role> | <anchor> | <result> | <narrow action> |\n| Pilot | <small slice> | <role> | <behavior check> | <result> | <rollback> |\n\n## GO / HOLD decision\n- Decision: <GO | HOLD | NARROW | ROLLBACK>\n- Evidence: <facts>\n- Open risks: <items>\n",
+    paths: [{ value: '{project}/MIGRATION_PLAN.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'outcome/scope/non-goals', description: 'Source, target, bounded slice та виключена робота.', requirement: 'required' },
+      { name: 'phases/owners', description: 'Discovery, analysis, pilot та наступні фази з ownership.', requirement: 'required' },
+      { name: 'evidence gates/exit criteria', description: 'Перевірки переходу і спостережувані умови завершення.', requirement: 'required' },
+      { name: 'rollback/hold decision', description: 'Практична дія повернення, HOLD або звуження scope.', requirement: 'required' },
+      { name: 'open risks', description: 'Невирішені compatibility, behavior або operational risks.', requirement: 'required' }
+    ],
+    whenToUse: 'Після discovery та compatibility analysis, коли потрібна керована послідовність pilot, verification, expand або retirement.',
+    poorChoiceWhen: 'Для modernization roadmap без source/target transition, календаря без evidence gates або твердження про виконаний rollout.',
+    status: 'documented-example', sourceRefs: ['level-28']
+  },
+];
+
+export type ArtifactQuickJumpGroup = {
+  label: string;
+  description: string;
+  artifactIds: string[];
+};
+
+export const artifactQuickJumpGroups: ArtifactQuickJumpGroup[] = [
+  {
+    label: 'Орієнтуватися в проєкті',
+    description: 'Перші документи для розуміння проєкту, контексту та codebase.',
+    artifactIds: ['readme', 'claude-md', 'claude-local-md', 'codebase-inventory', 'api-map', 'research-digest', 'clawd-wisdom']
+  },
+  {
+    label: 'Визначити й спланувати',
+    description: 'Артефакти, які перетворюють ідею на межі, контракт і послідовність роботи.',
+    artifactIds: ['task-spec', 'spec', 'capstone-brief', 'backlog-roadmap', 'contract-md', 'plan-md']
+  },
+  {
+    label: 'Налаштувати й розширити workflow',
+    description: 'Configuration, policy, skills та integrations для контрольованого workflow.',
+    artifactIds: ['settings-json', 'settings-local-json', 'claude-rules', 'ai-coding-policy', 'codeowners', 'skill-md', 'subagent', 'hook-config', 'mcp-config', 'plugin']
+  },
+  {
+    label: 'Виконати й контролювати',
+    description: 'Операційні артефакти для запуску, ізоляції та контролю виконання.',
+    artifactIds: ['git-review-artifacts', 'commands-md', 'workflow-md', 'clawd-yolo', 'clawd-runner', 'run-status-yaml', 'locales-json', 'locale-bundle']
+  },
+  {
+    label: 'Перевірити, передати й доставити',
+    description: 'Evidence, review, handoff і delivery records для завершення роботи.',
+    artifactIds: ['evidence', 'handoff-note', 'handoff-review', 'review-notes', 'diagnosis-json', 'pr-description', 'commit-message', 'changelog', 'postmortem', 'runbook-md']
+  },
+  {
+    label: 'Дослідити legacy й ризики',
+    description: 'Артефакти для опису поточної поведінки, technical debt і ризиків змін.',
+    artifactIds: ['debt-signals', 'risk-map', 'architecture-current', 'behavior-inventory', 'critical-flows', 'module-inventory']
+  },
+  {
+    label: 'Модернізувати legacy без big-bang rewrite',
+    description: 'Артефакти для baseline, seams, incremental slices, strangler rollout і roadmap.',
+    artifactIds: ['modernization-baseline', 'characterization-tests', 'refactoring-plan', 'seam-map', 'strangler-slice', 'modernization-roadmap', 'modernization-anti-patterns']
+  },
+  {
+    label: 'Планувати міграцію й сумісність',
+    description: 'Source-to-target analysis, changelog evidence, compatibility decisions і пофазна delivery-послідовність.',
+    artifactIds: ['migration-discovery', 'changelog-research', 'dependency-graph', 'compatibility-matrix', 'migration-plan']
+  }
 ];
 
 export const artifactCategories = [...new Set(artifacts.map((artifact) => artifact.category))];

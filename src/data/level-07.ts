@@ -69,6 +69,7 @@ cat README.md`
     },
     {
       heading: 'Вихідний артефакт',
+      artifactIds: ['codebase-inventory'],
       paragraphs: [
         'Результат первинного discovery варто зберегти в `CODEBASE_INVENTORY.md` або іншому узгодженому inventory-файлі. Така карта переживає поточну сесію і дає наступному досліднику надійну точку старту.'
       ],
@@ -350,6 +351,10 @@ git grep "RefundPolicy" backend/src backend/test`
     },
     {
       heading: 'Flow треба підтвердити, а не вгадати',
+      additionalMaterials: [
+        { label: 'Презентація рівня 7', href: 'https://ua-claude-code-04-1625.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 7', href: 'https://www.youtube.com/watch?v=BPzKTwgC7Sw', kind: 'video' },
+      ],
       paragraphs: [
         'Перевірте щонайменше точку входу, центральний сервіс і тест помилки. Не ототожнюйте послідовність папок зі runtime-порядком і не змішуйте відновлення flow з пропозиціями рефакторингу.'
       ],

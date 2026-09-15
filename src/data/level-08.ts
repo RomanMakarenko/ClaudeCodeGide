@@ -33,6 +33,7 @@ export const levelEightContent: Record<string, GuideSection[]> = {
     },
     {
       heading: 'Структура `API_MAP.md`',
+      artifactIds: ['api-map'],
       code: [
         {
           language: 'markdown',
@@ -99,7 +100,7 @@ export const levelEightContent: Record<string, GuideSection[]> = {
         verification: ['Усі твердження мають source або явно позначені як hypothesis.', 'У результаті немає credentials, токенів чи зайвих production-даних.'],
         stopCondition: 'причину не підтверджено або для аналізу потрібні чутливі дані.',
         artifactIds: ['research-digest', 'diagnosis-json'],
-        sourceRefs: ['level-08', 'level-21', 'TASK_SPEC4.md']
+        sourceRefs: ['level-08', 'level-21']
       },
       code: [
         {
@@ -153,6 +154,7 @@ OrderService.java:51`
     },
     {
       heading: 'Після аналізу',
+      artifactIds: ['clawd-wisdom'],
       paragraphs: [
         'Збережіть висновок у troubleshooting note або evidence-артефакті: симптом, команда, доказ, причина, мінімальна зміна й результат повторної перевірки. Це робить розслідування повторюваним.'
       ]
@@ -340,6 +342,10 @@ cd apps/web && npm run dev`
     },
     {
       heading: 'Критерій готовності документа',
+      additionalMaterials: [
+        { label: 'Факультативний GitHub-приклад', href: 'https://github.com/JR-J4/tg-bot-example', kind: 'optional-resource' },
+        { label: 'Факультативне YouTube-відео', href: 'https://www.youtube.com/watch?v=eZaDN2EP76c', kind: 'optional-resource' },
+      ],
       paragraphs: [
         'Документ готовий тоді, коли його твердження мають джерела, команди перевірені або явно обмежені, вигадані сутності відсутні, а список припущень і обмежень доступний читачеві. Такий docs-as-code підхід робить документацію частиною інженерного процесу, а не декоративним текстом.'
       ]

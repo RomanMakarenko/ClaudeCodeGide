@@ -125,6 +125,7 @@ Fallback: ручне читання issue`
   'l14-03': [
     {
       heading: 'Hook: event → matcher → handler',
+      artifactIds: ['hook-config'],
       paragraphs: [
         'Hook — це локальна автоматизація, яка реагує на подію життєвого циклу Claude Code. На відміну від MCP, він не підключає зовнішнє джерело, а автоматично виконує локальну команду або скрипт.',
         'Event визначає момент, matcher звужує умову, а handler виконує одну передбачувану дію.'
@@ -262,7 +263,7 @@ Fallback: ручне читання issue`
         verification: ['Handler не зачіпає unrelated paths.', 'Hook можна вимкнути без ручного відновлення прихованого стану.'],
         stopCondition: 'matcher занадто широкий, handler має неочікуваний side effect або log-only ще нестабільний.',
         artifactIds: ['workflow-md', 'diagnosis-json'],
-        sourceRefs: ['level-14', 'TASK_SPEC4.md']
+        sourceRefs: ['level-14']
       },
       paragraphs: [
         'Помилку hook потрібно локалізувати послідовно: спочатку перевірити реєстрацію і scope, потім event та matcher, далі handler і його exit code, а після цього — побічні наслідки. Це відділяє помилку конфігурації від помилки самого скрипта.',
@@ -320,6 +321,10 @@ Fallback: ручне читання issue`
     },
     {
       heading: 'Format-on-edit: сценарій перевірки',
+      additionalMaterials: [
+        { label: 'Презентація рівня 14', href: 'https://ua-claude-code-10-53f8.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 14', href: 'https://www.youtube.com/watch?v=SyPvDDXIuXU', kind: 'video' },
+      ],
       steps: [
         'Відтворіть проблему на конкретному файлі.',
         'Переконайтеся, що hook активний і реагує на правильну подію.',

@@ -355,6 +355,10 @@ mcp/*.local.json`
     },
     {
       heading: 'Побічні ефекти потребують окремого рішення',
+      additionalMaterials: [
+        { label: 'Презентація рівня 13', href: 'https://ua-claude-code-09-60bc.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 13', href: 'https://www.youtube.com/watch?v=4JxsNB-vvnc', kind: 'video' },
+      ],
       paragraphs: [
         'Пошук issue й читання diff зазвичай мають невеликий вплив. Коментар, зміна статусу, запис у базу, merge або deployment змінюють зовнішній стан. Такі tools не повинні входити до базової read-only конфігурації без конкретного сценарію, контролю та підтвердження.',
         'Навіть читання може мати інфраструктурні наслідки: створювати audit-запис, навантажувати endpoint або повертати застарілі дані. Критичні статуси перевіряйте повторно у первинній системі.'

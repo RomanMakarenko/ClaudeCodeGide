@@ -20,7 +20,7 @@ const previous = levelPages[index - 1];
 const next = levelPages[index + 1];
 const sections = guideContentByLevel[page.levelId as keyof typeof guideContentByLevel]?.[page.id] ?? [];
 ---
-<BaseLayout title={page.title} description={page.description}>
+<BaseLayout title={page.title} description={page.description} robots="noindex, nofollow">
   <div class="page-shell guide-page">
     <Breadcrumbs items={[{ label: 'Головна', href: '/' }, { label: 'Гайд', href: '/guide' }, { label: `Рівень ${level.number}`, href: '/guide' }, { label: page.title }]} />
     <div class="mobile-nav">
@@ -30,7 +30,7 @@ const sections = guideContentByLevel[page.levelId as keyof typeof guideContentBy
       </details>
     </div>
     <div class="guide-layout">
-      <aside class="sidebar"><GuideNav activeSlug={page.slug} /></aside>
+      <aside class="sidebar"><div class="sidebar-scroll"><GuideNav activeSlug={page.slug} /></div></aside>
       <article class="article">
         <header class="article-header">
           <p class="eyebrow">Рівень {level.number} · Урок {page.order}</p>
@@ -69,6 +69,20 @@ const sections = guideContentByLevel[page.levelId as keyof typeof guideContentBy
                 </figure>
               ))}
               {section.note && <aside class="article-note"><strong>Практичний акцент</strong><p>{section.note}</p></aside>}
+              {section.additionalMaterials?.length ? (
+                <aside class="additional-materials">
+                  <strong>Додаткові матеріали</strong>
+                  <ul>
+                    {section.additionalMaterials.map((material) => (
+                      <li>
+                        <a href={material.href} target="_blank" rel="nofollow noopener noreferrer">
+                          {material.label} <span aria-hidden="true">↗</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </aside>
+              ) : null}
               {section.artifactIds?.length ? (
                 <aside class="artifact-references">
                   <strong>Практичні артефакти</strong>
@@ -103,8 +117,8 @@ const sections = guideContentByLevel[page.levelId as keyof typeof guideContentBy
             </>
           )}
           <div class="source-box">
-            <p><strong>Вихідне джерело</strong> · {page.sourceFile}</p>
-            {page.sourceUrl && <a href={page.sourceUrl} target="_blank" rel="noreferrer">Відкрити матеріал JavaRush <span aria-hidden="true">↗</span></a>}
+            <p><strong>Канонічне джерело уроку</strong> · JavaRush</p>
+            <a href={page.sourceUrl} target="_blank" rel="nofollow noopener noreferrer">Відкрити матеріал JavaRush <span aria-hidden="true">↗</span></a>
           </div>
         </div>
         <PrevNext previous={previous} next={next} />

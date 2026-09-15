@@ -4,6 +4,7 @@ export const levelSixteenContent: Record<string, GuideSection[]> = {
   'l16-01': [
     {
       heading: 'Workstream — це ізольований робочий трек',
+      artifactIds: ['workflow-md'],
       paragraphs: [
         'Workstream має конкретну мету, окрему Git-гілку, власний worktree, ізольовану Claude-сесію та критерій завершення. Паралельність не прибирає невизначеність, тому в окремий потік варто виносити лише добре окреслену задачу.',
         'Worktree надає окрему директорію для роботи, але не приймає інженерних рішень: scope, ownership, перевірки та інтеграцію все одно контролює людина.'
@@ -31,6 +32,7 @@ export const levelSixteenContent: Record<string, GuideSection[]> = {
     },
     {
       heading: 'Типовий запуск worktree',
+      artifactIds: ['git-review-artifacts'],
       code: [
         {
           language: 'bash',
@@ -143,7 +145,7 @@ git -C ../project.example log --oneline main..HEAD`
         verification: ['Consumer може використати output без неявних припущень.', 'Невдалий етап має зрозумілий failure path.'],
         stopCondition: 'output неповний, статус не підтверджений або межа ownership нечітка.',
         artifactIds: ['contract-md', 'handoff-review', 'run-status-yaml'],
-        sourceRefs: ['level-16', 'TASK_SPEC4.md']
+        sourceRefs: ['level-16']
       },
       code: [
         {
@@ -309,6 +311,7 @@ merge_order: after checkout contract`
   'l16-05': [
     {
       heading: 'Користь AI-workflow потрібно вимірювати',
+      artifactIds: ['clawd-wisdom'],
       paragraphs: [
         'Відчуття, що AI прискорив роботу, може бути оманливим. Оцінюйте не лише швидкість створення diff, а й якість, вартість та подальший rework. Логіка проста: сигнал → метрика → висновок → дія.',
         'Для порівняння збирайте дані по окремих workstream, а не усереднюйте весь тиждень.'
@@ -374,6 +377,10 @@ verdict: repeat / change / stop`
     },
     {
       heading: 'Evaluation після завершення треку',
+      additionalMaterials: [
+        { label: 'Презентація рівня 16', href: 'https://ua-claude-code-12-e432.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 16', href: 'https://www.youtube.com/watch?v=q7un72W9WOo', kind: 'video' },
+      ],
       steps: [
         'Зберіть сигнали з логів, Git, тестів, CI та review.',
         'Запишіть їх у `metrics.md`.',

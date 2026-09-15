@@ -188,6 +188,7 @@ Do not edit files before the report is reviewed`
     },
     {
       heading: 'Контрольований release workflow',
+      artifactIds: ['clawd-runner'],
       steps: [
         'Проаналізуйте зміни від останнього стабільного tag до HEAD.',
         'Згрупуйте merged PR або коміти за типами змін і додайте перевірювані посилання.',
@@ -211,7 +212,7 @@ Do not edit files before the report is reviewed`
         verification: ['Failure повідомляє причину й наступну дію.', 'Gate не приховує невдалий check.', 'Blocking режим має явний owner і rollback path.'],
         stopCondition: 'перевірка не має детермінованого результату або failure path невідомий.',
         artifactIds: ['workflow-md', 'run-status-yaml', 'review-notes'],
-        sourceRefs: ['level-22', 'TASK_SPEC4.md']
+        sourceRefs: ['level-22']
       },
       bullets: [
         'що саме готує Claude Code;',
@@ -385,6 +386,10 @@ CI: preserve logs and release artifacts`
     },
     {
       heading: 'Після інциденту оновіть не лише код',
+      additionalMaterials: [
+        { label: 'Презентація рівня 22', href: 'https://ua-claude-code-18-c437.javarush-university.workers.dev/#slide-1', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 22', href: 'https://www.youtube.com/watch?v=6LiD6XCNnQA', kind: 'video' },
+      ],
       paragraphs: [
         'Короткий postmortem має зафіксувати, що сталося, як проблему виявили, яку дію виконали та що змінили після цього. Іноді потрібні правки в QUALITY_GATES.md, prompt, hook, matcher, логуванні або recovery path.',
         'Рішення про rollback, disable або продовження ризикованої операції залишається за людиною. Особливо це стосується publish, deploy і privilege-bound actions.'

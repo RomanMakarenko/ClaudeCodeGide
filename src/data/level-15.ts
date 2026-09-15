@@ -175,6 +175,7 @@ owner: ухвалити наступний крок`
     },
     {
       heading: 'Workflow команди',
+      artifactIds: ['clawd-yolo', 'contract-md'],
       steps: [
         'Власник формулює мету, межі та ризики.',
         'Lead розподіляє незалежні read-only дослідження.',
@@ -241,6 +242,7 @@ owner: ухвалити наступний крок`
     },
     {
       heading: 'Формальний pipeline',
+      artifactIds: ['plan-md'],
       code: [
         {
           language: 'text',
@@ -333,6 +335,10 @@ Return: артефакти, evidence і статус`
     },
     {
       heading: 'Порядок інтеграції задайте до старту',
+      additionalMaterials: [
+        { label: 'Презентація рівня 15', href: 'https://ua-claude-code-11-8b90.javarush-university.workers.dev/', kind: 'presentation' },
+        { label: 'YouTube-відео рівня 15', href: 'https://www.youtube.com/watch?v=q7un72W9WOo', kind: 'video' },
+      ],
       steps: [
         'Зафіксуйте plan і delegation contract.',
         'Стабілізуйте спільні API або інші контракти.',

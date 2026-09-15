@@ -23,6 +23,9 @@ import { levelTwentyTwoContent } from './level-22';
 import { levelTwentyThreeContent } from './level-23';
 import { levelTwentyFourContent } from './level-24';
 import { levelTwentyFiveContent } from './level-25';
+import { levelTwentySixContent } from './level-26';
+import { levelTwentySevenContent } from './level-27';
+import { levelTwentyEightContent } from './level-28';
 
 export const guideContentByLevel = {
   'level-01': levelOneContent,
@@ -50,4 +53,7 @@ export const guideContentByLevel = {
   'level-23': levelTwentyThreeContent,
   'level-24': levelTwentyFourContent,
   'level-25': levelTwentyFiveContent,
+  'level-26': levelTwentySixContent,
+  'level-27': levelTwentySevenContent,
+  'level-28': levelTwentyEightContent,
 } as const;
