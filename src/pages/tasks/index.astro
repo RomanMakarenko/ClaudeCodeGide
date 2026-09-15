@@ -1,0 +1,190 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { artifacts } from '../../data/artifacts';
+import { guidePages } from '../../data/guide';
+import { taskSpecs } from '../../data/task-specs';
+
+const modeLabels = {
+  general: 'General',
+  modernization: 'Modernization',
+  migration: 'Migration'
+};
+
+const familyLabels = {
+  foundations: 'Основи постановки',
+  discovery: 'Discovery та evidence',
+  delivery: 'Реалізація й delivery',
+  automation: 'Automation та інтеграції',
+  governance: 'Quality і governance',
+  'legacy-transition': 'Legacy transition'
+};
+
+const comparisonRows = [
+  ['Modernization', 'поступове внутрішнє покращення legacy-ділянки', 'зовнішні контракти й бізнес-сенс', 'baseline, characterization, risk map', 'розповзання scope і широкий diff'],
+  ['Migration', 'перехід із source state до визначеного target state', 'observable behavior, сумісність і rollback', 'discovery, changelog, compatibility matrix', 'припущення про сумісність і передчасний rollout']
+];
+
+const getSourcePage = (sourceId: string) => guidePages.find((page) => page.id === sourceId);
+const familyEntries = Object.entries(familyLabels).map(([id, label]) => ({
+  id,
+  label,
+  tasks: taskSpecs.filter((task) => task.family === id)
+}));
+---
+<BaseLayout title="Постановки задач" description="Source-backed приклади постановок задач і повʼязаних артефактів для всіх рівнів гайда.">
+  <div class="page-shell tasks-page">
+    <Breadcrumbs items={[{ label: 'Головна', href: '/' }, { label: 'Постановки задач' }]} />
+    <section class="section-heading">
+      <div>
+        <p class="eyebrow">Task catalog</p>
+        <h1>Типи задач і заповнені артефакти</h1>
+      </div>
+      <p>{taskSpecs.length} типів · 28 рівнів</p>
+    </section>
+    <p class="lead guide-intro">Каталог зібрано після проходу рівнів 1–28. Кожна картка має окрему постановку, власні заповнені приклади артефактів і посилання на уроки, що пояснюють цей workflow. Усі записи — навчальні documented examples, а не production evidence.</p>
+
+    <nav class="task-family-index" aria-label="Сімейства постановок задач">
+      {familyEntries.map((family) => (
+        <a href={`#family-${family.id}`}><strong>{family.label}</strong><span>{family.tasks.length} типів</span></a>
+      ))}
+    </nav>
+
+    <section class="task-spec-list" aria-labelledby="task-specs-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Source-backed catalog</p>
+          <h2 id="task-specs-title">Окремі постановки за рівнями</h2>
+        </div>
+      </div>
+      {familyEntries.map((family) => (
+        <section class="task-family" id={`family-${family.id}`} aria-labelledby={`family-${family.id}-title`}>
+          <header class="task-family-header">
+            <div><p class="eyebrow">Task family</p><h3 id={`family-${family.id}-title`}>{family.label}</h3></div>
+            <span>{family.tasks.length} типів</span>
+          </header>
+          {family.id === 'legacy-transition' ? (
+            <section class="tasks-comparison" aria-labelledby="tasks-comparison-title">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Вибір режиму</p>
+                  <h4 id="tasks-comparison-title">Modernization і Migration — різні межі змін</h4>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th scope="col">Режим</th><th scope="col">Що змінюємо</th><th scope="col">Що має залишитися</th><th scope="col">Головні артефакти</th><th scope="col">Типовий ризик</th></tr></thead>
+                  <tbody>{comparisonRows.map((row) => <tr>{row.map((cell) => <td>{cell}</td>)}</tr>)}</tbody>
+                </table>
+              </div>
+            </section>
+          ) : null}
+          {family.tasks.map((task) => (
+            <article class="task-spec-card" id={task.id}>
+              <header class="task-spec-header">
+                <div>
+                  <div class="task-badge-row"><span class="card-kicker">{modeLabels[task.mode]}</span><span class="task-type-badge">{task.type}</span></div>
+                  <h3>{task.title}</h3>
+                </div>
+                <a class="task-spec-anchor" href={`#${task.id}`}>#{task.id}</a>
+              </header>
+              <div class="task-spec-fields">
+                <div><strong>Mode / Type</strong><p>{modeLabels[task.mode]} · {task.type}</p></div>
+                <div><strong>Goal</strong><p>{task.goal}</p></div>
+                <div><strong>Scope</strong><ul>{task.scope.map((item) => <li>{item}</li>)}</ul></div>
+                <div><strong>Non-goals</strong><ul>{task.nonGoals.map((item) => <li>{item}</li>)}</ul></div>
+                <div><strong>Success</strong><ul>{task.success.map((item) => <li>{item}</li>)}</ul></div>
+                <div><strong>CLAUDE.md правила сесії</strong><ul>{task.rules.map((rule) => <li set:html={rule.replaceAll(/`([^`]+)`/g, '<code>$1</code>')} />)}</ul></div>
+              </div>
+              <figure class="code-block task-spec-code">
+                <figcaption><span>Заповнений TASK_SPEC · documented example</span><button type="button" class="copy-button" data-copy-target={`task-spec-${task.id}`} aria-label={`Скопіювати TASK_SPEC для ${task.title}`}>Скопіювати</button></figcaption>
+                <pre><code id={`task-spec-${task.id}`}>{`# TASK_SPEC
+Type: ${task.type}
+Mode: ${modeLabels[task.mode]}
+Goal: ${task.goal}
+Scope:
+${task.scope.map((item) => `- ${item}`).join('\n')}
+Non-goals:
+${task.nonGoals.map((item) => `- ${item}`).join('\n')}
+Success:
+${task.success.map((item) => `- ${item}`).join('\n')}`}</code></pre>
+              </figure>
+              <div class="copy-feedback" data-copy-feedback={`task-spec-${task.id}`} role="status" aria-live="polite" aria-atomic="true"></div>
+              <section class="task-source-block" aria-labelledby={`${task.id}-sources-title`}>
+                <h4 id={`${task.id}-sources-title`}>Джерела в гайді</h4>
+                <div class="task-source-links">
+                  {task.sourceLessonIds.map((sourceId) => {
+                    const page = getSourcePage(sourceId);
+                    return page ? <a href={`/guide/${page.slug}`}>Level {page.levelId.replace('level-', '')} · {page.title}</a> : null;
+                  })}
+                </div>
+                {task.sourceLabIds?.length ? <p class="task-lab-note"><strong>Лабораторії:</strong> {task.sourceLabIds.map((labId) => <span>{labId}</span>).join(' · ')}</p> : null}
+              </section>
+              <section class="task-artifact-examples" aria-labelledby={`${task.id}-artifacts-title`}>
+                <h4 id={`${task.id}-artifacts-title`}>Заповнені приклади артефактів</h4>
+                {task.artifactExamples.map((example) => {
+                  const artifact = artifacts.find((item) => item.id === example.artifactId);
+                  return artifact ? <article class="task-artifact-example"><header><div><a href={`/artifacts#${artifact.id}`}>{artifact.name}</a><span>{artifact.role}</span></div><button type="button" class="copy-button" data-copy-target={`artifact-example-${task.id}-${artifact.id}`} aria-label={`Скопіювати приклад ${artifact.name}`}>Скопіювати</button></header><pre><code id={`artifact-example-${task.id}-${artifact.id}`}>{example.content}</code></pre><div class="copy-feedback" data-copy-feedback={`artifact-example-${task.id}-${artifact.id}`} role="status" aria-live="polite" aria-atomic="true"></div></article> : null;
+                })}
+              </section>
+              <p class="task-spec-note"><strong>Межа прикладу:</strong> {task.note}</p>
+            </article>
+          ))}
+        </section>
+      ))}
+    </section>
+  </div>
+  <script>
+    const fallbackCopy = (text: string) => {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      let copied = false;
+      try {
+        const execCommand = (document as unknown as { execCommand?: (commandId: string) => boolean }).execCommand;
+        copied = execCommand?.call(document, 'copy') ?? false;
+      } catch {
+        copied = false;
+      }
+      textarea.remove();
+      return copied;
+    };
+
+    const copyExample = async (button: HTMLButtonElement) => {
+      const targetId = button.dataset.copyTarget;
+      const target = targetId ? document.getElementById(targetId) : null;
+      const feedback = targetId ? document.querySelector(`[data-copy-feedback="${targetId}"]`) : null;
+      const text = target?.textContent ?? '';
+      let copied = false;
+
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(text);
+          copied = true;
+        }
+      } catch {
+        copied = fallbackCopy(text);
+      }
+
+      if (!copied && !navigator.clipboard?.writeText) copied = fallbackCopy(text);
+      button.textContent = copied ? 'Скопійовано' : 'Не вдалося скопіювати';
+      if (feedback instanceof HTMLElement) feedback.textContent = copied ? 'Текст скопійовано.' : 'Виділіть текст вручну.';
+      window.setTimeout(() => {
+        button.textContent = 'Скопіювати';
+        if (feedback instanceof HTMLElement) feedback.textContent = '';
+      }, 2200);
+    };
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target instanceof HTMLButtonElement && target.matches('[data-copy-target]')) {
+        void copyExample(target);
+      }
+    });
+  </script>
+</BaseLayout>

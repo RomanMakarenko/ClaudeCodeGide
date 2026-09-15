@@ -69,7 +69,7 @@ export const artifacts: Artifact[] = [
     responsibility: 'Перетворює issue або ідею на перевірюваний task contract.',
     role: 'Визначає межі роботи до реалізації та зменшує scope drift.',
     template: "# Task spec — <short task name>\n\n## Goal\n- <problem and desired outcome>\n\n## Scope\n- <files or behavior included>\n\n## Non-goals\n- <explicitly excluded work>\n\n## Acceptance criteria\n- <verifiable condition>\n\n## Verification\n- <command or manual check>\n",
-    paths: [{ value: '{project}/TASK_SPEC.md', scope: 'repository', status: 'present' }],
+    paths: [{ value: '{project}/TASK_SPEC.md', scope: 'repository', status: 'documented-example' }, { value: 'archive/task-specs/TASK_SPEC.md', scope: 'repository', status: 'present' }],
     fields: [
       { name: 'goal/problem', description: 'Яку проблему вирішуємо і навіщо.', requirement: 'required' },
       { name: 'current/desired behavior', description: 'Поточний і очікуваний стан.', requirement: 'required' },

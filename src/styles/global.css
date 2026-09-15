@@ -235,6 +235,55 @@ body.materials-unlocked .additional-materials, body.materials-unlocked .source-b
 .lab-artifacts { margin-top: 20px; }
 .lab-sources { margin-top: 18px; color: var(--muted); font-size: 0.82rem; overflow-wrap: anywhere; }
 .artifact-example-note { margin: 18px 0 42px; color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
+.tasks-page { max-width: 1040px; }
+.task-family-index { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 28px; }
+.task-family-index a { display: flex; min-width: 0; flex-direction: column; gap: 5px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); text-decoration: none; }
+.task-family-index a:hover { border-color: var(--accent); }
+.task-family-index span, .task-family-header > span { color: var(--muted); font-size: 0.84rem; }
+.tasks-comparison { margin-top: 26px; }
+.tasks-comparison h4 { margin: 0 0 16px; color: var(--ink); font-size: clamp(1.25rem, 2.5vw, 1.75rem); letter-spacing: -0.03em; }
+.task-spec-list { margin-top: 60px; }
+.task-family { scroll-margin-top: 88px; margin-top: 42px; }
+.task-family-header { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.task-family-header h3 { margin: 0; font-size: 1.35rem; }
+.task-badge-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.task-type-badge { padding: 4px 8px; border-radius: 999px; background: var(--surface-soft); color: var(--muted); font: 0.75rem ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.task-source-block { margin-top: 26px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-soft); }
+.task-source-block h4 { margin: 0 0 10px; }
+.task-source-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.task-source-links a, .task-lab-note span { display: inline-block; max-width: 100%; padding: 6px 9px; border-radius: 8px; background: var(--surface); color: var(--accent-dark); font-size: 0.85rem; text-decoration: none; }
+.task-source-links a:hover { text-decoration: underline; }
+.task-lab-note { margin: 12px 0 0; color: var(--muted); font-size: 0.88rem; }
+.task-lab-note span { margin-left: 6px; color: var(--ink); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.task-spec-card { scroll-margin-top: 88px; margin-top: 24px; padding: 26px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); box-shadow: var(--shadow); }
+.task-spec-header { display: flex; align-items: start; justify-content: space-between; gap: 18px; }
+.task-spec-header h3 { margin-top: 6px; font-size: clamp(1.35rem, 3vw, 2rem); }
+.task-spec-anchor { flex: 0 0 auto; color: var(--muted); font: 0.82rem ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; text-decoration: none; }
+.task-spec-anchor:hover { color: var(--accent-dark); }
+.task-spec-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 24px; }
+.task-spec-fields > div { min-width: 0; padding: 16px; border-radius: 12px; background: var(--surface-soft); }
+.task-spec-fields strong { display: block; margin-bottom: 8px; color: var(--ink); font-size: 0.84rem; }
+.task-spec-fields p { margin: 0; color: var(--muted); line-height: 1.55; }
+.task-spec-fields ul { margin: 0; padding-left: 1.2rem; color: var(--muted); line-height: 1.55; }
+.task-spec-fields li + li { margin-top: 6px; }
+.task-spec-code { margin-top: 24px; }
+.task-spec-code pre { max-height: 480px; overflow: auto; }
+.task-spec-card .artifact-references { margin-top: 24px; }
+.task-spec-note { margin: 20px 0 0; padding: 14px 16px; border-left: 4px solid #f5aa3c; background: #fff7e8; color: #6e5934; line-height: 1.55; }
+.task-spec-note strong { color: #7c5311; }
+.task-artifact-examples { margin-top: 26px; }
+.task-artifact-examples h4 { margin: 0 0 14px; color: var(--ink); font-size: 1.05rem; }
+.task-artifact-example { margin-top: 14px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface-soft); }
+.task-artifact-example header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px 12px; padding: 12px 15px; border-bottom: 1px solid var(--line); }
+.task-artifact-example header > div { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 12px; min-width: 0; }
+.task-artifact-example header a { font-weight: 800; }
+.task-artifact-example header span { color: var(--muted); font-size: 0.84rem; }
+.task-artifact-example .copy-button { border-color: var(--accent-dark); background: var(--accent-dark); color: #fff; }
+.task-artifact-example .copy-button:hover { background: var(--ink); color: #fff; }
+.task-artifact-example pre { max-width: 100%; margin: 0; padding: 16px; overflow-x: auto; color: var(--ink); font: 0.86rem/1.6 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+.task-artifact-example code { white-space: pre; }
+.task-artifact-example .copy-feedback { margin: 0 15px 10px; }
+.task-spec-code .copy-button { flex: 0 0 auto; }
 .artifact-sources strong { color: var(--ink); margin-right: 5px; }
 .empty-state { padding: 34px; border: 1px dashed var(--line); border-radius: 18px; color: var(--muted); background: var(--surface); }
 .not-found { max-width: 720px; margin: 8vh auto; }
@@ -343,8 +392,15 @@ body.materials-unlocked .additional-materials, body.materials-unlocked .source-b
     right: max(12px, env(safe-area-inset-right));
     bottom: max(12px, env(safe-area-inset-bottom));
   }
-  .artifact-cloud, .artifact-card { padding: 18px; }
+  .artifact-cloud, .artifact-card, .task-spec-card { padding: 18px; }
   .artifact-cloud { margin-bottom: 36px; }
+  .task-family-index { grid-template-columns: 1fr; }
+  .task-family-header { align-items: start; flex-direction: column; gap: 6px; }
+  .task-spec-fields { grid-template-columns: 1fr; }
+  .task-spec-header { flex-direction: column; gap: 8px; }
+  .task-spec-anchor { order: -1; }
+  .task-artifact-example header { align-items: stretch; flex-direction: column; gap: 10px; }
+  .task-artifact-example header .copy-button { width: 100%; }
   .artifact-category + .artifact-category { margin-top: 42px; }
   .artifact-card-header { gap: 12px; }
   .artifact-template pre { padding: 13px; }

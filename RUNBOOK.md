@@ -326,6 +326,17 @@ npm run validate:artifacts
 - **Verification:** `npm run check` — 0 errors, 0 warnings, 0 hints; `npm run validate:artifacts` — `Artifact validation passed: 59 artifacts.`; `npm run validate` — `Guide validation passed: 140 source-backed pages across 28 levels` і artifact validation для 59 records; `npm run build` — `144 page(s) built`. Generated audit підтвердив 5 level-28 pages, 5 точних source URLs, 5 authored entries, 5 robots meta `noindex, nofollow`, 5 migration artifact cards і 5 quick-jump targets.
 - **Обмеження:** Chromium/Chrome/Playwright/Puppeteer у середовищі не знайдено, тому browser/mobile visual або E2E interaction test не виконувався; verification підтверджує static output, registry contracts і compiled/generated markup, але не реальні migration outcomes.
 
+### 32. Сторінка типів задач із заповненими артефактами — `implemented` / `verified`
+
+- **Мета і scope:** виконати `TASK_SPEC27` як окрему статичну сторінку з різними типами задач і заповненими прикладами повʼязаних артефактів, а не лише з порівняльною таблицею режимів.
+- **Змінені файли:** `src/types/task-spec.ts`, `src/data/task-specs.ts`, `src/pages/tasks/index.astro`, `src/layouts/BaseLayout.astro`, `src/styles/global.css`, `scripts/validate-task-specs.ts`, `package.json`, `README.md`, `RUNBOOK.md`.
+- **Результат:** route `/tasks` розширено до 24 різних task types із registry-driven сімействами, stable anchors, полями Mode/Type/Goal/Scope/Non-goals/Success, правилами сесії, source links на конкретні уроки та окремими filled artifact examples. Modernization і Migration збережені як окремі режими з порівнянням.
+- **Покриття:** task registry посилається на 28 із 28 рівнів і 10 lab-backed task types; кожна картка має власну постановку та навчальні приклади артефактів із посиланнями на `/artifacts#...`.
+- **Перевірюваність:** `scripts/validate-task-specs.ts` перевіряє унікальні IDs, режими, сімейства, source lesson/lab references, artifact references, documented-example boundary і покриття всіх рівнів.
+- **Збережені межі:** усі task specs і artifact contents є навчальними documented examples. Реальні Boot/Java upgrades, migration scripts, production rollout, backend/API/database/auth/persistence не додавалися.
+- **Verification:** `npm run validate` — успішно: 24 types, 28 levels, 10 lab-backed types; `npm run check` — 0 errors, 0 warnings, 0 hints; `npm run build` — успішно: 145 page(s) built.
+- **Обмеження:** browser/mobile visual та E2E interaction test не заявляється без доступного Chromium/Playwright/Puppeteer; перевірено static output, registry contracts і generated markup.
+
 ## Поточний стан після TASK_SPEC28
 
 - Canonical guide scope: 140 routes, 28 levels × 5 lessons.

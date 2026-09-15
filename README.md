@@ -34,6 +34,7 @@ npm run preview
 - Каталог артефактів доступний на [`/artifacts`](/artifacts); його typed registry знаходиться в `src/data/artifacts.ts`.
 - Кожен запис має відповідальність, роль, шляхи, поля, умови використання та погані сценарії вибору. Статус розрізняє файли, присутні в цьому repository, і documented examples із навчальних матеріалів.
 - Концептуальні артефакти на кшталт `SKILL.md`, `SPEC.md` і `CODEBASE_INVENTORY.md` не вважаються фізично наявними лише через згадку в уроках; naming/path variants позначені явно.
+- Окрема сторінка [`/tasks`](/tasks) містить 24 source-backed типи задач із заповненими прикладами `TASK_SPEC` та повʼязаних артефактів, що посилаються на всі 28 рівнів; це documented examples, а не production evidence.
 - Внутрішня хронологія виконаних задач зберігається в [`RUNBOOK.md`](RUNBOOK.md) і зареєстрована в каталозі як `runbook-md`; це delivery history, а не production audit log.
 
 ## Результати editorial review
