@@ -6,20 +6,26 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "npm run build && wrangler dev",
     "check": "astro check && tsc --noEmit",
     "validate": "tsx scripts/validate-guide.ts && tsx scripts/validate-artifacts.ts && tsx scripts/validate-task-specs.ts",
     "validate:registry": "node --import tsx scripts/validate-guide.ts && node --import tsx scripts/validate-artifacts.ts",
-    "validate:artifacts": "tsx scripts/validate-artifacts.ts"
+    "validate:artifacts": "tsx scripts/validate-artifacts.ts",
+    "deploy": "npm run build && wrangler deploy",
+    "cf-typegen": "wrangler types"
   },
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "12",
+    "@types/node": "^22.0.0",
     "astro": "^5.0.0",
     "tsx": "^4.19.0",
-    "typescript": "^5.6.0",
-    "@types/node": "^22.0.0"
+    "typescript": "^5.6.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.132.0"
   }
 }
