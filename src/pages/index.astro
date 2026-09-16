@@ -1,12 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { guideLevels, guidePages, getPagesForLevel } from '../data/guide';
-import { guideContentByLevel } from '../data/content';
+import { guideLevels, getPagesForLevel } from '../data/guide';
 
 const availableLevels = guideLevels.filter((level) => getPagesForLevel(level.id).length > 0);
-const authoredPageIds = new Set(Object.values(guideContentByLevel).flatMap((content) => Object.keys(content)));
-const authoredPages = guidePages.filter((page) => authoredPageIds.has(page.id));
-const plannedPages = guideLevels.reduce((total, level) => total + level.planned, 0);
 ---
 <BaseLayout title="Практичний гайд" description="Український практичний гайд із Claude Code для розробників.">
   <div class="page-shell">
@@ -22,10 +18,6 @@ const plannedPages = guideLevels.reduce((total, level) => total + level.planned,
           <a class="button secondary" href="#levels">Подивитися рівні</a>
         </div>
       </div>
-      <aside class="hero-note" aria-label="Стан гайда">
-        <strong>Поточний стан</strong>
-        <p><b>{guidePages.length}</b> source-backed уроків зареєстровано; <b>{authoredPages.length}</b> уже мають повний авторський контент. У roadmap — {plannedPages} матеріалів, без вигаданих сторінок.</p>
-      </aside>
     </section>
 
     <section id="levels">
