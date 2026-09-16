@@ -347,3 +347,25 @@ npm run validate:artifacts
 - Catalog renderer: registry-driven; додано stable anchors і purpose-based quick-jump group для migration artifacts.
 - Архітектурні межі: static-only output без backend, API, authorization, database або server persistence.
 - Browser verification: не виконана через відсутність browser tooling; підтверджено generated static output.
+
+### 33. Розгортання Cloudflare Workers і Cloudflare Pages — `implemented` / `partially verified`
+
+- **Мета і scope:** опублікувати статичний Astro output на Cloudflare, зберігши безкоштовний тариф і отримавши project-level URL без account-level username у домені.
+- **Перший deployment:** Wrangler `4.132.0` розпізнав Astro-конфігурацію та виконав Workers-oriented flow: `Astro → Cloudflare Worker → workers.dev`. Результат — `https://claudecodegide.makarenkoroman1989.workers.dev`. Під час цього flow локально були згенеровані/змінені deployment files, зокрема `wrangler.jsonc`, `public/.assetsignore`, `.gitignore`, `package.json`, `package-lock.json` і `astro.config.mjs`; ці deployment-generated зміни не були автоматично commit/push у Git.
+- **Другий deployment:** Wrangler `3.114.17` створив classic Cloudflare Pages project `claudecodegide` і вручну завантажив уже зібраний каталог `dist`: `Astro dist → Cloudflare Pages project → pages.dev`. Основний URL — `https://claudecodegide.pages.dev`; deployment також повернув version-specific URL `https://78363bb0.claudecodegide.pages.dev`.
+- **Ручний command path:** Pages deployment виконувався через `wrangler pages project create claudecodegide --production-branch main`, а потім `wrangler pages deploy /Users/romanmakarenko/Documents/code/ClaudeCodeGide/dist --project-name claudecodegide`. GitHub automatic deployment для Pages не налаштовувався.
+- **Тариф і межі:** безкоштовний Cloudflare plan не змінювався. Deployment не додавав backend, API, database, authorization, server persistence або реальну Java/Boot migration.
+- **Автоматичність після `git push`:** у поточній конфігурації `git push` сам по собі не запускає новий Pages deployment, тому зміни зʼявляться на `https://claudecodegide.pages.dev` лише після повторного `npm run build` і ручного `wrangler pages deploy dist --project-name claudecodegide`. Автоматична публікація після push була б можлива лише після окремого налаштування GitHub integration/CI у Cloudflare Pages; цього не робили.
+- **Verification:** основний Pages URL і `/tasks/` відповідали HTTP 200 після ручного deployment. Перевірка version-specific subdomain через curl мала TLS handshake error, що не блокувало основний project URL.
+- **Обмеження:** це підтверджує ручний upload і доступність основного URL на момент перевірки, але не означає автоматичну синхронізацію з GitHub і не є browser visual verification.
+
+### 34. Підготовка автоматичного Pages deployment після GitHub push — `implemented` / `partially configured`
+
+- **Мета і scope:** підготувати безкоштовний GitHub Actions flow, який після push у `main` перевіряє, збирає та публікує `dist` до наявного Cloudflare Pages project `claudecodegide`.
+- **Змінений файл:** `.github/workflows/deploy-pages.yml`.
+- **Результат:** workflow запускається на `push` у `main` або вручну через `workflow_dispatch`; використовує Node.js 20, `npm ci`, `npm run check`, `npm run validate`, `npm run build` і `wrangler@3.114.17 pages deploy dist --project-name claudecodegide --branch main`. Встановлено `contents: read` і concurrency з скасуванням застарілого production run.
+- **Secrets boundary:** workflow очікує лише GitHub encrypted secrets `CLOUDFLARE_API_TOKEN` і `CLOUDFLARE_ACCOUNT_ID`. Значення не зберігаються в repository, workflow, RUNBOOK або chat. Локальний Wrangler OAuth не використовується GitHub Actions.
+- **Тариф і deployment model:** Cloudflare free plan не змінюється; це GitHub Actions + Direct Upload до існуючого Pages project, а не native Cloudflare Git integration і не Workers deployment.
+- **Поточний стан:** файл workflow додано локально, але запуск у GitHub буде готовий лише після додавання обох secrets у repository. До цього автоматичний job має завершуватися з помилкою через відсутні credentials; fallback без credentials не передбачений.
+- **Verification:** локально `npm run check`, `npm run validate`, `npm run build` і YAML parse завершилися успішно. Remote GitHub Actions run і автоматичне оновлення Pages ще не підтверджені.
+- **Обмеження:** для завершення налаштування потрібні одноразове створення мінімального Cloudflare API Token з permission `Account → Cloudflare Pages → Edit` і додавання його до GitHub Secrets; token не потрібно надсилати Claude.
