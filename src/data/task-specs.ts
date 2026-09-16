@@ -450,24 +450,62 @@ Status: documented example.`)],
     note: 'Навчальний modernization example; реальний legacy-модуль не змінювався.'
   },
   {
-    id: 'migration', type: 'migration', family: 'legacy-transition', title: 'Підготувати пілотну міграцію', mode: 'migration',
-    goal: 'Підготувати bounded pilot переходу на Boot 3.x і Java 21, спочатку зібравши evidence для сумісності та зберігши поточну поведінку.',
-    scope: ['Build-конфігурація і version constraints.', 'Security-конфігурація target slice.', 'Один read-only endpoint.', 'Official docs і repository files.'],
-    nonGoals: ['Рефакторинг BillingService.', 'Нова схема БД.', 'Нові features, full rollout або production deployment.', 'Version bump до discovery та approval.'],
-    success: ['Known, Assumption і Unknown розділені.', 'Compatibility checks, behavior contract і rollback визначені.', 'Pilot має пройти поточні перевірки та поводитися як раніше; результат до виконання — Unknown.'],
-    rules: ['Source of truth: official docs + repo files.', 'Кожен висновок має docs section або file path.', 'Не пропонувати edit, build або version bump без запиту.', 'Почати з discovery, changelog, dependency graph і compatibility matrix.'],
-    artifactIds: ['task-spec', 'claude-md', 'migration-discovery', 'changelog-research', 'dependency-graph', 'compatibility-matrix', 'migration-plan'],
-    artifactExamples: [artifactExample('migration-plan', `# MIGRATION_PLAN.md
+    id: 'migration', type: 'migration', family: 'legacy-transition', title: 'Підготувати й контрольовано виконати migration pilot', mode: 'migration',
+    goal: 'Підготувати bounded pilot переходу на визначений target state, виконати його лише за наявності branch, rollback і validation gates та зібрати evidence паритету поведінки.',
+    scope: ['Source/target runtime, framework і dependency constraints.', 'Один pilot slice у branch або worktree.', 'Rollback для code, configuration, data/state і traffic.', 'Behavior parity cases та validation evidence.', 'Карта code/dependency, schema/data, configuration, infrastructure/platform і operational changes.', 'Official docs і repository files.'],
+    nonGoals: ['Рефакторинг BillingService.', 'Неконтрольована зміна або нова схема БД.', 'Нові features, full rollout або production deployment.', 'Зберігання secret values у specs, logs або evidence.', 'Version bump чи execution до discovery, approval і recovery plan.'],
+    success: ['Known, Assumption і Unknown розділені.', 'Pilot slice, branch/worktree, owner і entry/exit gates визначені.', 'Rollback є перевірюваною передумовою, а stateful limitations позначені.', 'Behavior parity dimensions, evidence anchors і discrepancy decisions визначені.', 'Migration types, data/config sequencing, validation і recovery paths описані; фактичний результат до execution — Unknown.'],
+    rules: ['Source of truth: official docs + repo files.', 'Кожен висновок має docs section або file path.', 'Не пропонувати edit, build, version bump або rollout без запиту й approval.', 'Почати з discovery, changelog, dependency graph, compatibility matrix і migration type map.', 'Не переходити до pilot без rollback trigger, owner, checkpoint і post-rollback check.', 'При непоясненій discrepancy, irreversible state або відсутньому oracle обрати HOLD.'],
+    artifactIds: ['task-spec', 'claude-md', 'git-review-artifacts', 'migration-discovery', 'changelog-research', 'dependency-graph', 'compatibility-matrix', 'migration-plan', 'modernization-baseline', 'risk-map', 'characterization-tests', 'contract-md', 'evidence', 'migration-types', 'data-config-migration', 'rollback', 'migration-validation-report', 'post-migration-notes'],
+    artifactExamples: [
+      artifactExample('migration-plan', `# MIGRATION_PLAN.md
 Mode: migration
-Source: <current Boot/Java versions — verify in repo>
-Target: Boot 3.x / Java 21
-Scope: build, security config, one read-only endpoint
-Non-goals: BillingService refactor, new DB schema, new features
-Evidence gate: official docs + repository paths
-Decision: HOLD until facts and checks are recorded
-Rollback: <approved procedure — Unknown>
-Status: documented example.`)],
-    sourceLessonIds: ['l28-01', 'l28-02', 'l28-03', 'l28-04', 'l28-05'],
-    note: 'Migration example не є виконаним Boot/Java upgrade: source version, checks, compatibility і rollout залишаються Unknown.'
+Source: current runtime and dependency state — repository evidence required
+Target: target runtime/framework state — compatibility Unknown
+Pilot: one read-only endpoint in an isolated branch/worktree
+Entry gates: baseline, migration type map, compatibility matrix, rollback owner and checkpoint
+Validation: source/target representative cases, config/startup and integrity checks
+Decision: HOLD until gates and recovery procedure are verified
+Status: documented example.`),
+      artifactExample('migration-types', `# MIGRATION_TYPES.md
+| Work item | Type | Coupled with | Evidence gate | Owner | Status |
+| --- | --- | --- | --- | --- | --- |
+| framework change | code/dependency | config, behavior | changelog and focused checks | role | Unknown |
+| record transition | schema/data | target code, recovery | integrity and parity cases | role | HOLD |
+| environment key mapping | configuration | startup, secret references | config validation | role | Unknown |
+Decision: classify and order before execution.
+Status: documented example.`),
+      artifactExample('data-config-migration', `# DATA_CONFIG_MIGRATION.md
+Data: source representation -> target representation; inventory and compatibility window required
+Configuration: versioned keys/defaults per environment; secret values excluded
+Sequence: expand compatible readers -> bounded migration -> validate -> switch -> contract
+Validation: counts, invariants, representative reads/writes and startup — Unknown until executed
+Recovery: approved backout or forward-fix with owner; HOLD if state rollback is not verified
+Status: documented example.`),
+      artifactExample('rollback', `# ROLLBACK.md
+Scope: one bounded pilot slice in an isolated branch/worktree
+Trigger: behavior discrepancy, integrity failure, or unavailable recovery evidence
+Checkpoint: source revision plus versioned config/state checkpoint
+Actions: stop affected traffic -> restore code -> restore config -> backout state or choose forward-fix
+Verification: representative behavior and invariants — Unknown until executed
+Decision: HOLD until recovery steps are verified
+Status: documented example.`),
+      artifactExample('migration-validation-report', `# MIGRATION_VALIDATION_REPORT.md
+Baseline: source revision and target revision must be recorded before comparison
+Cases: representative inputs, outputs, errors, side effects, integrity, configuration and startup
+Evidence: matching test, fixture, command or log anchor for each dimension
+Observed: Unknown; no source-to-target validation was executed
+Decision: HOLD while evidence or oracle is missing
+Status: documented example.`),
+      artifactExample('post-migration-notes', `# POST_MIGRATION_NOTES.md
+Scope: bounded pilot and observation window — Unknown until defined
+Decision: GO, HOLD, NARROW or ROLLBACK based on evidence
+Observations: expected versus observed behavior, data/configuration and operational signals
+Residual risk: record each Unknown with an owner and next bounded action
+Handoff: summarize evidence anchors and lessons without secret values
+Status: documented example; no post-migration outcome is claimed.`)
+    ],
+    sourceLessonIds: ['l28-01', 'l28-02', 'l28-03', 'l28-04', 'l28-05', 'l29-01', 'l29-02', 'l29-03', 'l29-04', 'l29-05'],
+    note: 'Migration task і всі його artifacts — навчальні documented examples. Цей запис не доводить виконаний Boot/Java upgrade, pilot, rollback, parity, compatibility, data/config migration або production rollout.'
   }
 ];

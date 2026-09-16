@@ -2,7 +2,7 @@
 
 **Назва:** `RUNBOOK.md`  
 **Призначення:** внутрішній хронологічний запис реально виконаних задач цього проєкту.  
-**Дата актуалізації:** 2026-09-15  
+**Дата актуалізації:** 2026-09-16
 **Статус документа:** `present`
 
 ## Межі та правила читання
@@ -12,6 +12,18 @@
 У прикладах і шаблонах не зберігаються credentials, API keys, tokens, PII або інші secrets. Документ не стверджує про production deployment, реальні approvals, зовнішні lab outcomes чи browser screenshots, якщо таких доказів немає.
 
 ## Хронологія виконаних задач
+
+### Поточний запис. TASK_SPEC29: migration execution controls — `implemented` / `partially verified`
+
+- **Мета і scope:** додати level 29 із пʼятьма source-backed уроками про bounded migration pilot, branch/worktree isolation, rollback prerequisite, behavior parity, карту типів міграцій і data/configuration sequencing.
+- **Змінені файли:** `src/data/guide.ts`, `src/data/level-29.ts`, `src/data/content.ts`, `src/data/artifacts.ts`, `src/data/task-specs.ts`, `src/pages/guide/index.astro`, `src/pages/tasks/index.astro`, `README.md`, `CLAUDE.md`, `RUNBOOK.md`.
+- **Нові маршрути:** `/guide/level-29/pilot-slice-branch-workflow`, `/guide/level-29/rollback-plan-pilot-prerequisite`, `/guide/level-29/behavior-parity-evidence`, `/guide/level-29/migration-types-map`, `/guide/level-29/data-configuration-migrations`. Для кожного збережено exact canonical JavaRush source URL із `TASK_SPEC29.md` (`lecture.level29.lecture01`–`lecture05`).
+- **Результат:** registry оновлено до 29 рівнів і 145 source-backed lesson routes; усі пʼять level-29 page IDs мають authored content. Migration task збережено як один typed record, додано всі level-29 source lessons разом із level-28 prerequisite coverage, а scope описує pilot, rollback, parity, migration types і data/config recovery.
+- **Artifacts:** повторно використано наявні migration, risk, branch/worktree, characterization, contract і evidence artifacts; збережено `MIGRATION_TYPES.md` (`migration-types`) і `DATA_CONFIG_MIGRATION.md` (`data-config-migration`) та додано три reusable documented-example records — `ROLLBACK.md` (`rollback`), `MIGRATION_VALIDATION_REPORT.md` (`migration-validation-report`) і `POST_MIGRATION_NOTES.md` (`post-migration-notes`). Усі пʼять додані до migration quick-jump group рівно один раз; catalog містить 64 artifact records. Окремий `behavior-parity` record не створювався: parity покривають наявні characterization/contract/evidence artifacts.
+- **Task coverage:** task catalog містить 24 records; `migration` посилається на уроки рівнів 28 і 29 та має filled examples для `MIGRATION_PLAN.md`, `MIGRATION_TYPES.md`, `DATA_CONFIG_MIGRATION.md`, `ROLLBACK.md`, `MIGRATION_VALIDATION_REPORT.md` і `POST_MIGRATION_NOTES.md`.
+- **Verification:** `npm run check` — 0 errors, 0 warnings, 0 hints; `npm run validate` — guide validation passed для 145 сторінок across 29 levels, artifact validation passed для 64 artifacts, task specification validation passed для 24 types, 29 levels і 10 lab-backed types; `npm run build` — успішно завершився та згенерував static output.
+- **Static audit:** підтверджено 5 level-29 generated routes, 150 generated HTML files загалом, 5 authored content keys, exact 5 level-29 source URLs, наявність `/guide`, `/artifacts` і `/tasks`, валідні artifact references і exactly-once quick-jump coverage для 64 IDs; lesson source metadata не використовує README/RUNBOOK/EVIDENCE/archive paths.
+- **Обмеження:** усі нові lesson prose, task specs і migration artifacts є documented examples. Це не доказ реальної Java/Boot migration, dependency upgrade, execution pilot, rollback, behavior parity, compatibility result, data/config migration, rollout або production readiness. Chromium/Chrome/Playwright/Puppeteer не запускався, тому browser/mobile visual verification — `Unknown`; підтверджено лише static output, registry contracts і generated markup.
 
 ### Поточний запис. Додавання CHARACTERIZATION_TESTS.md — `implemented`
 

@@ -24,17 +24,17 @@ npm run preview
 
 - Реалізовано базову оболонку сайту без backend, API, авторизації та бази даних.
 - Додано головну сторінку, каталог рівнів і сторінки доступних уроків.
-- Зареєстровано 140 source-backed маршрутів із 28 рівнів по 5 уроків; перші 34 — редакторська ціль першої хвилі, а не вимога вигадувати сторінки.
-- Рівні 1–28 перенесено в авторські структуровані конспекти з прикладами, кроками, таблицями та source links.
-- Усі 28 рівнів мають source-backed metadata та authored content; levels 26–28 покривають legacy discovery, modernization, migration discovery, changelog analysis, dependency/compatibility analysis, behavior contracts і phased gates.
-- Level 27 додає сім reusable documented-example artifacts: `MODERNIZATION_BASELINE.md`, `CHARACTERIZATION_TESTS.md`, `REFACTORING_PLAN.md`, `SEAM_MAP.md`, `STRANGLER_SLICE.md`, `MODERNIZATION_ROADMAP.md` і `MODERNIZATION_ANTI_PATTERNS.md`. Level 28 додає пʼять migration artifacts: `MIGRATION_DISCOVERY.md`, `CHANGELOG_RESEARCH.md`, `DEPENDENCY_GRAPH.md`, `COMPATIBILITY_MATRIX.md` і `MIGRATION_PLAN.md`; загалом catalog містить 59 artifact records.
+- Зареєстровано 145 source-backed маршрутів із 29 рівнів по 5 уроків; перші 34 — редакторська ціль першої хвилі, а не вимога вигадувати сторінки.
+- Рівні 1–29 перенесено в авторські структуровані конспекти з прикладами, кроками, таблицями та source links.
+- Усі 29 рівнів мають source-backed metadata та authored content; levels 26–29 покривають legacy discovery, modernization, migration discovery, changelog analysis, dependency/compatibility analysis, pilot execution controls, rollback, behavior parity, migration types і data/configuration sequencing.
+- Level 27 додає сім reusable documented-example artifacts, level 28 — пʼять migration planning artifacts, а level 29 — `MIGRATION_TYPES.md`, `DATA_CONFIG_MIGRATION.md`, `ROLLBACK.md`, `MIGRATION_VALIDATION_REPORT.md` і `POST_MIGRATION_NOTES.md`; загалом catalog містить 64 artifact records.
 - Canonical source для маршрутів — зовнішні JavaRush URLs; локальні `TASK_SPEC*.md` більше не є source metadata уроків.
 - Локальні task-spec файли можуть залишатися editorial inputs або прикладами workflow, але не визначають identity чи доступність route.
 - Порожні або ще не опрацьовані task-spec файли не перетворюються на вигаданий контент.
 - Каталог артефактів доступний на [`/artifacts`](/artifacts); його typed registry знаходиться в `src/data/artifacts.ts`.
 - Кожен запис має відповідальність, роль, шляхи, поля, умови використання та погані сценарії вибору. Статус розрізняє файли, присутні в цьому repository, і documented examples із навчальних матеріалів.
 - Концептуальні артефакти на кшталт `SKILL.md`, `SPEC.md` і `CODEBASE_INVENTORY.md` не вважаються фізично наявними лише через згадку в уроках; naming/path variants позначені явно.
-- Окрема сторінка [`/tasks`](/tasks) містить 24 source-backed типи задач із заповненими прикладами `TASK_SPEC` та повʼязаних артефактів, що посилаються на всі 28 рівнів; це documented examples, а не production evidence.
+- Окрема сторінка [`/tasks`](/tasks) містить 24 source-backed типи задач із заповненими прикладами `TASK_SPEC` та повʼязаних артефактів, що посилаються на всі 29 рівнів; це documented examples, а не production evidence.
 - Внутрішня хронологія виконаних задач зберігається в [`RUNBOOK.md`](RUNBOOK.md) і зареєстрована в каталозі як `runbook-md`; це delivery history, а не production audit log.
 
 ## Результати editorial review

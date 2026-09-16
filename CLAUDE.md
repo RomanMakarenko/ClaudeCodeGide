@@ -19,9 +19,9 @@
 - Astro static output: `output: 'static'`.
 - HTML compression: `compressHTML: true`.
 - Поточний `site` у `astro.config.mjs`: `https://claude-code-guide.example.com`.
-- 28 зареєстрованих рівнів.
-- 140 source-backed lesson routes: 28 рівнів × 5 уроків.
-- 59 records у central artifact catalog.
+- 29 зареєстрованих рівнів.
+- 145 source-backed lesson routes: 29 рівнів × 5 уроків.
+- 64 records у central artifact catalog.
 - 24 records у task catalog.
 - Увесь authored lesson content зберігається в TypeScript registries.
 
@@ -37,7 +37,7 @@
 - автоматичний publish, release або deploy;
 - зовнішні інтеграції, які виконують operational actions.
 
-Level 28 може згадувати Boot 3.x, Java 21, changelog research, compatibility matrix та phased migration plan. Це освітня схема discovery/planning. Вона не є доказом upgrade, міграції, сумісності, rollout або production readiness.
+Levels 28–29 можуть згадувати Boot 3.x, Java 21, changelog research, compatibility matrix, pilot execution, rollback, behavior parity та phased migration plan. Це освітня схема discovery/planning/execution controls. Вона не є доказом upgrade, міграції, сумісності, rollback, rollout або production readiness.
 
 ### Source of truth
 
@@ -120,7 +120,7 @@ npm run build
     ├── data/
     │   ├── guide.ts
     │   ├── content.ts
-    │   ├── level-01.ts … level-28.ts
+    │   ├── level-01.ts … level-29.ts
     │   ├── artifacts.ts
     │   └── task-specs.ts
     ├── layouts/
@@ -152,7 +152,7 @@ npm run build
 Стабільні routes:
 
 - `/` — homepage: hero, counts, navigation і level cards.
-- `/guide` — каталог 28 рівнів і 140 lesson routes.
+- `/guide` — каталог 29 рівнів і 145 lesson routes.
 - `/guide/<page.slug>` — конкретний lesson; routes генеруються через `getStaticPaths()` із `guidePages`.
 - `/artifacts` — central artifact catalog.
 - `/tasks` — central task specification catalog.
@@ -189,7 +189,7 @@ type GuideLevel = {
 };
 ```
 
-Зараз є `level-01` … `level-28`, кожен із `planned: 5`. Кожен рівень має пʼять lesson records.
+Зараз є `level-01` … `level-29`, кожен із `planned: 5`. Кожен рівень має пʼять lesson records.
 
 `GuidePage`:
 
@@ -221,7 +221,7 @@ type GuidePage = {
 
 ### `src/data/content.ts` і `src/data/level-*.ts`
 
-`content.ts` імпортує `level-01.ts` … `level-28.ts` і експортує `guideContentByLevel`. Це central authored-content registry:
+`content.ts` імпортує `level-01.ts` … `level-29.ts` і експортує `guideContentByLevel`. Це central authored-content registry:
 
 ```ts
 const guideContentByLevel = {
@@ -231,7 +231,7 @@ const guideContentByLevel = {
 };
 ```
 
-Усі 140 зареєстрованих pages мають authored content. Content key має відповідати page `id`.
+Усі 145 зареєстрованих pages мають authored content. Content key має відповідати page `id`.
 
 Основний content model у `src/types/guide.ts`:
 
@@ -304,7 +304,7 @@ Lab IDs можуть не збігатися з page ID, у якому вони 
 - **21–22:** non-interactive Claude Code, environment diagnostics, CI, build/packaging, failure analysis, quality gates, docs-as-code, release boundaries, recovery.
 - **23–24:** risk classification, capability envelope, permissions, protected paths, sensitive data, sandbox, approvals, policy, traceability, AI engineering culture.
 - **25:** capstone brief, SPEC, guardrails, repository baseline, roadmap, evaluation і evidence.
-- **26–28:** legacy discovery, technical debt, current architecture, behavior inventory, modernization, seams, Strangler Fig, migration discovery, changelog, compatibility і phased plan.
+- **26–29:** legacy discovery, technical debt, current architecture, behavior inventory, modernization, seams, Strangler Fig, migration discovery, changelog, compatibility, pilot execution, rollback, behavior parity, migration types і data/configuration sequencing.
 
 ## 7. Artifact catalog contract
 
@@ -348,7 +348,7 @@ type Artifact = {
 };
 ```
 
-Поточний каталог має 59 records у 8 categories. Він має 8 purpose-based quick-jump groups. Кожен artifact ID повинен зʼявлятися в quick-jump рівно один раз.
+Поточний каталог має 64 records у 8 categories. Він має 8 purpose-based quick-jump groups. Кожен artifact ID повинен зʼявлятися в quick-jump рівно один раз.
 
 Поточні artifact IDs:
 
@@ -412,6 +412,13 @@ changelog-research
 dependency-graph
 compatibility-matrix
 migration-plan
+migration-types
+data-config-migration
+rollback
+migration-validation-report
+post-migration-notes
+migration-types
+data-config-migration
 ```
 
 Quick-jump purpose groups охоплюють:
@@ -442,7 +449,7 @@ Quick-jump purpose groups охоплюють:
 - CI/build/release artifacts — schemas and examples, не докази фактичного pipeline run.
 - `DEBT_SIGNALS.md`, `RISK_MAP.md`, `ARCHITECTURE_CURRENT.md`, `BEHAVIOR_INVENTORY.md`, `CRITICAL_FLOWS.md`, `MODULE_INVENTORY.md` — legacy discovery forms.
 - `CHARACTERIZATION_TESTS.md`, `MODERNIZATION_BASELINE.md`, `REFACTORING_PLAN.md`, `SEAM_MAP.md`, `STRANGLER_SLICE.md`, `MODERNIZATION_ROADMAP.md` — modernization forms.
-- `MIGRATION_DISCOVERY.md`, `CHANGELOG_RESEARCH.md`, `DEPENDENCY_GRAPH.md`, `COMPATIBILITY_MATRIX.md`, `MIGRATION_PLAN.md` — migration planning forms.
+- `MIGRATION_DISCOVERY.md`, `CHANGELOG_RESEARCH.md`, `DEPENDENCY_GRAPH.md`, `COMPATIBILITY_MATRIX.md`, `MIGRATION_PLAN.md`, `MIGRATION_TYPES.md`, `DATA_CONFIG_MIGRATION.md`, `ROLLBACK.md`, `MIGRATION_VALIDATION_REPORT.md`, `POST_MIGRATION_NOTES.md` — migration planning, execution-control і handoff forms.
 
 `{project}/TASK_SPEC.md`, `{project}/EVIDENCE.md`, `docs/SPEC.md` та подібні entries — path conventions або documented variants, доки статус не підтверджує реальний файл. `present` означає лише те, що конкретний path підтверджений як present у registry/history; не поширюй цей статус на інші варіанти.
 
@@ -492,7 +499,7 @@ modernization
 migration
 ```
 
-Registry `src/data/task-specs.ts` має 24 task records. Це кількість records, а не кількість унікальних literal values у union. Не скорочуй current catalog до двох mode cards і не роби 140 task cards за кількістю lessons.
+Registry `src/data/task-specs.ts` має 24 task records. Це кількість records, а не кількість унікальних literal values у union. Не скорочуй current catalog до двох mode cards і не роби 145 task cards за кількістю lessons.
 
 Кожен `TaskSpec` має:
 
@@ -526,7 +533,7 @@ type TaskSpec = {
 - source lesson links, що ведуть на `/guide/<page.slug>`;
 - optional lab links, що ведуть до фактичного lesson, у якому lab оголошено.
 
-Усі 28 levels мають бути покриті task catalog. Explicit labs mapping перевіряється validator-ом.
+Усі 29 levels мають бути покриті task catalog. Explicit labs mapping перевіряється validator-ом.
 
 Основні task records охоплюють setup/baseline, feature, bugfix, refactoring, characterization, tests, documentation, diagnosis, discovery, acceptance, issue intake, implementation plan, PR slicing, handoff/recovery, extension evaluation, orchestration, CI/build, quality/release, risk/policy, capstone, legacy discovery, modernization і migration.
 
@@ -648,8 +655,8 @@ Task і artifact template blocks мають copy buttons. Existing behavior:
 
 Перевіряє, зокрема:
 
-- 140 source-backed pages;
-- 28 levels;
+- 145 source-backed pages;
+- 29 levels;
 - known level IDs;
 - unique lesson IDs і slugs;
 - canonical HTTPS JavaRush source URLs;
@@ -670,7 +677,7 @@ Task і artifact template blocks мають copy buttons. Existing behavior:
 - unique fields у record;
 - valid artifact references;
 - valid lesson/lab references;
-- quick-jump coverage: усі 59 IDs рівно один раз;
+- quick-jump coverage: усі 64 IDs рівно один раз;
 - відсутність forbidden `validation-script` artifact.
 
 ### `scripts/validate-task-specs.ts`
@@ -686,7 +693,7 @@ Task і artifact template blocks мають copy buttons. Existing behavior:
 - artifact example membership і non-empty content;
 - відсутність `TODO`, `TBD` або ellipsis placeholders у filled examples;
 - documented-example boundary;
-- покриття всіх 28 levels.
+- покриття всіх 29 levels.
 
 Не послаблюй validator лише для того, щоб приховати drift. Якщо invariant більше не відповідає фактичній architecture, спочатку зафіксуй проблему та отримай окреме рішення про зміну contract.
 
@@ -698,8 +705,8 @@ Task і artifact template blocks мають copy buttons. Existing behavior:
 2. Перевір Node version, встанови dependencies через `npm install`.
 3. Перевір tree; збережи `archive/task-specs/` як archive і не повертай files у root.
 4. Віднови `src/types/guide.ts`, `artifact.ts`, `task-spec.ts`.
-5. Віднови `src/data/guide.ts` із 28 levels і 140 canonical pages.
-6. Віднови `src/data/level-01.ts` … `level-28.ts` і central `src/data/content.ts`.
+5. Віднови `src/data/guide.ts` із 29 levels і 145 canonical pages.
+6. Віднови `src/data/level-01.ts` … `level-29.ts` і central `src/data/content.ts`.
 7. Віднови `src/data/artifacts.ts`, artifact types, categories і quick-jump groups.
 8. Віднови `src/data/task-specs.ts`, task types, source mappings і filled documented examples.
 9. Віднови `BaseLayout.astro`, shared components і `global.css`.

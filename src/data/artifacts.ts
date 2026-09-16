@@ -787,6 +787,90 @@ export const artifacts: Artifact[] = [
     poorChoiceWhen: 'Для modernization roadmap без source/target transition, календаря без evidence gates або твердження про виконаний rollout.',
     status: 'documented-example', sourceRefs: ['level-28']
   },
+  {
+    id: 'migration-types', name: 'MIGRATION_TYPES.md', category: 'Постановка задач',
+    responsibility: 'Класифікує склад migration initiative за типами роботи, coupling, evidence gates і owners.',
+    role: 'Decision map для розділення code/dependency, schema/data, configuration, infrastructure/platform та operational changes.',
+    template: "# MIGRATION_TYPES.md\n\n## Scope\n- Source state: <current state>\n- Target state: <target state>\n- Boundary: <bounded initiative or pilot>\n\n## Classification\n| Work item | Type | Source -> target | Coupled with | Evidence gate | Owner | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n| <item> | <code/dependency\\|schema/data\\|configuration\\|infrastructure/platform\\|operational> | <states> | <dependencies> | <check> | <role> | <Unknown/HOLD/ready> |\n\n## Ordering and stop conditions\n- <dependency or blocking unknown>\n- <condition that stops the pilot>\n",
+    paths: [{ value: '{project}/MIGRATION_TYPES.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'scope/source-target', description: 'Межі ініціативи та source/target states.', requirement: 'required' },
+      { name: 'classification', description: 'Категорія роботи, affected surface і coupling.', requirement: 'required' },
+      { name: 'evidence/owner/status', description: 'Evidence gate, відповідальна роль і поточний статус.', requirement: 'required' },
+      { name: 'ordering/stop conditions', description: 'Залежності, порядок і блокуючі умови.', requirement: 'required' }
+    ],
+    whenToUse: 'На старті migration execution, коли одна ініціатива поєднує code, data, config, platform або operational changes.',
+    poorChoiceWhen: 'Для простого dependency list, implementation checklist без source/target або verdict про виконану міграцію.',
+    status: 'documented-example', sourceRefs: ['level-29']
+  },
+  {
+    id: 'data-config-migration', name: 'DATA_CONFIG_MIGRATION.md', category: 'Постановка задачі',
+    responsibility: 'Описує data і configuration migration окремо: inventory, compatibility window, sequencing, validation і recovery.',
+    role: 'Risk-aware execution record для stateful змін, які не скасовуються простим code rollback.',
+    template: "# DATA_CONFIG_MIGRATION.md\n\n## Scope and representations\n- Data source -> target: <format/schema/state>\n- Configuration source -> target: <keys/defaults/environments>\n- Compatibility window: <coexistence period or Unknown>\n\n## Plan\n| Surface | Inventory | Sequence | Validation | Recovery | Owner | Status |\n| --- | --- | --- | --- | --- | --- | --- |\n| <schema/records/config/secrets references> | <items> | <ordered action> | <check> | <backout/forward-fix> | <role> | <Unknown/HOLD/ready> |\n\n## Safety boundaries\n- Never store secret values in this document.\n- <irreversible action and explicit approval/stop condition>\n",
+    paths: [{ value: '{project}/DATA_CONFIG_MIGRATION.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'representations/inventory', description: 'Source/target data and configuration representations та inventory.', requirement: 'required' },
+      { name: 'compatibility/sequence', description: 'Compatibility window і порядок expand, migrate, switch, contract.', requirement: 'required' },
+      { name: 'validation', description: 'Integrity, counts, startup і representative behavior checks.', requirement: 'required' },
+      { name: 'recovery/owner/status', description: 'Backout або forward-fix, owner і рішення за статусом.', requirement: 'required' },
+      { name: 'secret boundary', description: 'Правило не зберігати secret values у документах і evidence.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед data або configuration pilot, коли state, schema, defaults, flags чи references можуть пережити code rollback.',
+    poorChoiceWhen: 'Для загального migration roadmap без stateful surfaces, зберігання секретів або непідтвердженого backfill report.',
+    status: 'documented-example', sourceRefs: ['level-29']
+  },
+  {
+    id: 'rollback', name: 'ROLLBACK.md', category: 'Виконання і якість',
+    responsibility: 'Фіксує recovery procedure для code, configuration, data/schema і traffic змін до початку migration pilot.',
+    role: 'Операційна карта trigger, checkpoint, owner, послідовності відновлення та post-rollback verification.',
+    template: "# ROLLBACK.md\n\n## Boundary\n- Scope: <bounded pilot>\n- Checkpoint: <source revision/config/state checkpoint>\n- Trigger: <observable threshold or blocking discrepancy>\n- Owner: <role>\n\n## Ordered recovery\n1. <route traffic or stop the affected slice>\n2. <restore code or artifact>\n3. <restore compatible configuration>\n4. <backout data/schema or choose forward-fix>\n5. <verify representative behavior and invariants>\n\n## Decision\n- State recovery: <verified/Unknown>\n- Decision: <GO | HOLD | ROLLBACK>\n- Never store secret values here.\n- Status: documented example; no recovery was executed.\n",
+    paths: [{ value: '{project}/ROLLBACK.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'scope/checkpoint/trigger', description: 'Bounded surface, recoverable checkpoint і observable trigger.', requirement: 'required' },
+      { name: 'owner/escalation', description: 'Відповідальна роль і шлях ескалації рішення.', requirement: 'required' },
+      { name: 'ordered recovery', description: 'Порядок code, config, data/schema і traffic actions.', requirement: 'required' },
+      { name: 'backout/forward-fix boundary', description: 'Межа між backout та forward-fix для stateful або irreversible змін.', requirement: 'required' },
+      { name: 'post-rollback verification', description: 'Перевірка behavior, integrity і operational invariants після recovery.', requirement: 'required' }
+    ],
+    whenToUse: 'До migration pilot або stateful change, коли code rollback сам по собі не повертає всі surfaces у безпечний стан.',
+    poorChoiceWhen: 'Для загального incident postmortem, неперевіреного production recovery claim або плану без trigger і checkpoint.',
+    status: 'documented-example', sourceRefs: ['level-29']
+  },
+  {
+    id: 'migration-validation-report', name: 'MIGRATION_VALIDATION_REPORT.md', category: 'Докази й доставка',
+    responsibility: 'Структурує порівняння source і target та окремі validation signals для migration decision.',
+    role: 'Evidence record для parity, integrity, configuration, startup, representative cases, discrepancies і GO/HOLD рішення.',
+    template: "# MIGRATION_VALIDATION_REPORT.md\n\n## Scope and baseline\n- Source revision: <revision>\n- Target revision: <revision>\n- Pilot slice: <bounded surface>\n\n## Checks\n| Dimension | Expected | Observed | Evidence anchor | Status |\n| --- | --- | --- | --- | --- |\n| behavior inputs/outputs/errors/side effects | <contract> | <observation> | <test/log/fixture> | <pass/fail/Unknown> |\n| data integrity and counts | <invariant> | <observation> | <command/result> | <pass/fail/Unknown> |\n| configuration and startup | <expected mapping> | <observation> | <check> | <pass/fail/Unknown> |\n\n## Decision\n- Discrepancies: <none or described>\n- Decision: <GO | HOLD | NARROW | ROLLBACK>\n- Confidence and limits: <what remains Unknown>\n- Status: documented example; no migration validation was executed.\n",
+    paths: [{ value: '{project}/MIGRATION_VALIDATION_REPORT.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'baseline/scope', description: 'Source and target revisions, pilot boundary та environment assumptions.', requirement: 'required' },
+      { name: 'validation dimensions', description: 'Behavior parity, integrity, configuration, startup і representative cases.', requirement: 'required' },
+      { name: 'expected/observed/evidence', description: 'Очікування, observations і traceable evidence anchors.', requirement: 'required' },
+      { name: 'discrepancy/decision', description: 'Невідповідності, confidence і GO, HOLD, NARROW або ROLLBACK decision.', requirement: 'required' },
+      { name: 'limits/owner', description: 'Неперевірені межі, відповідальна роль і наступна дія.', requirement: 'required' }
+    ],
+    whenToUse: 'Під час pilot verification і перед switch, коли потрібно розділити parity evidence, integrity checks та невідомі результати.',
+    poorChoiceWhen: 'Для загального test report без source/target comparison, claim про сумісність без evidence або журналу production incidents.',
+    status: 'documented-example', sourceRefs: ['level-29']
+  },
+  {
+    id: 'post-migration-notes', name: 'POST_MIGRATION_NOTES.md', category: 'Докази й доставка',
+    responsibility: 'Збирає post-switch observations, residual risks, follow-up actions і handoff після migration decision point.',
+    role: 'Delivery note, що відділяє спостережені signals від очікувань і не підміняє validation report або incident record.',
+    template: "# POST_MIGRATION_NOTES.md\n\n## Scope and decision\n- Migration slice/checkpoint: <bounded surface>\n- Switch decision: <GO | HOLD | NARROW | ROLLBACK>\n- Observation window: <window or Unknown>\n\n## Observations\n| Signal | Expected | Observed | Evidence | Status |\n| --- | --- | --- | --- | --- |\n| representative behavior | <contract> | <observation> | <anchor> | <pass/fail/Unknown> |\n| data/configuration state | <invariant> | <observation> | <anchor> | <pass/fail/Unknown> |\n| operational signal | <threshold> | <observation> | <anchor> | <pass/fail/Unknown> |\n\n## Follow-up and handoff\n- Residual risk: <risk or Unknown>\n- Next action: <bounded action>\n- Owner: <role>\n- Lessons learned: <observation>\n- Never store secret values here.\n- Status: documented example; no post-migration outcome is claimed.\n",
+    paths: [{ value: '{project}/POST_MIGRATION_NOTES.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'scope/checkpoint/decision', description: 'Migration slice, checkpoint, switch decision і observation boundary.', requirement: 'required' },
+      { name: 'expected/observed signals', description: 'Порівняння очікуваних і фактичних behavior, data/config та operational signals.', requirement: 'required' },
+      { name: 'evidence/discrepancies', description: 'Evidence anchors, discrepancies і confidence limits.', requirement: 'required' },
+      { name: 'residual risks/follow-up', description: 'Невирішені ризики, наступні дії та відповідальні ролі.', requirement: 'required' },
+      { name: 'handoff/lessons', description: 'Handoff context і lessons learned без secret values.', requirement: 'required' }
+    ],
+    whenToUse: 'Після контрольованого switch або decision checkpoint, коли потрібен handoff запис спостережень і залишкових ризиків.',
+    poorChoiceWhen: 'Для планування до pilot, заміни validation evidence, incident postmortem або твердження про production readiness.',
+    status: 'documented-example', sourceRefs: ['level-29']
+  },
 ];
 
 export type ArtifactQuickJumpGroup = {
@@ -834,7 +918,7 @@ export const artifactQuickJumpGroups: ArtifactQuickJumpGroup[] = [
   {
     label: 'Планувати міграцію й сумісність',
     description: 'Source-to-target analysis, changelog evidence, compatibility decisions і пофазна delivery-послідовність.',
-    artifactIds: ['migration-discovery', 'changelog-research', 'dependency-graph', 'compatibility-matrix', 'migration-plan']
+    artifactIds: ['migration-discovery', 'changelog-research', 'dependency-graph', 'compatibility-matrix', 'migration-plan', 'migration-types', 'data-config-migration', 'rollback', 'migration-validation-report', 'post-migration-notes']
   }
 ];
 
