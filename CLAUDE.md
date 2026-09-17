@@ -23,6 +23,7 @@
 - 145 source-backed lesson routes: 29 рівнів × 5 уроків.
 - 64 records у central artifact catalog.
 - 24 records у task catalog.
+- Search index охоплює 233 records (145 lessons, 64 artifacts, 24 tasks) і 8042 indexed terms у build-time projection.
 - Увесь authored lesson content зберігається в TypeScript registries.
 
 Архітектура не містить і не повинна отримати без окремого запиту:
@@ -60,7 +61,7 @@ Levels 28–29 можуть згадувати Boot 3.x, Java 21, changelog rese
 ```text
 npm run dev              # astro dev
 npm run check            # astro check && tsc --noEmit
-npm run validate         # guide + artifacts + task specs validators
+npm run validate         # guide + artifacts + task specs + search validators
 npm run validate:registry# guide + artifact validators
 npm run validate:artifacts# artifact validator only
 npm run build            # astro build
@@ -114,7 +115,8 @@ npm run build
 ├── scripts/
 │   ├── validate-guide.ts
 │   ├── validate-artifacts.ts
-│   └── validate-task-specs.ts
+│   ├── validate-task-specs.ts
+│   └── validate-search.ts
 └── src/
     ├── components/
     ├── data/
@@ -133,7 +135,9 @@ npm run build
     │   │   └── [...slug].astro
     │   ├── artifacts/
     │   │   └── index.astro
-    │   └── tasks/
+    │   ├── tasks/
+    │   │   └── index.astro
+    │   └── search/
     │       └── index.astro
     ├── styles/
     │   └── global.css
@@ -156,6 +160,7 @@ npm run build
 - `/guide/<page.slug>` — конкретний lesson; routes генеруються через `getStaticPaths()` із `guidePages`.
 - `/artifacts` — central artifact catalog.
 - `/tasks` — central task specification catalog.
+- `/search` — static client-side пошук по lessons, artifacts і tasks.
 - `/404` — статична not-found сторінка.
 
 Стабільні internal anchors:
@@ -216,6 +221,13 @@ type GuidePage = {
 - локальні `TASK_SPEC*.md`;
 - archive paths;
 - generated output.
+
+### Search contract
+
+- `src/data/search.ts` будує компактний build-time projection із guide, artifact і task registries; client-side runtime не імпортує повні registries.
+- `src/lib/search.ts` є pure search layer із Unicode normalization, tokenization, explicit Ukrainian/Cyrillic-to-Latin transliteration та alias mapping. Запит `евіденс` повинен знаходити artifact `EVIDENCE.md`.
+- Пошук є deterministic lexical/semantic layer із weighted title/context matching, phrase bonuses, prefix/substring support і bounded results; embeddings, external search services, backend/API/database та persistence не додаються.
+- `scripts/validate-search.ts` перевіряє 233 documents, postings, destination hrefs, compact payload і evidence regression query.
 
 Не вигадуй відсутні JavaRush lectures і не додавай неіснуючий `l1-06` plugin lesson. Якщо external URL не підтверджений, залиш його `Unknown`, а не створюй правдоподібний URL.
 

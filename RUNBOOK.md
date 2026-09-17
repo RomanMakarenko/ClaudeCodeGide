@@ -2,7 +2,7 @@
 
 **Назва:** `RUNBOOK.md`  
 **Призначення:** внутрішній хронологічний запис реально виконаних задач цього проєкту.  
-**Дата актуалізації:** 2026-09-16
+**Дата актуалізації:** 2026-09-17
 **Статус документа:** `present`
 
 ## Межі та правила читання
@@ -12,6 +12,17 @@
 У прикладах і шаблонах не зберігаються credentials, API keys, tokens, PII або інші secrets. Документ не стверджує про production deployment, реальні approvals, зовнішні lab outcomes чи browser screenshots, якщо таких доказів немає.
 
 ## Хронологія виконаних задач
+
+### Поточний запис. TASK_SPEC777: site-wide static search — `implemented` / `partially verified`
+
+- **Мета і scope:** додати пошук по сайту з доступом із shared header, responsive desktop/mobile layout, keyword matching і deterministic semantic layer; запит `евіденс` має знаходити Latin artifact `EVIDENCE.md`.
+- **Змінені файли:** `src/layouts/BaseLayout.astro`, `src/styles/global.css`, `src/types/search.ts`, `src/lib/search.ts`, `src/data/search.ts`, `src/pages/search/index.astro`, `scripts/validate-search.ts`, `package.json`, `README.md`, `CLAUDE.md`, `RUNBOOK.md`.
+- **Результат:** додано `/search`; header search link залишається доступним на mobile окремо від прихованої desktop navigation. Build-time projection охоплює 233 documents: 145 lessons, 64 artifacts і 24 tasks; postings містить 8042 indexed terms. Runtime використовує embedded JSON, shared pure search logic, URL query `q`, DOM `textContent`, no-script fallback і без browser persistence.
+- **Пошук:** normalization, tokenization, aliases, transliteration, weighted title/context matching, phrase bonuses, prefix/substring matching і deterministic tie-breaking. `евіденс`, `EVIDENCE`, `evidens`, `доказ` та filename variants мапляться до evidence concept; evidence regression query ранжує `EVIDENCE.md` першим.
+- **Static-only boundary:** backend, API, database, authorization, server-side persistence, external search service та embeddings не додавалися. Embedded index не містить raw registry fields `template`, `artifactExamples`, `paragraphs` або `fields`.
+- **Verification:** `npm run check` — 0 errors, 0 warnings, 0 hints; `npm run validate` — guide validation passed для 145 сторінок across 29 levels, artifact validation passed для 64 artifacts, task specification validation passed для 24 types, 29 levels і 10 lab-backed types, search validation passed для 233 documents і 8042 indexed terms; `npm run build` — успішно завершився зі static output.
+- **Static audit:** підтверджено `dist/search/index.html`, generated header link `/search`, embedded 233-document index, `EVIDENCE.md` і evidence alias/query text, valid links до 145 guide routes, 64 artifact anchors і 24 task anchors, а також відсутність backend/API access.
+- **Обмеження:** screenshot inputs використано як layout references; screenshot match не заявляється. Chromium/Chrome/Playwright/Puppeteer не запускався, тому browser/mobile visual verification — `Unknown`; перевірено лише source contracts, generated static HTML і deterministic validator behavior.
 
 ### Поточний запис. TASK_SPEC29: migration execution controls — `implemented` / `partially verified`
 

@@ -32,6 +32,8 @@ npm run preview
 - Локальні task-spec файли можуть залишатися editorial inputs або прикладами workflow, але не визначають identity чи доступність route.
 - Порожні або ще не опрацьовані task-spec файли не перетворюються на вигаданий контент.
 - Каталог артефактів доступний на [`/artifacts`](/artifacts); його typed registry знаходиться в `src/data/artifacts.ts`.
+- Доступний site-wide пошук на [`/search`](/search): build-time projection індексує 145 уроків, 64 артефакти й 24 постановки задач, а браузер виконує deterministic lexical search без backend/API/database/persistence або зовнішнього search service.
+- Search layer поєднує keyword matching із нормалізацією, alias/transliteration mapping, prefix/substring matching і зваженим ranking; запит `евіденс` знаходить Latin artifact `EVIDENCE.md`.
 - Кожен запис має відповідальність, роль, шляхи, поля, умови використання та погані сценарії вибору. Статус розрізняє файли, присутні в цьому repository, і documented examples із навчальних матеріалів.
 - Концептуальні артефакти на кшталт `SKILL.md`, `SPEC.md` і `CODEBASE_INVENTORY.md` не вважаються фізично наявними лише через згадку в уроках; naming/path variants позначені явно.
 - Окрема сторінка [`/tasks`](/tasks) містить 24 source-backed типи задач із заповненими прикладами `TASK_SPEC` та повʼязаних артефактів, що посилаються на всі 29 рівнів; це documented examples, а не production evidence.

@@ -38,6 +38,10 @@ const {
           <a href="/artifacts">Артефакти</a>
           <a href="/tasks">Постановки задач</a>
         </nav>
+        <a class="header-search" href="/search" aria-label="Пошук" aria-current={Astro.url.pathname === '/search' ? 'page' : undefined}>
+          <span class="header-search-icon" aria-hidden="true">⌕</span>
+          <span class="header-search-label">Пошук</span>
+        </a>
       </div>
     </header>
     <main id="main-content">

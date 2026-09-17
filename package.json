@@ -8,7 +8,7 @@
     "build": "astro build",
     "preview": "npm run build && wrangler dev",
     "check": "astro check && tsc --noEmit",
-    "validate": "tsx scripts/validate-guide.ts && tsx scripts/validate-artifacts.ts && tsx scripts/validate-task-specs.ts",
+    "validate": "tsx scripts/validate-guide.ts && tsx scripts/validate-artifacts.ts && tsx scripts/validate-task-specs.ts && tsx scripts/validate-search.ts",
     "validate:registry": "node --import tsx scripts/validate-guide.ts && node --import tsx scripts/validate-artifacts.ts",
     "validate:artifacts": "tsx scripts/validate-artifacts.ts",
     "deploy": "npm run build && wrangler deploy",

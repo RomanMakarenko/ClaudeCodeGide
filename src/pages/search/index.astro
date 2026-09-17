@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { searchIndex } from '../../data/search';
+
+const serializedSearchIndex = JSON.stringify(searchIndex).replace(/</g, '\\u003c');
+---
+<BaseLayout title="Пошук" description="Пошук по уроках, артефактах і постановках задач Claude Code.">
+  <div class="page-shell search-page">
+    <div class="breadcrumbs"><a href="/">Головна</a><span aria-hidden="true">/</span><span aria-current="page">Пошук</span></div>
+    <section class="search-hero">
+      <p class="eyebrow">Навігація по гайду</p>
+      <h1>Знайти потрібне</h1>
+      <p class="lead">Шукайте за словами, назвами, ролями та повʼязаними поняттями в уроках, артефактах і постановках задач.</p>
+    </section>
+
+    <form class="search-form" role="search" action="/search" method="get">
+      <label for="site-search">Пошуковий запит</label>
+      <div class="search-form-row">
+        <input id="site-search" name="q" type="search" placeholder="Наприклад: евіденс, rollback або permissions" autocomplete="off" />
+        <button class="button" type="submit">Шукати</button>
+        <a class="button secondary search-clear" href="/search">Очистити</a>
+      </div>
+      <p class="search-help">Пошук не відрізняє великі й малі літери. Наприклад, «евіденс» знайде <code>EVIDENCE.md</code>.</p>
+    </form>
+
+    <section class="search-results-panel" aria-labelledby="search-results-title">
+      <div class="section-heading search-results-heading">
+        <div><p class="eyebrow">Результати</p><h2 id="search-results-title">Результати пошуку</h2></div>
+        <p id="search-status" aria-live="polite">Введіть запит, щоб почати.</p>
+      </div>
+      <ol id="search-results" class="search-results" aria-live="polite"></ol>
+      <div id="search-empty" class="empty-state" hidden></div>
+      <noscript><div class="empty-state">Для пошуку потрібен JavaScript у браузері. Увімкніть його та повторіть запит.</div></noscript>
+    </section>
+  </div>
+</BaseLayout>
+<script type="application/json" id="search-index" is:inline set:html={serializedSearchIndex}></script>
+<script>
+  import { search } from '../../lib/search';
+
+  const indexElement = document.querySelector<HTMLScriptElement>('#search-index');
+  const form = document.querySelector<HTMLFormElement>('.search-form');
+  const input = document.querySelector<HTMLInputElement>('#site-search');
+  const status = document.querySelector<HTMLElement>('#search-status');
+  const results = document.querySelector<HTMLOListElement>('#search-results');
+  const empty = document.querySelector<HTMLElement>('#search-empty');
+
+  if (indexElement && form && input && status && results && empty) {
+    const index = JSON.parse(indexElement.textContent ?? '{}');
+    const params = new URLSearchParams(window.location.search);
+    input.value = params.get('q') ?? '';
+
+    const labelForKind: Record<string, string> = { lesson: 'Урок', artifact: 'Артефакт', task: 'Постановка задачі' };
+    const render = (query: string) => {
+      results.replaceChildren();
+      empty.hidden = true;
+      if (!query.trim()) {
+        status.textContent = 'Введіть запит, щоб почати.';
+        return;
+      }
+
+      const matches = search(index, query);
+      status.textContent = matches.length ? `Знайдено результатів: ${matches.length}` : 'Нічого не знайдено.';
+      if (!matches.length) {
+        empty.textContent = 'Спробуйте коротше слово, іншу форму поняття або «евіденс» для пошуку EVIDENCE.md.';
+        empty.hidden = false;
+        return;
+      }
+
+      for (const match of matches) {
+        const item = document.createElement('li');
+        const article = document.createElement('article');
+        const meta = document.createElement('p');
+        const link = document.createElement('a');
+        const snippet = document.createElement('p');
+        item.className = 'search-result-item';
+        article.className = 'search-result-card';
+        meta.className = 'search-result-meta';
+        link.className = 'search-result-title';
+        snippet.className = 'search-result-snippet';
+        meta.textContent = `${labelForKind[match.kind] ?? 'Матеріал'} · ${match.context}`;
+        link.href = match.href;
+        link.textContent = match.title;
+        snippet.textContent = match.snippet;
+        article.append(meta, link, snippet);
+        item.append(article);
+        results.append(item);
+      }
+    };
+
+    render(input.value);
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const query = input.value.trim();
+      const url = new URL(window.location.href);
+      if (query) url.searchParams.set('q', query);
+      else url.searchParams.delete('q');
+      window.history.pushState({}, '', url);
+      render(query);
+    });
+    window.addEventListener('popstate', () => {
+      input.value = new URLSearchParams(window.location.search).get('q') ?? '';
+      render(input.value);
+    });
+  }
+</script>
