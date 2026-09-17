@@ -392,23 +392,54 @@ Status: documented policy example; enforcement: Unknown.`)],
   },
   {
     id: 'capstone', type: 'capstone', family: 'governance', title: 'Спланувати capstone з evidence', mode: 'general',
-    goal: 'Обмежити фінальний проєкт одним core flow і побудувати відтворювану послідовність SPEC, baseline, milestones, demo та evidence.',
-    scope: ['Problem, audience і core flow.', 'SPEC, repository baseline і roadmap.', 'Малі milestones та evaluation evidence.'],
-    nonGoals: ['Демонстрація всього продукту.', 'Вигадані metrics або screenshots.', 'Розширення scope під час demo.'],
-    success: ['Критерії оцінювання визначені до коду.', 'Кожен milestone має evidence.', 'Demo відтворюється іншим учасником.'],
-    rules: ['Починати з малого verified slice.', 'Фіксувати Unknown і limitations.', 'Не називати план production readiness.'],
-    artifactIds: ['capstone-brief', 'spec', 'backlog-roadmap'],
-    artifactExamples: [artifactExample('capstone-brief', `# CAPSTONE_BRIEF.md
+    goal: 'Обмежити фінальний проєкт одним core flow і побудувати відтворювану послідовність problem, user, value proposition, SPEC, release slice, milestones, demo та evidence.',
+    scope: ['Problem, primary user, JTBD і value proposition.', 'Один core flow, success metric та release slice.', 'SPEC, repository baseline, reviewer checklist і evaluation evidence.'],
+    nonGoals: ['Демонстрація всього продукту.', 'Вигадані metrics, user research або screenshots.', 'Production deployment, scale claims або розширення scope під час demo.'],
+    success: ['Цінність, JTBD і критерії оцінювання визначені до коду.', 'Release slice має scope, non-goals, metric і evidence plan.', 'Reviewer може відтворити flow та відокремити facts, assumptions і Unknowns.'],
+    rules: ['Починати з одного user і малого verified slice.', 'Фіксувати assumptions, Unknown і limitations.', 'Не називати documented example production readiness або user validation.'],
+    artifactIds: ['capstone-brief', 'spec', 'backlog-roadmap', 'value-proposition', 'user-jtbd', 'success-metric', 'release-slice'],
+    artifactExamples: [
+      artifactExample('capstone-brief', `# CAPSTONE_BRIEF.md
 Problem: make one repository workflow easier to verify.
 Audience: developer reviewing a bounded change.
 Core flow: intake -> plan -> implementation -> evidence.
 In scope: one representative scenario and its checks.
 Out of scope: full product, deployment and scale claims.
-Demo evidence: <commands and outputs — Unknown>.
-Status: documented example.`)],
-    sourceLessonIds: ['l25-01', 'l25-03', 'l25-04', 'l25-05'],
+Demo evidence: commands and outputs — Unknown.
+Status: documented example.`),
+      artifactExample('value-proposition', `# VALUE_PROPOSITION.md
+User: reviewer of a bounded repository change
+Problem: evidence is scattered across notes and command output
+Alternative: manual search through the diff and task thread
+Promise: produce one reviewable evidence outline before implementation
+Proof signal: reviewer can locate scope, checks and Unknowns in one pass
+Status: documented example; user validation is Unknown.`),
+      artifactExample('user-jtbd', `# USER_JTBD.md
+User: reviewer of one repository workflow
+Trigger: a small change has unclear evidence boundaries
+Job: understand scope, checks and Unknowns before deciding next step
+Desired outcome: complete one review pass without repeating discovery
+Constraints: no production claims or secret values
+Status: documented example; observed user behavior is Unknown.`),
+      artifactExample('success-metric', `# SUCCESS_METRIC.md
+Name: evidence-location completion rate
+Definition: share of review passes where scope, checks and Unknowns are found in one pass
+Baseline: Unknown
+Target: define before implementation; measured outcome: Unknown
+Window: bounded capstone review session
+Guardrail: do not trade evidence quality for speed
+Status: documented example; no measured outcome is claimed.`),
+      artifactExample('release-slice', `# RELEASE_SLICE.md
+Core flow: intake -> AI-assisted outline -> human review -> evidence note
+In scope: one flow, one metric and one reviewer checklist
+Non-goals: autonomous merge, deployment and broad roadmap
+Dependencies: repository baseline and agreed evidence format
+Release criteria: reviewer can reproduce the outline and locate Unknowns
+Status: documented example; no release or deployment is claimed.`)
+    ],
+    sourceLessonIds: ['l25-01', 'l25-03', 'l25-04', 'l25-05', 'l30-01', 'l30-02', 'l30-03', 'l30-04', 'l30-05'],
     sourceLabIds: ['l25-04-capstone-evidence'],
-    note: 'Capstone brief є навчальною постановкою, а не заявкою на виконаний проєкт.'
+    note: 'Capstone і level-30 MVP records є навчальними documented examples, а не заявкою на виконаний проєкт, user validation або production outcome.'
   },
   {
     id: 'legacy-discovery', type: 'codebase-discovery', family: 'legacy-transition', title: 'Дослідити legacy і карту ризиків', mode: 'general',

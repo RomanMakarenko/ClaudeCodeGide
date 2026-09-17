@@ -13,6 +13,18 @@
 
 ## Хронологія виконаних задач
 
+### Поточний запис. TASK_SPEC30: AI-native MVP — `implemented` / `partially verified`
+
+- **Мета і scope:** додати level 30 із пʼятьма source-backed уроками про AI-native MVP-мислення, ціннісну пропозицію, user/JTBD, success metric, scope/non-goals/release slice і reviewer-ready specification.
+- **Змінені файли:** `src/data/guide.ts`, `src/data/level-30.ts`, `src/data/content.ts`, `src/data/artifacts.ts`, `src/data/task-specs.ts`, `src/pages/guide/index.astro`, `src/pages/tasks/index.astro`, `README.md`, `CLAUDE.md`, `RUNBOOK.md`.
+- **Нові маршрути:** `/guide/level-30/ai-native-mvp-thinking`, `/guide/level-30/value-proposition-capstone`, `/guide/level-30/user-jtbd-success-metric`, `/guide/level-30/scope-non-goals-release-slice`, `/guide/level-30/reviewer-specification`. Для кожного збережено exact canonical JavaRush source URL `lecture.level30.lecture01`–`lecture05` із `TASK_SPEC30.md`; усі пʼять сторінок мають authored content.
+- **Результат:** registry оновлено до 30 рівнів і 150 source-backed lesson routes. Guide і tasks catalog використовують актуальну кількість рівнів; existing routes, lesson IDs, slugs і task taxonomy збережено.
+- **Artifacts:** повторно використано `capstone-brief`, `spec`, `task-spec`, `contract-md`, `backlog-roadmap`, `evidence` і `review-notes`; додано чотири reusable documented-example records — `VALUE_PROPOSITION.md` (`value-proposition`), `USER_JTBD.md` (`user-jtbd`), `SUCCESS_METRIC.md` (`success-metric`) і `RELEASE_SLICE.md` (`release-slice`). Нові IDs додано до purpose-based quick-jump group `Визначити й спланувати` рівно один раз; catalog містить 68 artifact records.
+- **Task coverage:** окремий task type не додавався. Існуючий `capstone` розширено level-30 source lessons, MVP-specific scope/non-goals/success/rules і filled documented examples для чотирьох нових artifacts; task catalog містить 24 records і покриває всі 30 levels.
+- **Search:** build-time projection автоматично містить 242 documents — 150 lessons, 68 artifacts і 24 tasks — та 8158 indexed terms; evidence regression query зберігається.
+- **Verification:** `npm run check` — 0 errors, 0 warnings, 0 hints; `npm run validate` — guide validation passed для 150 сторінок across 30 levels, artifact validation passed для 68 artifacts, task specification validation passed для 24 types, 30 levels і 10 lab-backed types, search validation passed для 242 documents і 8158 indexed terms; `npm run build` — успішно завершився та згенерував static output із пʼятьма level-30 routes.
+- **Static-only boundary:** нові записи є documented examples. Це не доказ реального MVP, user research/validation, customer metric, release, deployment або production readiness; backend, API, database, authorization і persistence не додавалися. Chromium/Chrome/Playwright/Puppeteer не запускався, тому browser/mobile visual verification — `Unknown`; підтверджено лише static output, registry contracts і generated markup.
+
 ### Поточний запис. TASK_SPEC777: site-wide static search — `implemented` / `partially verified`
 
 - **Мета і scope:** додати пошук по сайту з доступом із shared header, responsive desktop/mobile layout, keyword matching і deterministic semantic layer; запит `евіденс` має знаходити Latin artifact `EVIDENCE.md`.

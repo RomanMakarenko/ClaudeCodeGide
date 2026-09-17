@@ -871,6 +871,74 @@ export const artifacts: Artifact[] = [
     poorChoiceWhen: 'Для планування до pilot, заміни validation evidence, incident postmortem або твердження про production readiness.',
     status: 'documented-example', sourceRefs: ['level-29']
   },
+  {
+    id: 'value-proposition', name: 'VALUE_PROPOSITION.md', category: 'Постановка задач',
+    responsibility: 'Звʼязує конкретного користувача та його проблему з обіцяним outcome, альтернативою і планом перевірки.',
+    role: 'Короткий contract для відділення ціннісної гіпотези від slogan або непідтвердженого product claim.',
+    template: "# VALUE_PROPOSITION.md\n\n## User and problem\n- User: <primary user>\n- Problem: <recurring loss or friction>\n\n## Promise\n- Alternative: <how the user solves it today>\n- Outcome: <observable improvement>\n- Differentiation: <why this approach may help>\n\n## Proof boundary\n- Signal: <metric or observation>\n- Assumptions: <assumptions to validate>\n- Status: documented example; user validation is Unknown.\n",
+    paths: [{ value: '{project}/VALUE_PROPOSITION.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'user/problem', description: 'Primary user і конкретна recurring problem.', requirement: 'required' },
+      { name: 'alternative/outcome', description: 'Поточна альтернатива і очікуваний observable outcome.', requirement: 'required' },
+      { name: 'differentiation', description: 'Чому запропонований підхід може бути корисним.', requirement: 'required' },
+      { name: 'proof signal', description: 'Метрика або observation, що може підтвердити чи спростувати promise.', requirement: 'required' },
+      { name: 'assumptions/status', description: 'Неперевірені припущення та межа claims.', requirement: 'required' }
+    ],
+    whenToUse: 'На старті capstone або MVP, коли потрібно узгодити користувача, проблему, promise і спосіб перевірки.',
+    poorChoiceWhen: 'Для повного project specification, детального research transcript або claim про підтверджений market fit.',
+    status: 'documented-example', sourceRefs: ['level-30']
+  },
+  {
+    id: 'user-jtbd', name: 'USER_JTBD.md', category: 'Постановка задач',
+    responsibility: 'Описує конкретну ситуацію користувача, job, trigger, бажаний progress, pains, gains і constraints.',
+    role: 'Структурований user hypothesis, який допомагає повʼязати MVP flow із реальною роботою користувача.',
+    template: "# USER_JTBD.md\n\n## Situation\n- User: <specific role>\n- Trigger/context: <when this job appears>\n\n## Job\n- When <situation>, I want to <job>, so I can <desired outcome>.\n\n## Constraints\n- Pains: <friction>\n- Gains: <desired progress>\n- Constraints: <time, access, policy or quality limits>\n\n## Validation boundary\n- Assumptions: <what still needs research>\n- Status: documented example; observed user behavior is Unknown.\n",
+    paths: [{ value: '{project}/USER_JTBD.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'user/context', description: 'Конкретний user role, trigger і ситуація.', requirement: 'required' },
+      { name: 'job/outcome', description: 'Job to be done і бажаний progress.', requirement: 'required' },
+      { name: 'pains/gains', description: 'Перешкоди та очікувані вигоди.', requirement: 'required' },
+      { name: 'constraints', description: 'Обмеження часу, доступу, policy або quality.', requirement: 'required' },
+      { name: 'assumptions', description: 'Гіпотези, які ще потребують user validation.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли MVP потрібно привʼязати до конкретної користувацької ситуації, а не до абстрактної persona.',
+    poorChoiceWhen: 'Для повної customer research бази, analytics report або довільного списку user features.',
+    status: 'documented-example', sourceRefs: ['level-30']
+  },
+  {
+    id: 'success-metric', name: 'SUCCESS_METRIC.md', category: 'Постановка задач',
+    responsibility: 'Фіксує metric definition, baseline, target, observation window, method і guardrails для MVP outcome.',
+    role: 'Робить success claim вимірюваною гіпотезою з явними межами інтерпретації.',
+    template: "# SUCCESS_METRIC.md\n\n## Metric\n- Name: <metric name and unit>\n- Definition: <what counts and what does not>\n- Baseline: <known baseline or Unknown>\n- Target: <bounded target>\n- Window: <observation period>\n\n## Method and guardrails\n- Collection: <how the signal would be observed>\n- Leading signal: <flow completion or quality signal>\n- Guardrail: <quality, safety or rework constraint>\n- Limits: <what this metric cannot prove>\n- Status: documented example; no measured outcome is claimed.\n",
+    paths: [{ value: '{project}/SUCCESS_METRIC.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'definition/unit', description: 'Назва метрики, одиниця та точне правило підрахунку.', requirement: 'required' },
+      { name: 'baseline/target/window', description: 'Baseline, bounded target і observation window.', requirement: 'required' },
+      { name: 'collection method', description: 'Як і з якого evidence джерела збирається сигнал.', requirement: 'required' },
+      { name: 'guardrail', description: 'Обмеження якості, безпеки або rework.', requirement: 'required' },
+      { name: 'interpretation limits', description: 'Що метрика не може довести сама по собі.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед MVP demo, коли потрібно узгодити success signal і спосіб його чесного спостереження.',
+    poorChoiceWhen: 'Для vanity dashboard, вигаданого customer result або заміни повного evidence record.',
+    status: 'documented-example', sourceRefs: ['level-30']
+  },
+  {
+    id: 'release-slice', name: 'RELEASE_SLICE.md', category: 'Постановка задач',
+    responsibility: 'Обмежує перший MVP release slice через in-scope, non-goals, dependencies, risks і release criteria.',
+    role: 'Scope-freeze record для одного завершеного core flow, який можна перевірити й передати reviewer-у.',
+    template: "# RELEASE_SLICE.md\n\n## Core flow\n- User: <primary user>\n- Trigger: <starting situation>\n- Flow: <bounded steps>\n- Outcome: <observable result>\n\n## Boundaries\n- In scope: <included capabilities>\n- Non-goals: <explicit exclusions>\n- Deferred: <safe follow-up work>\n\n## Gates\n- Dependencies: <known dependencies>\n- Risks: <risk and stop condition>\n- Release criteria: <reviewable conditions>\n- Status: documented example; no release or deployment is claimed.\n",
+    paths: [{ value: '{project}/RELEASE_SLICE.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'core flow', description: 'Один user, trigger, bounded flow і expected outcome.', requirement: 'required' },
+      { name: 'in-scope/non-goals', description: 'Included capabilities і явні exclusions.', requirement: 'required' },
+      { name: 'deferred work', description: 'Відкладені елементи, які не потрібні першому slice.', requirement: 'optional' },
+      { name: 'dependencies/risks', description: 'Залежності, risks і stop conditions.', requirement: 'required' },
+      { name: 'release criteria', description: 'Умови review, verification і переходу до рішення.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли MVP потрібно заморозити на одному core flow перед реалізацією або demo.',
+    poorChoiceWhen: 'Для повного roadmap, необмеженого backlog або твердження про фактичний production release.',
+    status: 'documented-example', sourceRefs: ['level-30']
+  },
 ];
 
 export type ArtifactQuickJumpGroup = {
@@ -888,7 +956,7 @@ export const artifactQuickJumpGroups: ArtifactQuickJumpGroup[] = [
   {
     label: 'Визначити й спланувати',
     description: 'Артефакти, які перетворюють ідею на межі, контракт і послідовність роботи.',
-    artifactIds: ['task-spec', 'spec', 'capstone-brief', 'backlog-roadmap', 'contract-md', 'plan-md']
+    artifactIds: ['task-spec', 'spec', 'capstone-brief', 'backlog-roadmap', 'contract-md', 'plan-md', 'value-proposition', 'user-jtbd', 'success-metric', 'release-slice']
   },
   {
     label: 'Налаштувати й розширити workflow',
