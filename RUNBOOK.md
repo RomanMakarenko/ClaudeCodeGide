@@ -406,3 +406,12 @@ npm run validate:artifacts
 - **Push trigger:** workflow залишається налаштованим на `push` у `main`; успішний `workflow_dispatch` підтверджує credentials і deployment path, а окремий наступний push потрібен для незалежного підтвердження саме push-triggered запуску.
 - **Тариф і межі:** Cloudflare free plan не змінювався; автоматизація не додає backend, API, database, authorization, server persistence або реальну Java/Boot migration.
 - **Обмеження:** Cloudflare native Git integration не налаштовувалася; використовується GitHub Actions + Wrangler Direct Upload до існуючого Pages project. Browser visual verification не виконувалася.
+
+### 35. TASK_SPEC888: sticky site header — `already implemented` / `partially verified`
+
+- **Мета і scope:** перевірити вимогу тримати shared `.site-header` на екрані під час прокручування у desktop і mobile версіях.
+- **Перевірені файли:** `src/layouts/BaseLayout.astro`, `src/styles/global.css`, `TASK_SPEC888.md`.
+- **Результат:** shared `<header class="site-header">` рендериться безпосередньо після нульового `#page-top` sentinel; `.site-header` має `position: sticky`, `top: 0` і `z-index: 10`. Для mobile виправлено sticky containing-block interference: у mobile breakpoint `html, body` тепер використовують `overflow-x: clip` замість `overflow-x: hidden`, щоб горизонтальне обрізання не створювало scroll container і не блокувало sticky header у mobile browsers.
+- **Збережені інваріанти:** document flow не порушено; `#page-top`, `scroll-margin-top: 88px`, skip link, existing navigation, touch-friendly search control і локальні overflow-контейнери для code/table залишилися без змін. Fixed positioning, spacer, JavaScript, backend, API, database та persistence не додавалися.
+- **Verification:** source/static inspection підтвердив shared markup, sticky declaration, mobile `overflow-x: clip`, відсутність responsive position override, відповідні anchor offsets і збереження локальних horizontal scrollers; після зміни виконано `npm run check`, `npm run validate` і `npm run build` у цій сесії. `git diff --check` і generated-output audit виконані; browser/mobile visual verification — `Unknown`, оскільки Chromium/Playwright/Puppeteer фактично не запускався.
+- **Обмеження:** runtime перевірка на конкретному mobile browser не виконувалася; static verification підтверджує CSS/layout fix, але не замінює browser E2E доказ.
