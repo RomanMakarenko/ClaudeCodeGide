@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { artifacts, artifactCategories, artifactQuickJumpGroups } from '../../data/artifacts';
+import { artifacts, artifactCategories, artifactQuickJumpGroups, getArtifactCategoryAnchor } from '../../data/artifacts';
 import { guidePages } from '../../data/guide';
 import { guideContentByLevel } from '../../data/content';
 import type { Artifact } from '../../types/artifact';
@@ -28,7 +28,7 @@ const getArtifactLessonSources = (artifact: Artifact) => artifact.sourceRefs.map
 });
 ---
 <BaseLayout title="Каталог артефактів" description="Каталог артефактів Claude Code з ролями, полями та умовами використання.">
-  <div class="page-shell">
+  <div class="page-shell" data-catalog-page>
     <div class="breadcrumbs"><a href="/">Головна</a><span aria-hidden="true">/</span><span aria-current="page">Артефакти</span></div>
     <section class="section-heading">
       <div><p class="eyebrow">Artifact-first навігація</p><h1>Каталог артефактів</h1></div>
@@ -104,8 +104,12 @@ const getArtifactLessonSources = (artifact: Artifact) => artifact.sourceRefs.map
     <p class="artifact-example-note">Це умовна схема: конкретний набір файлів і каталогів залежить від проєкту. Елементи показано як можливі місця або форми організації, а не як обов’язкову структуру.</p>
 
     {artifactCategories.map((category) => (
-      <section class="artifact-category" id={category.toLowerCase().replaceAll(' ', '-')}>
-        <div class="section-heading"><div><p class="eyebrow">Категорія</p><h2>{category}</h2></div><p>{artifacts.filter((artifact) => artifact.category === category).length} артефактів</p></div>
+      <details class="artifact-category" id={getArtifactCategoryAnchor(category)}>
+        <summary class="catalog-disclosure-summary">
+          <span><span class="eyebrow">Категорія</span><strong>{category}</strong></span>
+          <span>{artifacts.filter((artifact) => artifact.category === category).length} артефактів</span>
+        </summary>
+        <div class="catalog-disclosure-content">
         <div class="artifact-grid">
           {artifacts.filter((artifact) => artifact.category === category).map((artifact) => (
             <article class="artifact-card" id={artifact.id}>
@@ -134,7 +138,8 @@ const getArtifactLessonSources = (artifact: Artifact) => artifact.sourceRefs.map
             </article>
           ))}
         </div>
-      </section>
+        </div>
+      </details>
     ))}
   </div>
   <script>

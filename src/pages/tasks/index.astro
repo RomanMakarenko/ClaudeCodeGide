@@ -4,20 +4,12 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { artifacts } from '../../data/artifacts';
 import { guideLevels, guidePages } from '../../data/guide';
 import { taskSpecs } from '../../data/task-specs';
+import { taskFamilyEntries } from '../../data/task-families';
 
 const modeLabels = {
   general: 'General',
   modernization: 'Modernization',
   migration: 'Migration'
-};
-
-const familyLabels = {
-  foundations: 'Основи постановки',
-  discovery: 'Discovery та evidence',
-  delivery: 'Реалізація й delivery',
-  automation: 'Automation та інтеграції',
-  governance: 'Quality і governance',
-  'legacy-transition': 'Legacy transition'
 };
 
 const comparisonRows = [
@@ -26,14 +18,13 @@ const comparisonRows = [
 ];
 
 const getSourcePage = (sourceId: string) => guidePages.find((page) => page.id === sourceId);
-const familyEntries = Object.entries(familyLabels).map(([id, label]) => ({
-  id,
-  label,
-  tasks: taskSpecs.filter((task) => task.family === id)
+const familyEntries = taskFamilyEntries.map((family) => ({
+  ...family,
+  tasks: taskSpecs.filter((task) => task.family === family.id)
 }));
 ---
 <BaseLayout title="Постановки задач" description="Source-backed приклади постановок задач і повʼязаних артефактів для всіх рівнів гайда.">
-  <div class="page-shell tasks-page">
+  <div class="page-shell tasks-page" data-catalog-page>
     <Breadcrumbs items={[{ label: 'Головна', href: '/' }, { label: 'Постановки задач' }]} />
     <section class="section-heading">
       <div>
@@ -58,11 +49,12 @@ const familyEntries = Object.entries(familyLabels).map(([id, label]) => ({
         </div>
       </div>
       {familyEntries.map((family) => (
-        <section class="task-family" id={`family-${family.id}`} aria-labelledby={`family-${family.id}-title`}>
-          <header class="task-family-header">
-            <div><p class="eyebrow">Task family</p><h3 id={`family-${family.id}-title`}>{family.label}</h3></div>
+        <details class="task-family" id={`family-${family.id}`}>
+          <summary class="catalog-disclosure-summary">
+            <span><span class="eyebrow">Task family</span><strong>{family.label}</strong></span>
             <span>{family.tasks.length} типів</span>
-          </header>
+          </summary>
+          <div class="catalog-disclosure-content">
           {family.id === 'legacy-transition' ? (
             <section class="tasks-comparison" aria-labelledby="tasks-comparison-title">
               <div class="section-heading">
@@ -130,7 +122,8 @@ ${task.success.map((item) => `- ${item}`).join('\n')}`}</code></pre>
               <p class="task-spec-note"><strong>Межа прикладу:</strong> {task.note}</p>
             </article>
           ))}
-        </section>
+          </div>
+        </details>
       ))}
     </section>
   </div>

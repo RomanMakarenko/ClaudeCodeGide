@@ -991,3 +991,5 @@ export const artifactQuickJumpGroups: ArtifactQuickJumpGroup[] = [
 ];
 
 export const artifactCategories = [...new Set(artifacts.map((artifact) => artifact.category))];
+
+export const getArtifactCategoryAnchor = (category: string) => category.toLowerCase().replaceAll(' ', '-');

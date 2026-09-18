@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import HeaderMenu from '../components/HeaderMenu.astro';
 
 type Props = {
   title: string;
@@ -28,6 +29,7 @@ const {
     <div class="page-top-sentinel" id="page-top" aria-hidden="true"></div>
     <header class="site-header">
       <div class="header-inner">
+        <HeaderMenu />
         <a class="brand" href="/">
           <span class="brand-mark" aria-hidden="true">⌘</span>
           <span class="brand-text"><strong>Claude Code Guide</strong><span>український практичний гайд</span></span>
@@ -124,6 +126,28 @@ const {
         }
         konamiIndex = key === konamiSequence[0] ? 1 : 0;
       });
+
+      const openCatalogHash = () => {
+        const catalog = document.querySelector<HTMLElement>('[data-catalog-page]');
+        const hash = window.location.hash;
+        if (!catalog || !hash) return;
+
+        let targetId = '';
+        try {
+          targetId = decodeURIComponent(hash.slice(1));
+        } catch {
+          return;
+        }
+
+        const target = document.getElementById(targetId);
+        if (!(target instanceof HTMLElement) || !catalog.contains(target)) return;
+        target.closest('details')?.setAttribute('open', '');
+        window.requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+      };
+
+      openCatalogHash();
+      window.addEventListener('hashchange', openCatalogHash);
+      window.addEventListener('pageshow', openCatalogHash);
     </script>
   </body>
 </html>
