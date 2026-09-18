@@ -2,7 +2,7 @@
 
 **Назва:** `RUNBOOK.md`  
 **Призначення:** внутрішній хронологічний запис реально виконаних задач цього проєкту.  
-**Дата актуалізації:** 2026-09-17
+**Дата актуалізації:** 2026-09-18
 **Статус документа:** `present`
 
 ## Межі та правила читання
@@ -415,3 +415,32 @@ npm run validate:artifacts
 - **Збережені інваріанти:** document flow не порушено; `#page-top`, `scroll-margin-top: 88px`, skip link, existing navigation, touch-friendly search control і локальні overflow-контейнери для code/table залишилися без змін. Fixed positioning, spacer, JavaScript, backend, API, database та persistence не додавалися.
 - **Verification:** source/static inspection підтвердив shared markup, sticky declaration, mobile `overflow-x: clip`, відсутність responsive position override, відповідні anchor offsets і збереження локальних horizontal scrollers; після зміни виконано `npm run check`, `npm run validate` і `npm run build` у цій сесії. `git diff --check` і generated-output audit виконані; browser/mobile visual verification — `Unknown`, оскільки Chromium/Playwright/Puppeteer фактично не запускався.
 - **Обмеження:** runtime перевірка на конкретному mobile browser не виконувалася; static verification підтверджує CSS/layout fix, але не замінює browser E2E доказ.
+
+### 36. TASK_SPEC999: ієрархічне меню у shared header — `implemented` / `partially verified`
+
+- **Мета і scope:** додати зліва у shared header клієнтське ієрархічне меню з рівнями 1–3 для переходів до постановок задач, артефактів і рівнів гайда.
+- **Змінені файли:** `src/layouts/BaseLayout.astro`, `src/components/HeaderMenu.astro`, `src/types/header-menu.ts`, `src/data/header-menu.ts`, `src/data/task-families.ts`, `src/pages/tasks/index.astro`, `src/styles/global.css`.
+- **Результат:** рівень 1 містить «Постановки задач» (`/tasks`), «Каталог артефактів» (`/artifacts`) і «Подивитися рівні» (`/#levels`). «Постановки задач» відкриває шість registry-driven task families; кожна family відкриває свої task records із наявними `/tasks#family-*` та `/tasks#*` anchors. Текстові labels залишаються native links, а сусідні кнопки-трикутники окремо розгортають/згортають дочірній список.
+- **Поведінка:** меню відкривається кнопкою, має `aria-expanded`/`aria-controls`, down/up triangle indicators, Escape і outside-click close. Розгортання зберігається лише у guarded versioned `localStorage` для поточного browser origin; backend, account persistence, API, database та authorization не додавалися. За замовчуванням дочірні рівні hidden.
+- **Responsive boundary:** desktop використовує bounded flyout під sticky header; mobile — viewport-safe panel із мінімальними 44px touch targets, wrapping і без body horizontal overflow. Existing desktop/mobile navigation, GuideNav, sticky header, `#page-top` і anchor offsets збережено.
+- **Verification:** `npm run check` — 0 errors, 0 warnings, 0 hints; `npm run validate` — guide 150 pages/30 levels, 68 artifacts, 24 task types і 242 search documents; `npm run build` — успішно згенеровано static routes. Source/generated audit підтвердив menu hierarchy, links, hidden defaults, ARIA pairs і guarded storage logic.
+- **Обмеження:** Chromium/Playwright/Puppeteer фактично не запускався, тому browser/mobile visual, keyboard interaction і persistence-after-navigation verification мають статус `Unknown`; перевірено source та generated static output.
+
+### 37. Розширення ієрархічного меню рівнями, уроками й артефактами — `implemented` / `partially verified`
+
+- **Мета і scope:** доповнити shared header menu повними registry-driven гілками `Подивитися рівні` та `Каталог артефактів`, не змінюючи існуючу task-навігацію, canonical lesson routes або artifact IDs.
+- **Змінені файли:** `src/data/header-menu.ts`, `src/data/artifacts.ts`, `src/pages/guide/index.astro`, `src/pages/artifacts/index.astro`, `src/styles/global.css`, `RUNBOOK.md`.
+- **Результат:** `Подивитися рівні` тепер розгортає 30 level-2 nodes і 150 level-3 lesson links до `/guide#level-XX` та `/guide/<slug>`. `Каталог артефактів` розгортає 9 категорій і 68 artifact records до `/artifacts#<category-anchor>` та `/artifacts#<artifact-id>`. Labels і destinations будуються з guide/artifact registries; leaf records не отримують disclosure controls.
+- **Anchors:** для guide catalog додано `id={level.id}` із наявного registry ID; category anchor projection винесено в `getArtifactCategoryAnchor`, що зберігає попередню lower-case + space-to-hyphen формулу. Existing lesson, task, artifact і category IDs не перейменовувалися.
+- **Поведінка:** збережено окремі native links і disclosure buttons, hidden nested lists, `aria-expanded`/`aria-controls`, down/up triangles, guarded versioned `localStorage`, фільтрацію unknown IDs, Escape/outside-click close та responsive scrollable panel. Expandable allowlist містить 48 root/level-2 nodes.
+- **Verification:** `npm run check` — 0 errors, 0 warnings, 0 hints; `npm run validate` — guide 150 pages/30 levels, 68 artifacts, 24 task types і 242 search documents; `npm run build` — успішно згенеровано static output; `git diff --check` — успішно; generated route/anchor audit — успішно для menu links, 30 level anchors, 9 category anchors і 68 artifact anchors.
+- **Обмеження:** Chromium/Playwright/Puppeteer фактично не запускався, тому browser/mobile visual, keyboard interaction і persistence-after-navigation verification — `Unknown`; static/source/generated перевірки не є browser E2E доказом. Backend, API, database, authorization і server persistence не додавалися.
+
+### 38. Collapse/expand каталогів guide, tasks і artifacts — `implemented` / `partially verified`
+
+- **Мета і scope:** повернути кероване згортання великих registry-driven груп у каталогах `/guide`, `/tasks` і `/artifacts`, не змінюючи canonical lesson, task, artifact або category anchors.
+- **Змінені файли:** `src/pages/guide/index.astro`, `src/pages/tasks/index.astro`, `src/pages/artifacts/index.astro`, `src/layouts/BaseLayout.astro`, `src/styles/global.css`.
+- **Результат:** рівні гайда, task families і artifact categories тепер використовують нативні `<details>/<summary>` з touch-friendly summary, visible open/closed indicator, keyboard-native disclosure і початково закритим станом. Картки залишилися звичайним контентом усередині груп; copy controls не змінювалися.
+- **Deep links:** shared catalog helper відкриває найближчий `<details>` для hash target під час initial load, `pageshow` або `hashchange`, а потім прокручує до target. Збережено `level-*`, `family-*`, category anchors, artifact IDs і task IDs.
+- **Verification:** `npm run check` — 0 errors, 0 warnings, 0 hints; `npm run validate` — guide 150 pages/30 levels, 68 artifacts, 24 task types і 242 search documents; `npm run build` — успішно; `git diff --check` — успішно; generated audit підтвердив 30 guide, 6 task і 9 artifact disclosure groups без duplicate IDs. Browser/mobile visual і keyboard runtime verification — `Unknown` без Chromium/Playwright/Puppeteer.
+- **Межі:** стан disclosure не зберігається, backend/API/database/persistence не додавалися; native `<details>` забезпечує базову поведінку без JavaScript.

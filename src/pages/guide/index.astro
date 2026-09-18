@@ -9,7 +9,7 @@ const authoredPageIds = new Set(Object.values(guideContentByLevel).flatMap((cont
 const authoredPages = guidePages.filter((page) => authoredPageIds.has(page.id));
 ---
 <BaseLayout title="Усі матеріали" description="Каталог матеріалів українського гайда Claude Code.">
-  <div class="page-shell">
+  <div class="page-shell" data-catalog-page>
     <div class="breadcrumbs"><a href="/">Головна</a><span aria-hidden="true">/</span><span aria-current="page">Гайд</span></div>
     <section class="section-heading">
       <div><p class="eyebrow">Навчальний маршрут</p><h1>Усі матеріали гайда</h1></div>
@@ -22,10 +22,15 @@ const authoredPages = guidePages.filter((page) => authoredPageIds.has(page.id));
         {guideLevels.map((level) => {
           const pages = getPagesForLevel(level.id);
           return (
-            <section class="catalog-level">
-              <div class="section-heading"><div><p class="eyebrow">Рівень {level.number}</p><h2>{level.title}</h2></div><p>{pages.length} уроків</p></div>
-              {pages.length ? <div class="page-grid">{pages.map((page) => <GuideCard page={page} level={level} />)}</div> : <div class="empty-state">Матеріали цього рівня будуть додані в наступних ітераціях.</div>}
-            </section>
+            <details class="catalog-level" id={level.id}>
+              <summary class="catalog-disclosure-summary">
+                <span><span class="eyebrow">Рівень {level.number}</span><strong>{level.title}</strong></span>
+                <span>{pages.length} уроків</span>
+              </summary>
+              <div class="catalog-disclosure-content">
+                {pages.length ? <div class="page-grid">{pages.map((page) => <GuideCard page={page} level={level} />)}</div> : <div class="empty-state">Матеріали цього рівня будуть додані в наступних ітераціях.</div>}
+              </div>
+            </details>
           );
         })}
       </div>

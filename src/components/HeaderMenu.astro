@@ -1,0 +1,154 @@
+---
+import { expandableHeaderMenuNodeIds, headerMenuNodes } from '../data/header-menu';
+const serializedExpandableIds = JSON.stringify([...expandableHeaderMenuNodeIds]);
+---
+<div class="header-menu" data-header-menu>
+  <button
+    type="button"
+    class="header-menu-trigger"
+    aria-expanded="false"
+    aria-controls="header-menu-panel"
+    aria-label="Відкрити меню сайту"
+    data-menu-trigger
+  >
+    <span aria-hidden="true" class="header-menu-trigger-icon">☰</span>
+    <span>Меню</span>
+  </button>
+  <div class="header-menu-panel" id="header-menu-panel" data-menu-panel hidden>
+    <nav aria-label="Меню сайту">
+      <ul class="header-menu-list">
+        {headerMenuNodes.map((node) => (
+          <li class="header-menu-item">
+            <div class="header-menu-row">
+              <a href={node.href}>{node.label}</a>
+              {node.children?.length ? <button type="button" class="header-menu-disclosure" aria-expanded="false" aria-controls={`header-menu-children-${node.id}`} aria-label={`${node.label} розгорнути`} data-menu-disclosure={node.id}><span aria-hidden="true" class="header-menu-triangle">▼</span></button> : null}
+            </div>
+            {node.children?.length ? (
+              <ul class="header-menu-list header-menu-list-nested" id={`header-menu-children-${node.id}`} data-menu-children={node.id} hidden>
+                {node.children.map((child) => (
+                  <li class="header-menu-item">
+                    <div class="header-menu-row">
+                      <a href={child.href}>{child.label}</a>
+                      {child.children?.length ? <button type="button" class="header-menu-disclosure" aria-expanded="false" aria-controls={`header-menu-children-${child.id}`} aria-label={`${child.label} розгорнути`} data-menu-disclosure={child.id}><span aria-hidden="true" class="header-menu-triangle">▼</span></button> : null}
+                    </div>
+                    {child.children?.length ? (
+                      <ul class="header-menu-list header-menu-list-nested" id={`header-menu-children-${child.id}`} data-menu-children={child.id} hidden>
+                        {child.children.map((grandchild) => (
+                          <li class="header-menu-item">
+                            <div class="header-menu-row">
+                              <a href={grandchild.href}>{grandchild.label}</a>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</div>
+<script is:inline define:vars={{ serializedExpandableIds }}>
+  const initializeHeaderMenu = () => {
+    const menu = document.querySelector('[data-header-menu]');
+    const trigger = menu?.querySelector('[data-menu-trigger]');
+    const panel = menu?.querySelector('[data-menu-panel]');
+    const storageKey = 'claude-code-guide:header-menu-expanded:v1';
+    const storageVersion = 1;
+
+    if (!menu || !trigger || !panel || menu.dataset.menuInitialized === 'true') return;
+    menu.dataset.menuInitialized = 'true';
+
+    let validIds;
+    try {
+      validIds = new Set(JSON.parse(serializedExpandableIds));
+    } catch {
+      validIds = new Set();
+    }
+
+    const disclosures = [...menu.querySelectorAll('[data-menu-disclosure]')];
+    const setExpanded = (id, expanded) => {
+      const disclosure = menu.querySelector(`[data-menu-disclosure="${id}"]`);
+      const children = menu.querySelector(`[data-menu-children="${id}"]`);
+      if (!disclosure || !children) return;
+      disclosure.setAttribute('aria-expanded', String(expanded));
+      disclosure.setAttribute('aria-label', `${disclosure.parentElement?.querySelector('a')?.textContent ?? 'Розділ'} ${expanded ? 'згорнути' : 'розгорнути'}`);
+      const triangle = disclosure.querySelector('.header-menu-triangle');
+      if (triangle) triangle.textContent = expanded ? '▲' : '▼';
+      children.hidden = !expanded;
+    };
+
+    const readExpanded = () => {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(storageKey) ?? '{}');
+        return parsed?.version === storageVersion && Array.isArray(parsed.expanded)
+          ? parsed.expanded.filter((id) => typeof id === 'string' && validIds.has(id))
+          : [];
+      } catch {
+        return [];
+      }
+    };
+
+    const saveExpanded = () => {
+      const expanded = disclosures
+        .filter((disclosure) => disclosure.getAttribute('aria-expanded') === 'true')
+        .map((disclosure) => disclosure.dataset.menuDisclosure)
+        .filter((id) => Boolean(id && validIds.has(id)));
+      try {
+        localStorage.setItem(storageKey, JSON.stringify({ version: storageVersion, expanded }));
+      } catch {
+        // Storage may be unavailable in private or restricted browsing modes.
+      }
+    };
+
+    const closeMenu = (returnFocus = false) => {
+      panel.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.setAttribute('aria-label', 'Відкрити меню сайту');
+      if (returnFocus) trigger.focus();
+    };
+
+    readExpanded().forEach((id) => setExpanded(id, true));
+
+    menu.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const disclosure = target.closest('[data-menu-disclosure]');
+      if (disclosure && menu.contains(disclosure)) {
+        const id = disclosure.dataset.menuDisclosure;
+        if (!id) return;
+        event.preventDefault();
+        event.stopPropagation();
+        setExpanded(id, disclosure.getAttribute('aria-expanded') !== 'true');
+        saveExpanded();
+        return;
+      }
+
+      if (target.closest('[data-menu-trigger]')) {
+        const open = panel.hidden;
+        panel.hidden = !open;
+        trigger.setAttribute('aria-expanded', String(open));
+        trigger.setAttribute('aria-label', open ? 'Закрити меню сайту' : 'Відкрити меню сайту');
+        if (open) panel.querySelector('a')?.focus();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Node && !menu.contains(event.target)) closeMenu();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && !panel.hidden) closeMenu(true);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeHeaderMenu, { once: true });
+  } else {
+    initializeHeaderMenu();
+  }
+</script>
