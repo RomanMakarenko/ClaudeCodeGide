@@ -392,12 +392,12 @@ Status: documented policy example; enforcement: Unknown.`)],
   },
   {
     id: 'capstone', type: 'capstone', family: 'governance', title: 'Спланувати capstone з evidence', mode: 'general',
-    goal: 'Обмежити фінальний проєкт одним core flow і побудувати відтворювану послідовність problem, user, value proposition, SPEC, release slice, milestones, demo та evidence.',
-    scope: ['Problem, primary user, JTBD і value proposition.', 'Один core flow, success metric та release slice.', 'SPEC, repository baseline, reviewer checklist і evaluation evidence.', 'Controlled vibe coding із bounded small diff та human checkpoint.', 'Implementation sprint із slices, verification, demo quality gates, readiness і defense handoff.'],
-    nonGoals: ['Демонстрація всього продукту.', 'Вигадані metrics, user research або screenshots.', 'Production deployment, scale claims або розширення scope під час demo.', 'Автономний deploy, непідтверджена production readiness або claim про проведений sprint/demo/defense.'],
-    success: ['Цінність, JTBD і критерії оцінювання визначені до коду.', 'Release slice має scope, non-goals, metric і evidence plan.', 'Small diff, sprint checkpoints і stop conditions зафіксовані.', 'Demo має blocking/advisory gates, readiness assumptions і fallback.', 'Reviewer може відтворити flow та відокремити facts, assumptions і Unknowns у handoff.'],
-    rules: ['Починати з одного user і малого verified slice.', 'Фіксувати assumptions, Unknown і limitations.', 'Кожну AI-assisted ітерацію обмежувати allowed paths та diff review.', 'При scope drift, missing oracle або непоясненій зміні обирати HOLD.', 'Не називати documented example production readiness, deployment, user validation або approval.'],
-    artifactIds: ['capstone-brief', 'spec', 'backlog-roadmap', 'value-proposition', 'user-jtbd', 'success-metric', 'release-slice', 'controlled-vibe-coding', 'implementation-sprint-plan', 'demo', 'demo-quality-gate', 'demo-readiness', 'evidence-log', 'capstone-defense-handoff', 'handoff-package'],
+    goal: 'Обмежити фінальний проєкт одним core flow і побудувати відтворювану послідовність problem, user, value proposition, SPEC, release slice, milestones, demo, defense та evidence.',
+    scope: ['Problem, primary user, JTBD і value proposition.', 'Один core flow, success metric та release slice.', 'SPEC, repository baseline, reviewer checklist і evaluation evidence.', 'Controlled vibe coding із bounded small diff та human checkpoint.', 'Implementation sprint із slices, verification, demo quality gates, readiness і defense handoff.', 'Submission package, repro audit, defense narrative та capstone rubric.', 'Mentor review, remediation backlog і portfolio packaging після review.'],
+    nonGoals: ['Демонстрація всього продукту.', 'Вигадані metrics, user research або screenshots.', 'Production deployment, scale claims або розширення scope під час demo.', 'Автономний deploy, непідтверджена production readiness або claim про проведений sprint/demo/defense.', 'Вигадування mentor approval, completed remediation, portfolio publication або external validation.'],
+    success: ['Цінність, JTBD і критерії оцінювання визначені до коду.', 'Release slice має scope, non-goals, metric і evidence plan.', 'Small diff, sprint checkpoints і stop conditions зафіксовані.', 'Demo має blocking/advisory gates, readiness assumptions і fallback.', 'Submission package має bounded entry point, inputs, expected signal і відомі limits.', 'Repro audit, defense narrative та rubric відділяють факти, assumptions і Unknowns.', 'Mentor findings перетворені на remediation backlog, а portfolio package має traceability без непідтверджених claims.'],
+    rules: ['Починати з одного user і малого verified slice.', 'Фіксувати assumptions, Unknown і limitations.', 'Кожну AI-assisted ітерацію обмежувати allowed paths та diff review.', 'При scope drift, missing oracle або непоясненій зміні обирати HOLD.', 'Не називати documented example production readiness, deployment, user validation або approval.', 'Не називати checklist виконаним audit, rubric застосованою, mentor review проведеним або remediation завершеним без evidence.'],
+    artifactIds: ['capstone-brief', 'spec', 'backlog-roadmap', 'value-proposition', 'user-jtbd', 'success-metric', 'release-slice', 'controlled-vibe-coding', 'implementation-sprint-plan', 'demo', 'demo-quality-gate', 'demo-readiness', 'evidence-log', 'capstone-defense-handoff', 'handoff-package', 'submission-package', 'repro-audit', 'defense-narrative', 'capstone-rubric', 'remediation-backlog', 'portfolio-package'],
     artifactExamples: [
       artifactExample('capstone-brief', `# CAPSTONE_BRIEF.md
 Problem: make one repository workflow easier to verify.
@@ -488,11 +488,65 @@ Demo: <DEMO.md anchor>
 Evidence log: <EVIDENCE_LOG.md anchor>
 Readiness: <DEMO_READINESS.md anchor>
 Decision: GO / HOLD / feedback
-Status: documented example; handoff outcome: Unknown.`)
+Status: documented example; handoff outcome: Unknown.`),
+      artifactExample('submission-package', `# SUBMISSION_PACKAGE.md
+Problem: <bounded problem>
+Core flow: <one observable scenario>
+Start: <safe command or manual entry point>
+Expected signal: <observable output>
+Evidence: <diff, checks and notes>
+Known limits: <unsupported cases and Unknowns>
+Status: documented example; submission and reproducibility result: Unknown.`),
+      artifactExample('repro-audit', `# REPRO_AUDIT.md
+Starting state: <clean checkout or documented baseline>
+Prerequisites: <versions, commands and safe fixtures>
+Steps: <ordered reproduction actions>
+Expected: <observable signal>
+Observed: <result or Unknown>
+Environment gaps: <missing permissions, data or dependencies>
+Decision: <reproducible / needs verification / HOLD>
+Status: documented example; audit execution: Unknown.`),
+      artifactExample('defense-narrative', `# DEFENSE_NARRATIVE.md
+Audience: <reviewer or evaluator>
+Problem: <bounded problem and user>
+Claim: <what this capstone slice demonstrates>
+Path: <actions and expected signals>
+Evidence anchors: <files, commands or notes>
+Known limits: <Unknowns and unsupported cases>
+Decision requested: <GO / HOLD / feedback>
+Status: documented example; defense outcome: Unknown.`),
+      artifactExample('capstone-rubric', `# CAPSTONE_RUBRIC.md
+Dimension: <problem / flow / scope / verification / evidence / communication>
+Expected signal: <observable criterion>
+Evidence required: <file, command or demo anchor>
+Status scale: <not shown / partial / shown / needs verification>
+Weight: <agreed value or Unknown>
+Decision boundary: <GO / HOLD / remediation>
+Status: documented example; rubric application and score: Unknown.`),
+      artifactExample('remediation-backlog', `# REMEDIATION_BACKLOG.md
+Source review: <mentor/reviewer note or Unknown>
+Priority: <Must fix / Should fix / Later>
+Finding: <observed gap>
+Evidence: <anchor or Unknown>
+Owner: <role or Unknown>
+Acceptance signal: <observable check>
+Status: Needs verification
+Boundary: this backlog does not prove mentor approval or completed remediation.`),
+      artifactExample('portfolio-package', `# PORTFOLIO_PACKAGE.md
+Title: <capstone name>
+Problem and audience: <bounded context>
+Role/contribution: <verified contribution or Unknown>
+Core flow: <short observable scenario>
+Selected evidence: <submission, demo, checks and review anchors>
+Evaluation: <rubric summary or Unknown>
+Review outcome: <observed decision or Unknown>
+Limitations: <unsupported claims and open questions>
+Next step: <remediation item or bounded follow-up>
+Status: documented example; portfolio publication and external validation: Unknown.`)
     ],
-    sourceLessonIds: ['l25-01', 'l25-03', 'l25-04', 'l25-05', 'l30-01', 'l30-02', 'l30-03', 'l30-04', 'l30-05', 'l31-01', 'l31-02', 'l31-03', 'l31-04', 'l31-05'],
+    sourceLessonIds: ['l25-01', 'l25-03', 'l25-04', 'l25-05', 'l30-01', 'l30-02', 'l30-03', 'l30-04', 'l30-05', 'l31-01', 'l31-02', 'l31-03', 'l31-04', 'l31-05', 'l32-01', 'l32-02', 'l32-03', 'l32-04', 'l32-05'],
     sourceLabIds: ['l25-04-capstone-evidence'],
-    note: 'Capstone, level-30 і level-31 records є навчальними documented examples, а не заявкою на виконаний sprint, demo, defense, user validation, deployment або production outcome.'
+    note: 'Capstone, levels 30–32 records є навчальними documented examples, а не заявкою на виконаний sprint, demo, defense, mentor review, remediation, portfolio publication, user validation, deployment або production outcome.'
   },
   {
     id: 'legacy-discovery', type: 'codebase-discovery', family: 'legacy-transition', title: 'Дослідити legacy і карту ризиків', mode: 'general',

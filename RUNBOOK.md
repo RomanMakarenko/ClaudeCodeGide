@@ -13,6 +13,18 @@
 
 ## Хронологія виконаних задач
 
+### Поточний запис. TASK_SPEC32: capstone demo, evaluation і portfolio packaging — `implemented` / `partially verified`
+
+- **Мета і scope:** додати level 32 із пʼятьма source-backed уроками про submission package, repro audit, послідовний defense narrative, capstone evaluation rubric, mentor review, remediation backlog і portfolio packaging.
+- **Змінені файли:** `src/data/guide.ts`, `src/data/level-32.ts`, `src/data/content.ts`, `src/data/artifacts.ts`, `src/data/task-specs.ts`, `README.md`, `CLAUDE.md`, `RUNBOOK.md`; guide, artifacts і tasks pages залишилися registry-driven без hardcoded level-32 entries.
+- **Нові маршрути:** `/guide/level-32/submission-package-repro-audit`, `/guide/level-32/defense-narrative-without-chaos`, `/guide/level-32/capstone-evaluation-criteria`, `/guide/level-32/mentor-review-remediation-backlog`, `/guide/level-32/capstone-portfolio-packaging`. Збережено exact canonical JavaRush URLs `lecture.level32.lecture01`–`lecture05`; усі пʼять сторінок мають authored content.
+- **Результат:** registry оновлено до 32 рівнів і 160 source-backed lesson routes; content registry містить пʼять level-32 records, а search projection підтягує їх автоматично.
+- **Artifacts:** додано шість reusable documented-example records — `SUBMISSION_PACKAGE.md` (`submission-package`), `REPRO_AUDIT.md` (`repro-audit`), `DEFENSE_NARRATIVE.md` (`defense-narrative`), `CAPSTONE_RUBRIC.md` (`capstone-rubric`), `REMEDIATION_BACKLOG.md` (`remediation-backlog`) і `PORTFOLIO_PACKAGE.md` (`portfolio-package`). Усі IDs додано до purpose-based quick-jump group рівно один раз; повторно використано наявні demo, evidence, handoff, review і backlog artifacts; catalog містить 82 artifact records.
+- **Task coverage:** окремий task type не додавався. Existing `capstone` розширено source lessons `l32-01`–`l32-05`, submission/repro, defense, rubric, mentor review, remediation і portfolio scope, а також filled documented examples; task catalog містить 24 records і покриває всі 32 рівні.
+- **Search:** build-time projection містить 266 documents — 160 lessons, 82 artifacts і 24 tasks — та 8322 indexed terms.
+- **Verification:** `npm run check` — 0 errors, 0 warnings, 0 hints; `npm run validate` — guide validation passed для 160 сторінок across 32 levels, artifact validation passed для 82 artifacts, task specification validation passed для 24 types і 32 levels, search validation passed для 266 documents і 8322 indexed terms; `npm run build` — успішно завершився та згенерував пʼять level-32 routes; `git diff --check` — успішно.
+- **Static-only boundary:** усі нові lesson prose, artifacts і task examples є documented examples. Це не доказ реального submission, reproducibility, capstone defense, rubric application, mentor review, approval, completed remediation, portfolio publication, external validation, deployment або production readiness; backend, API, database, authorization, persistence і deployment automation не додавалися. Chromium/Chrome/Playwright/Puppeteer не запускався, тому browser/mobile visual verification — `Unknown`; підтверджено лише static output, registry contracts і generated markup.
+
 ### Поточний запис. TASK_SPEC31: MVP execution і capstone handoff — `implemented` / `partially verified`
 
 - **Мета і scope:** додати level 31 із пʼятьма source-backed уроками про controlled vibe coding, small diff, implementation sprint, demo quality gates, demo/deployment readiness і capstone handoff.

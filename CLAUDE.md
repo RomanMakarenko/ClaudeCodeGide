@@ -19,11 +19,11 @@
 - Astro static output: `output: 'static'`.
 - HTML compression: `compressHTML: true`.
 - Поточний `site` у `astro.config.mjs`: `https://claude-code-guide.example.com`.
-- 31 зареєстрований рівень.
-- 155 source-backed lesson routes: 31 рівень × 5 уроків.
-- 76 records у central artifact catalog.
+- 32 зареєстровані рівні.
+- 160 source-backed lesson routes: 32 рівні × 5 уроків.
+- 82 records у central artifact catalog.
 - 24 records у task catalog.
-- Search index охоплює 255 records (155 lessons, 76 artifacts, 24 tasks) і 8230 indexed terms у build-time projection.
+- Search index охоплює 266 records (160 lessons, 82 artifacts, 24 tasks); indexed-term count визначається свіжим build-time validation output.
 - Увесь authored lesson content зберігається в TypeScript registries.
 
 Архітектура не містить і не повинна отримати без окремого запиту:
@@ -122,7 +122,7 @@ npm run build
     ├── data/
     │   ├── guide.ts
     │   ├── content.ts
-    │   ├── level-01.ts … level-31.ts
+    │   ├── level-01.ts … level-32.ts
     │   ├── artifacts.ts
     │   └── task-specs.ts
     ├── layouts/
@@ -156,7 +156,7 @@ npm run build
 Стабільні routes:
 
 - `/` — homepage: hero, counts, navigation і level cards.
-- `/guide` — каталог 31 рівня і 155 lesson routes.
+- `/guide` — каталог 32 рівнів і 160 lesson routes.
 - `/guide/<page.slug>` — конкретний lesson; routes генеруються через `getStaticPaths()` із `guidePages`.
 - `/artifacts` — central artifact catalog.
 - `/tasks` — central task specification catalog.
@@ -548,7 +548,7 @@ type TaskSpec = {
 - source lesson links, що ведуть на `/guide/<page.slug>`;
 - optional lab links, що ведуть до фактичного lesson, у якому lab оголошено.
 
-Усі 30 levels мають бути покриті task catalog. Explicit labs mapping перевіряється validator-ом.
+Усі 32 levels мають бути покриті task catalog. Explicit labs mapping перевіряється validator-ом.
 
 Основні task records охоплюють setup/baseline, feature, bugfix, refactoring, characterization, tests, documentation, diagnosis, discovery, acceptance, issue intake, implementation plan, PR slicing, handoff/recovery, extension evaluation, orchestration, CI/build, quality/release, risk/policy, capstone, legacy discovery, modernization і migration.
 

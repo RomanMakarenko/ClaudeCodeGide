@@ -1067,6 +1067,102 @@ export const artifacts: Artifact[] = [
     poorChoiceWhen: 'Для заміни окремих evidence records, повного transcript або claim про завершений handoff.',
     status: 'documented-example', sourceRefs: ['level-31']
   },
+  {
+    id: 'submission-package', name: 'SUBMISSION_PACKAGE.md', category: 'Перевірка, handoff і delivery',
+    responsibility: 'Збирає мінімальний capstone package для submission, відтворення та незалежного review.',
+    role: 'Entry point до bounded scenario, inputs, expected signal, evidence і відомих обмежень.',
+    template: "# SUBMISSION_PACKAGE.md\n\nProblem: <bounded problem>\nCore flow: <one observable scenario>\nStart: <safe command or manual entry point>\nInputs: <fixtures without secrets>\nExpected signal: <observable output>\nEvidence: <diff, checks and notes>\nRepro audit: <REPRO_AUDIT.md anchor>\nKnown limits: <unsupported cases and Unknowns>\nStatus: documented example; submission and reproducibility result: Unknown.\n",
+    paths: [{ value: '{project}/SUBMISSION_PACKAGE.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'problem and core flow', description: 'Bounded context і один observable scenario.', requirement: 'required' },
+      { name: 'start and inputs', description: 'Безпечний entry point і fixtures без secrets.', requirement: 'required' },
+      { name: 'expected signal and evidence', description: 'Observable output та посилання на checks/notes.', requirement: 'required' },
+      { name: 'limits/status', description: 'Unknowns, unsupported cases і межа submission claim.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед capstone submission або review, коли потрібна одна entry point для відтворюваного bounded показу.',
+    poorChoiceWhen: 'Для повного repository archive, raw transcript або доказу фактичної submission/approval.',
+    status: 'documented-example', sourceRefs: ['level-32']
+  },
+  {
+    id: 'repro-audit', name: 'REPRO_AUDIT.md', category: 'Перевірка, handoff і delivery',
+    responsibility: 'Перевіряє передумови, кроки запуску, inputs, expected/observed signals і environment gaps.',
+    role: 'Контрольний запис відтворюваності, який відділяє процедуру від фактичного результату.',
+    template: "# REPRO_AUDIT.md\n\nStarting state: <clean checkout or documented baseline>\nPrerequisites: <versions, commands and safe fixtures>\nSteps: <ordered reproduction actions>\nExpected: <observable signal>\nObserved: <result or Unknown>\nEnvironment gaps: <missing permissions, data or dependencies>\nDecision: <reproducible / needs verification / HOLD>\nStatus: documented example; audit execution: Unknown.\n",
+    paths: [{ value: '{project}/REPRO_AUDIT.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'starting state/prerequisites', description: 'Baseline, versions, commands і передумови.', requirement: 'required' },
+      { name: 'steps and signals', description: 'Ordered actions, expected і observed output.', requirement: 'required' },
+      { name: 'environment gaps', description: 'Неповні дані, permissions або dependencies.', requirement: 'required' },
+      { name: 'decision/status', description: 'Repro decision, stop condition і фактичний статус.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли reviewer має відтворити bounded flow із чистого або явно описаного baseline.',
+    poorChoiceWhen: 'Для test suite, deployment runbook або claim про успішну reproducibility без execution evidence.',
+    status: 'documented-example', sourceRefs: ['level-32']
+  },
+  {
+    id: 'defense-narrative', name: 'DEFENSE_NARRATIVE.md', category: 'Перевірка, handoff і delivery',
+    responsibility: 'Веде послідовний capstone defense narrative від проблеми до evidence і decision request.',
+    role: 'Reviewer-facing сценарій, що зменшує хаос під час bounded demo.',
+    template: "# DEFENSE_NARRATIVE.md\n\nAudience: <reviewer or evaluator>\nProblem: <bounded problem and user>\nClaim: <what this capstone slice demonstrates>\nPath: <three to five actions and expected signals>\nEvidence anchors: <files, commands or notes>\nKnown limits: <Unknowns and unsupported cases>\nDecision requested: <GO / HOLD / feedback>\nStatus: documented example; defense outcome: Unknown.\n",
+    paths: [{ value: '{project}/DEFENSE_NARRATIVE.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'audience/problem/claim', description: 'Для кого показ і що саме bounded slice демонструє.', requirement: 'required' },
+      { name: 'path and expected signals', description: 'Послідовність кроків core flow.', requirement: 'required' },
+      { name: 'evidence/limits', description: 'Anchors, Unknowns і виключені claims.', requirement: 'required' },
+      { name: 'decision request', description: 'GO, HOLD, feedback або наступний bounded slice.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед capstone defense, коли потрібно провести reviewer-а одним observable narrative.',
+    poorChoiceWhen: 'Для повного transcript, quality rubric або доказу фактичного захисту й approval.',
+    status: 'documented-example', sourceRefs: ['level-32']
+  },
+  {
+    id: 'capstone-rubric', name: 'CAPSTONE_RUBRIC.md', category: 'Постановка задачі',
+    responsibility: 'Описує dimensions, expected signals, evidence requirements і decision boundaries для capstone evaluation.',
+    role: 'Прозора рамка оцінювання замість субʼєктивного враження від demo.',
+    template: "# CAPSTONE_RUBRIC.md\n\nDimension: <problem / flow / scope / verification / evidence / communication>\nExpected signal: <observable criterion>\nEvidence required: <file, command or demo anchor>\nStatus scale: <not shown / partial / shown / needs verification>\nWeight: <agreed value or Unknown>\nReviewer note: <feedback or Unknown>\nDecision boundary: <GO / HOLD / remediation>\nStatus: documented example; rubric application and score: Unknown.\n",
+    paths: [{ value: '{project}/CAPSTONE_RUBRIC.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'dimensions', description: 'Observable areas оцінювання capstone.', requirement: 'required' },
+      { name: 'signals/evidence', description: 'Критерії та потрібні evidence anchors.', requirement: 'required' },
+      { name: 'scale/weight', description: 'Шкала, ваги або явний Unknown.', requirement: 'required' },
+      { name: 'decision boundary', description: 'GO, HOLD, remediation та межа claims.', requirement: 'required' }
+    ],
+    whenToUse: 'До defense або review, коли потрібні узгоджені критерії та traceability до evidence.',
+    poorChoiceWhen: 'Для автоматичного score, фактичного approval або заміни acceptance/verification plan.',
+    status: 'documented-example', sourceRefs: ['level-32']
+  },
+  {
+    id: 'remediation-backlog', name: 'REMEDIATION_BACKLOG.md', category: 'Перевірка, handoff і delivery',
+    responsibility: 'Перетворює mentor/reviewer findings на пріоритизовані remediation items із owner і acceptance signal.',
+    role: 'Керований feedback loop після evaluation, що розділяє Must fix, Should fix і Later.',
+    template: "# REMEDIATION_BACKLOG.md\n\nSource review: <mentor/reviewer note or Unknown>\n\n| Priority | Finding | Evidence | Owner | Acceptance signal | Status |\n| --- | --- | --- | --- | --- | --- |\n| Must fix | <blocking gap> | <anchor or Unknown> | <role or Unknown> | <observable check> | Needs verification |\n| Should fix | <quality improvement> | <anchor or Unknown> | <role or Unknown> | <observable check> | Planned documented example |\n| Later | <deferred improvement> | <reason> | <role or Unknown> | <future signal> | Deferred |\n\nBoundary: this backlog does not prove mentor approval or completed remediation.\n",
+    paths: [{ value: '{project}/REMEDIATION_BACKLOG.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'finding and evidence', description: 'Observed gap і evidence anchor або Unknown.', requirement: 'required' },
+      { name: 'priority and owner', description: 'Must/Should/Later та owner або Unknown.', requirement: 'required' },
+      { name: 'next action/acceptance', description: 'Наступна дія та observable acceptance signal.', requirement: 'required' },
+      { name: 'status', description: 'Поточний стан, deferred boundary і stop condition.', requirement: 'required' }
+    ],
+    whenToUse: 'Після mentor/reviewer feedback, коли findings потрібно перетворити на bounded follow-up work.',
+    poorChoiceWhen: 'Для raw review transcript, автоматичного task assignment або claim про завершений remediation.',
+    status: 'documented-example', sourceRefs: ['level-32']
+  },
+  {
+    id: 'portfolio-package', name: 'PORTFOLIO_PACKAGE.md', category: 'Перевірка, handoff і delivery',
+    responsibility: 'Упаковує reviewed capstone для portfolio audience через context, contribution, evidence, limitations і next step.',
+    role: 'Curated public-facing summary із traceability та чесною межею зовнішніх claims.',
+    template: "# PORTFOLIO_PACKAGE.md\n\nTitle: <capstone name>\nProblem and audience: <bounded context>\nRole/contribution: <verified contribution or Unknown>\nCore flow: <short observable scenario>\nSelected evidence: <submission, demo, checks and review anchors>\nEvaluation: <rubric summary or Unknown>\nReview outcome: <observed decision or Unknown>\nLimitations: <unsupported claims and open questions>\nNext step: <remediation item or bounded follow-up>\nStatus: documented example; portfolio publication and external validation: Unknown.\n",
+    paths: [{ value: '{project}/PORTFOLIO_PACKAGE.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'context and contribution', description: 'Проблема, аудиторія та verified contribution.', requirement: 'required' },
+      { name: 'flow and evidence', description: 'Короткий core flow і selected evidence anchors.', requirement: 'required' },
+      { name: 'evaluation/outcome', description: 'Rubric summary, review outcome або Unknown.', requirement: 'required' },
+      { name: 'limits/next step', description: 'Обмеження, open questions і remediation follow-up.', requirement: 'required' }
+    ],
+    whenToUse: 'Після review, коли capstone потрібно пояснити portfolio reader-у без повного repository transcript.',
+    poorChoiceWhen: 'Для фактичного CV claim, зовнішньої валідації, publication record або заміни evidence packet.',
+    status: 'documented-example', sourceRefs: ['level-32']
+  },
 ];
 
 export type ArtifactQuickJumpGroup = {
@@ -1099,7 +1195,7 @@ export const artifactQuickJumpGroups: ArtifactQuickJumpGroup[] = [
   {
     label: 'Перевірити, передати й доставити',
     description: 'Evidence, review, handoff і delivery records для завершення роботи.',
-    artifactIds: ['evidence', 'evidence-log', 'handoff-note', 'handoff-review', 'review-notes', 'diagnosis-json', 'pr-description', 'commit-message', 'changelog', 'postmortem', 'runbook-md', 'demo', 'demo-quality-gate', 'demo-readiness', 'capstone-defense-handoff', 'handoff-package']
+    artifactIds: ['evidence', 'evidence-log', 'handoff-note', 'handoff-review', 'review-notes', 'diagnosis-json', 'pr-description', 'commit-message', 'changelog', 'postmortem', 'runbook-md', 'demo', 'demo-quality-gate', 'demo-readiness', 'capstone-defense-handoff', 'handoff-package', 'submission-package', 'repro-audit', 'defense-narrative', 'capstone-rubric', 'remediation-backlog', 'portfolio-package']
   },
   {
     label: 'Дослідити legacy й ризики',
