@@ -13,6 +13,18 @@
 
 ## Хронологія виконаних задач
 
+### Поточний запис. TASK_SPEC31: MVP execution і capstone handoff — `implemented` / `partially verified`
+
+- **Мета і scope:** додати level 31 із пʼятьма source-backed уроками про controlled vibe coding, small diff, implementation sprint, demo quality gates, demo/deployment readiness і capstone handoff.
+- **Змінені файли:** `src/data/guide.ts`, `src/data/level-31.ts`, `src/data/content.ts`, `src/data/artifacts.ts`, `src/data/task-specs.ts`, `README.md`, `CLAUDE.md`, `RUNBOOK.md`; menu і catalog pages залишилися registry-driven без hardcoded level-31 entries.
+- **Нові маршрути:** `/guide/level-31/controlled-vibe-coding-small-diff`, `/guide/level-31/implementation-sprint-delivery`, `/guide/level-31/demo-quality-gates-capstone`, `/guide/level-31/demo-and-deployment-readiness`, `/guide/level-31/capstone-defense-handoff`. Збережено exact canonical JavaRush URLs `lecture.level31.lecture01`–`lecture05`; усі пʼять сторінок мають authored content.
+- **Результат:** registry оновлено до 31 рівня і 155 source-backed lesson routes; header menu, guide catalog, tasks catalog і search projection підтягують нові records автоматично.
+- **Artifacts:** додано `CONTROLLED_VIBE_CODING.md`, `IMPLEMENTATION_SPRINT_PLAN.md`, `DEMO.md`, `DEMO_QUALITY_GATE.md`, `DEMO_READINESS.md`, `EVIDENCE_LOG.md`, `CAPSTONE_DEFENSE_HANDOFF.md` і `HANDOFF_PACKAGE.md`; повторно використано наявні evidence, handoff, review, release і run-status artifacts. Нові IDs додано до purpose-based quick-jump group рівно один раз; catalog містить 76 artifact records.
+- **Task coverage:** окремий task type не додавався. Existing `capstone` розширено level-31 source lessons, small-diff/sprint/demo/readiness/handoff scope і filled documented examples; task catalog містить 24 records і покриває всі 31 рівень.
+- **Search:** build-time projection містить 255 documents — 155 lessons, 76 artifacts і 24 tasks — та 8230 indexed terms.
+- **Verification:** `npm run check` — 0 errors, 0 warnings, 0 hints; `npm run validate` — guide validation passed для 155 сторінок across 31 levels, artifact validation passed для 76 artifacts, task specification validation passed для 24 types і 31 levels, search validation passed для 255 documents і 8230 indexed terms; `npm run build` — успішно завершився та згенерував пʼять level-31 routes; `git diff --check` — успішно.
+- **Static-only boundary:** усі нові lesson prose, artifacts і task examples є documented examples. Це не доказ реального sprint, demo, capstone defense, deployment, publish, production readiness, user validation, approval або customer outcome; backend, API, database, authorization, persistence і deployment automation не додавалися. Chromium/Chrome/Playwright/Puppeteer не запускався, тому browser/mobile visual verification — `Unknown`; підтверджено лише static output, registry contracts і generated markup.
+
 ### Поточний запис. TASK_SPEC30: AI-native MVP — `implemented` / `partially verified`
 
 - **Мета і scope:** додати level 30 із пʼятьма source-backed уроками про AI-native MVP-мислення, ціннісну пропозицію, user/JTBD, success metric, scope/non-goals/release slice і reviewer-ready specification.

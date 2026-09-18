@@ -393,11 +393,11 @@ Status: documented policy example; enforcement: Unknown.`)],
   {
     id: 'capstone', type: 'capstone', family: 'governance', title: 'Спланувати capstone з evidence', mode: 'general',
     goal: 'Обмежити фінальний проєкт одним core flow і побудувати відтворювану послідовність problem, user, value proposition, SPEC, release slice, milestones, demo та evidence.',
-    scope: ['Problem, primary user, JTBD і value proposition.', 'Один core flow, success metric та release slice.', 'SPEC, repository baseline, reviewer checklist і evaluation evidence.'],
-    nonGoals: ['Демонстрація всього продукту.', 'Вигадані metrics, user research або screenshots.', 'Production deployment, scale claims або розширення scope під час demo.'],
-    success: ['Цінність, JTBD і критерії оцінювання визначені до коду.', 'Release slice має scope, non-goals, metric і evidence plan.', 'Reviewer може відтворити flow та відокремити facts, assumptions і Unknowns.'],
-    rules: ['Починати з одного user і малого verified slice.', 'Фіксувати assumptions, Unknown і limitations.', 'Не називати documented example production readiness або user validation.'],
-    artifactIds: ['capstone-brief', 'spec', 'backlog-roadmap', 'value-proposition', 'user-jtbd', 'success-metric', 'release-slice'],
+    scope: ['Problem, primary user, JTBD і value proposition.', 'Один core flow, success metric та release slice.', 'SPEC, repository baseline, reviewer checklist і evaluation evidence.', 'Controlled vibe coding із bounded small diff та human checkpoint.', 'Implementation sprint із slices, verification, demo quality gates, readiness і defense handoff.'],
+    nonGoals: ['Демонстрація всього продукту.', 'Вигадані metrics, user research або screenshots.', 'Production deployment, scale claims або розширення scope під час demo.', 'Автономний deploy, непідтверджена production readiness або claim про проведений sprint/demo/defense.'],
+    success: ['Цінність, JTBD і критерії оцінювання визначені до коду.', 'Release slice має scope, non-goals, metric і evidence plan.', 'Small diff, sprint checkpoints і stop conditions зафіксовані.', 'Demo має blocking/advisory gates, readiness assumptions і fallback.', 'Reviewer може відтворити flow та відокремити facts, assumptions і Unknowns у handoff.'],
+    rules: ['Починати з одного user і малого verified slice.', 'Фіксувати assumptions, Unknown і limitations.', 'Кожну AI-assisted ітерацію обмежувати allowed paths та diff review.', 'При scope drift, missing oracle або непоясненій зміні обирати HOLD.', 'Не називати documented example production readiness, deployment, user validation або approval.'],
+    artifactIds: ['capstone-brief', 'spec', 'backlog-roadmap', 'value-proposition', 'user-jtbd', 'success-metric', 'release-slice', 'controlled-vibe-coding', 'implementation-sprint-plan', 'demo', 'demo-quality-gate', 'demo-readiness', 'evidence-log', 'capstone-defense-handoff', 'handoff-package'],
     artifactExamples: [
       artifactExample('capstone-brief', `# CAPSTONE_BRIEF.md
 Problem: make one repository workflow easier to verify.
@@ -435,11 +435,64 @@ In scope: one flow, one metric and one reviewer checklist
 Non-goals: autonomous merge, deployment and broad roadmap
 Dependencies: repository baseline and agreed evidence format
 Release criteria: reviewer can reproduce the outline and locate Unknowns
-Status: documented example; no release or deployment is claimed.`)
+Status: documented example; no release or deployment is claimed.`),
+      artifactExample('controlled-vibe-coding', `# CONTROLLED_VIBE_CODING.md
+Goal: implement one bounded capstone change
+Allowed paths: <explicit files>
+Expected diff: one behavior; no unrelated cleanup
+Check: targeted verification and human diff review
+Stop when: scope drifts or oracle is missing
+Status: documented example; execution result: Unknown.`),
+      artifactExample('implementation-sprint-plan', `# IMPLEMENTATION_SPRINT_PLAN.md
+Outcome: one reviewable capstone increment
+Slices: contract -> implementation -> verification -> review
+Checkpoint: inspect diff and status after each slice
+Exit: DONE, CONTINUE WITH APPROVAL or HOLD
+Status: documented example; sprint execution: Unknown.`),
+      artifactExample('demo', `# DEMO.md
+Audience: reviewer or capstone evaluator
+Core flow: <bounded scenario>
+Entry point: <safe command or manual start>
+Steps: <observable actions and expected signals>
+Known limits: <unsupported cases and Unknowns>
+Status: documented example; demo outcome: Unknown.`),
+      artifactExample('demo-quality-gate', `# DEMO_QUALITY_GATE.md
+Blocking: startup, core output and acceptance evidence
+Advisory: polish and deferred edge cases
+Evidence: <commands or anchors>
+Decision: GO / HOLD / REDO
+Status: documented example; gate result: Unknown.`),
+      artifactExample('demo-readiness', `# DEMO_READINESS.md
+Start: <safe command or manual entry point>
+Inputs: <fixtures without secrets>
+Expected signal: <observable output>
+Fallback: <static or manual path>
+Deployment boundary: no publish/deploy claim
+Status: documented example; readiness result: Unknown.`),
+      artifactExample('evidence-log', `# EVIDENCE_LOG.md
+Claim: <what is being checked>
+Source: <file, command or observation>
+Result: <observed result or Unknown>
+Decision: <continue / revise / HOLD>
+Status: documented example; no deployment or production claim.`),
+      artifactExample('capstone-defense-handoff', `# CAPSTONE_DEFENSE_HANDOFF.md
+Problem: <bounded problem>
+Demo path: <observable steps>
+Evidence: <links or anchors>
+Known limits: <Unknowns and unsupported cases>
+Decision requested: GO / HOLD / feedback
+Status: documented example; defense outcome: Unknown.`),
+      artifactExample('handoff-package', `# HANDOFF_PACKAGE.md
+Summary: <bounded problem, user and scope>
+Demo: <DEMO.md anchor>
+Evidence log: <EVIDENCE_LOG.md anchor>
+Readiness: <DEMO_READINESS.md anchor>
+Decision: GO / HOLD / feedback
+Status: documented example; handoff outcome: Unknown.`)
     ],
-    sourceLessonIds: ['l25-01', 'l25-03', 'l25-04', 'l25-05', 'l30-01', 'l30-02', 'l30-03', 'l30-04', 'l30-05'],
+    sourceLessonIds: ['l25-01', 'l25-03', 'l25-04', 'l25-05', 'l30-01', 'l30-02', 'l30-03', 'l30-04', 'l30-05', 'l31-01', 'l31-02', 'l31-03', 'l31-04', 'l31-05'],
     sourceLabIds: ['l25-04-capstone-evidence'],
-    note: 'Capstone і level-30 MVP records є навчальними documented examples, а не заявкою на виконаний проєкт, user validation або production outcome.'
+    note: 'Capstone, level-30 і level-31 records є навчальними documented examples, а не заявкою на виконаний sprint, demo, defense, user validation, deployment або production outcome.'
   },
   {
     id: 'legacy-discovery', type: 'codebase-discovery', family: 'legacy-transition', title: 'Дослідити legacy і карту ризиків', mode: 'general',

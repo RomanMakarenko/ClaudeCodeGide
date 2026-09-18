@@ -939,6 +939,134 @@ export const artifacts: Artifact[] = [
     poorChoiceWhen: 'Для повного roadmap, необмеженого backlog або твердження про фактичний production release.',
     status: 'documented-example', sourceRefs: ['level-30']
   },
+  {
+    id: 'controlled-vibe-coding', name: 'CONTROLLED_VIBE_CODING.md', category: 'Виконання й контроль',
+    responsibility: 'Фіксує bounded AI-editing contract для малих diff і безпечних stop conditions.',
+    role: 'Контрольна рамка між task intent, дозволеними шляхами, diff review і targeted verification.',
+    template: "# CONTROLLED_VIBE_CODING.md\n\nGoal: <one bounded change>\nAllowed paths: <explicit files or directories>\nExpected diff: <one behavior; no unrelated cleanup>\nCheck: <targeted command or review step>\nStop when: <scope drift, unclear contract or missing oracle>\nHuman gate: <continue / revise / HOLD>\nStatus: documented example; execution result: Unknown.\n",
+    paths: [{ value: '{project}/CONTROLLED_VIBE_CODING.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'intent and allowed paths', description: 'Одна ціль і явна affected area.', requirement: 'required' },
+      { name: 'diff boundary', description: 'Очікуваний розмір і заборонений unrelated cleanup.', requirement: 'required' },
+      { name: 'check and checkpoint', description: 'Targeted verification і людська контрольна точка.', requirement: 'required' },
+      { name: 'stop conditions', description: 'Сигнали scope drift, невідомого контракту або відсутнього oracle.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед AI-assisted implementation, коли важливо зберегти малий reviewable diff.',
+    poorChoiceWhen: 'Для необмеженої автономної реалізації, production approval або заміни task specification.',
+    status: 'documented-example', sourceRefs: ['level-31']
+  },
+  {
+    id: 'implementation-sprint-plan', name: 'IMPLEMENTATION_SPRINT_PLAN.md', category: 'Виконання й контроль',
+    responsibility: 'Описує один bounded implementation sprint через outcome, slices, checkpoints і exit decision.',
+    role: 'Delivery plan, що відділяє завершений increment від просто згенерованого коду.',
+    template: "# IMPLEMENTATION_SPRINT_PLAN.md\n\nOutcome: <reviewable increment>\nSlices: <ordered implementation slices>\nOwner: <role>\nDependencies: <known prerequisites>\nCheckpoint: <diff and verification review>\nExit: <DONE / CONTINUE WITH APPROVAL / HOLD>\nDeferred: <excluded work>\nStatus: documented example; sprint execution: Unknown.\n",
+    paths: [{ value: '{project}/IMPLEMENTATION_SPRINT_PLAN.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'objective and boundaries', description: 'Один sprint outcome, in-scope та deferred work.', requirement: 'required' },
+      { name: 'slices and owner', description: 'Послідовність slices, owner і dependencies.', requirement: 'required' },
+      { name: 'checkpoints', description: 'Моменти перевірки diff, acceptance і evidence.', requirement: 'required' },
+      { name: 'exit decision', description: 'DONE, CONTINUE WITH APPROVAL або HOLD із причиною.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли implementation потрібно вести коротким контрольованим delivery loop.',
+    poorChoiceWhen: 'Для необмеженого backlog, повного roadmap або claim про виконаний sprint.',
+    status: 'documented-example', sourceRefs: ['level-31']
+  },
+  {
+    id: 'demo-quality-gate', name: 'DEMO_QUALITY_GATE.md', category: 'Перевірка, handoff і delivery',
+    responsibility: 'Визначає blocking/advisory checks для capstone demo та рішення GO, HOLD або REDO.',
+    role: 'Quality boundary, що привʼязує кожен demo claim до acceptance signal і evidence anchor.',
+    template: "# DEMO_QUALITY_GATE.md\n\nCore flow: <bounded scenario>\nBlocking: <startup, output and acceptance checks>\nAdvisory: <non-critical signals>\nEvidence: <commands or anchors>\nDecision: <GO / HOLD / REDO>\nClaims excluded: <production, adoption or scale claims>\nStatus: documented example; gate result: Unknown.\n",
+    paths: [{ value: '{project}/DEMO_QUALITY_GATE.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'demo claim', description: 'Що саме має бути показано і перевірено.', requirement: 'required' },
+      { name: 'blocking/advisory mode', description: 'Розділення обовʼязкових і рекомендаційних checks.', requirement: 'required' },
+      { name: 'evidence and threshold', description: 'Evidence anchor та умова проходження.', requirement: 'required' },
+      { name: 'decision and limits', description: 'GO/HOLD/REDO і виключені claims.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед capstone demo, коли потрібне відтворюване рішення про якість показу.',
+    poorChoiceWhen: 'Для customer approval, production readiness або заміни повного test/evidence record.',
+    status: 'documented-example', sourceRefs: ['level-31']
+  },
+  {
+    id: 'demo-readiness', name: 'DEMO_READINESS.md', category: 'Перевірка, handoff і delivery',
+    responsibility: 'Фіксує environment assumptions, startup path, fixtures, fallback і deployment boundary для demo.',
+    role: 'Readiness checklist для повторюваного bounded показу без прихованого operational claim.',
+    template: "# DEMO_READINESS.md\n\nScenario: <bounded flow>\nStart: <command or manual entry point>\nInputs: <safe fixtures>\nExpected signal: <observable output>\nFallback: <static or manual alternative>\nBlocking unknowns: <environment or permission gaps>\nDeployment boundary: no publish/deploy claim\nStatus: documented example; readiness result: Unknown.\n",
+    paths: [{ value: '{project}/DEMO_READINESS.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'environment/startup', description: 'Передумови середовища і відтворюваний entry point.', requirement: 'required' },
+      { name: 'fixtures and expected signal', description: 'Безпечні inputs і observable output.', requirement: 'required' },
+      { name: 'fallback and limitations', description: 'Fallback path, known limitations і Unknowns.', requirement: 'required' },
+      { name: 'deployment boundary', description: 'Окремий статус deployment/production readiness.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед demo, коли потрібно перевірити setup і чесно відокремити readiness від deployment.',
+    poorChoiceWhen: 'Для фактичного release checklist, publish authorization або production operations runbook.',
+    status: 'documented-example', sourceRefs: ['level-31']
+  },
+  {
+    id: 'capstone-defense-handoff', name: 'CAPSTONE_DEFENSE_HANDOFF.md', category: 'Перевірка, handoff і delivery',
+    responsibility: 'Зʼєднує defense narrative, demo flow, evidence, limitations і next decision в одному handoff packet.',
+    role: 'Reviewer-ready пакет для швидкого рішення без вигаданих outcome або approval.',
+    template: "# CAPSTONE_DEFENSE_HANDOFF.md\n\nProblem: <bounded problem>\nDemo path: <observable steps>\nEvidence: <links or anchors>\nKnown limits: <unsupported cases and Unknowns>\nClaims excluded: <production, adoption, scale>\nDecision requested: <GO / HOLD / feedback>\nNext owner: <role>; next step: <bounded action>\nStatus: documented example; defense outcome: Unknown.\n",
+    paths: [{ value: '{project}/CAPSTONE_DEFENSE_HANDOFF.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'problem/user/scope', description: 'Контекст capstone і bounded outcome.', requirement: 'required' },
+      { name: 'demo and evidence map', description: 'Послідовність показу та evidence anchors.', requirement: 'required' },
+      { name: 'limitations and Unknowns', description: 'Відомі межі та непідтверджені claims.', requirement: 'required' },
+      { name: 'decision and ownership', description: 'Запит на рішення, next owner і наступний крок.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед reviewer handoff або capstone defense, коли потрібен стислий і відтворюваний пакет.',
+    poorChoiceWhen: 'Для заміни фактичного evidence, meeting transcript, approval record або production handoff.',
+    status: 'documented-example', sourceRefs: ['level-31']
+  },
+  {
+    id: 'demo', name: 'DEMO.md', category: 'Перевірка, handoff і delivery',
+    responsibility: 'Описує bounded demo flow, сценарій показу, expected signals і межі demo claims.',
+    role: 'Narrative та run-through record для capstone demo, окремий від quality gate і readiness checklist.',
+    template: "# DEMO.md\n\n## Scenario\n- Audience: <reviewer or evaluation context>\n- Core flow: <bounded scenario>\n- Entry point: <safe command or manual start>\n\n## Run-through\n1. <step and expected signal>\n2. <step and expected signal>\n3. <step and expected signal>\n\n## Boundaries\n- Known limits: <unsupported cases and Unknowns>\n- Claims excluded: <production, adoption, scale>\n- Status: documented example; demo outcome: Unknown.\n",
+    paths: [{ value: '{project}/DEMO.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'audience/scenario', description: 'Для кого і який bounded flow показується.', requirement: 'required' },
+      { name: 'entry point and steps', description: 'Безпечний старт і послідовність demo кроків.', requirement: 'required' },
+      { name: 'expected signals', description: 'Observable output для кожного кроку.', requirement: 'required' },
+      { name: 'limits and status', description: 'Known limits, виключені claims і статус outcome.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли capstone потребує короткого відтворюваного сценарію показу до review.',
+    poorChoiceWhen: 'Для acceptance gate, environment readiness, production runbook або доказу проведеного demo.',
+    status: 'documented-example', sourceRefs: ['level-31']
+  },
+  {
+    id: 'evidence-log', name: 'EVIDENCE_LOG.md', category: 'Перевірка, handoff і delivery',
+    responsibility: 'Веде послідовний журнал evidence entries, рішень і Unknowns для bounded capstone workflow.',
+    role: 'Chronological evidence companion до стислого EVIDENCE.md, коли потрібно бачити checkpoints і статус кожної перевірки.',
+    template: "# EVIDENCE_LOG.md\n\n## Entry\n- Time/context: <bounded checkpoint>\n- Claim: <what is being checked>\n- Source: <file, command or observation>\n- Result: <observed result or Unknown>\n- Decision: <continue / revise / HOLD>\n- Owner: <role>\n\n## Boundary\n- This log does not prove deployment, user validation or production readiness.\n- Status: documented example.\n",
+    paths: [{ value: '{project}/EVIDENCE_LOG.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'checkpoint/context', description: 'Коли та в якому bounded workflow зібрано запис.', requirement: 'required' },
+      { name: 'claim/source/result', description: 'Claim, evidence source і observed result або Unknown.', requirement: 'required' },
+      { name: 'decision/owner', description: 'Наступне рішення та відповідальний.', requirement: 'required' },
+      { name: 'boundary', description: 'Які claims журнал не може довести.', requirement: 'required' }
+    ],
+    whenToUse: 'Коли checkpoints і проміжні verification decisions потрібно зберігати послідовно.',
+    poorChoiceWhen: 'Для raw logs, єдиного фінального summary або заміни фактичних command outputs.',
+    status: 'documented-example', aliases: ['EVIDENCE.md companion'], sourceRefs: ['level-31']
+  },
+  {
+    id: 'handoff-package', name: 'HANDOFF_PACKAGE.md', category: 'Перевірка, handoff і delivery',
+    responsibility: 'Пакує demo narrative, evidence map, limitations, reviewer questions і наступне рішення для handoff.',
+    role: 'Збірний capstone delivery packet, який посилається на спеціалізовані DEMO, EVIDENCE_LOG і handoff records.',
+    template: "# HANDOFF_PACKAGE.md\n\n## Summary\n- Problem: <bounded problem>\n- User: <primary user or reviewer>\n- Scope: <implemented/documented slice>\n\n## Package\n- Demo: <DEMO.md anchor>\n- Quality gate: <DEMO_QUALITY_GATE.md anchor>\n- Readiness: <DEMO_READINESS.md anchor>\n- Evidence log: <EVIDENCE_LOG.md anchor>\n- Defense handoff: <CAPSTONE_DEFENSE_HANDOFF.md anchor>\n\n## Decision\n- Requested: <GO / HOLD / feedback>\n- Next owner: <role>\n- Status: documented example; handoff outcome: Unknown.\n",
+    paths: [{ value: '{project}/HANDOFF_PACKAGE.md', scope: 'repository', status: 'documented-example' }],
+    fields: [
+      { name: 'summary and scope', description: 'Bounded problem, user і межа переданого slice.', requirement: 'required' },
+      { name: 'linked package records', description: 'Посилання на demo, gates, readiness і evidence.', requirement: 'required' },
+      { name: 'limitations/questions', description: 'Known limits, Unknowns і reviewer questions.', requirement: 'required' },
+      { name: 'decision/ownership', description: 'Requested decision, next owner і наступний крок.', requirement: 'required' }
+    ],
+    whenToUse: 'Перед capstone review або defense, коли всі delivery records потрібно зібрати в одну entry point.',
+    poorChoiceWhen: 'Для заміни окремих evidence records, повного transcript або claim про завершений handoff.',
+    status: 'documented-example', sourceRefs: ['level-31']
+  },
 ];
 
 export type ArtifactQuickJumpGroup = {
@@ -966,12 +1094,12 @@ export const artifactQuickJumpGroups: ArtifactQuickJumpGroup[] = [
   {
     label: 'Виконати й контролювати',
     description: 'Операційні артефакти для запуску, ізоляції та контролю виконання.',
-    artifactIds: ['git-review-artifacts', 'commands-md', 'workflow-md', 'clawd-yolo', 'clawd-runner', 'run-status-yaml', 'locales-json', 'locale-bundle']
+    artifactIds: ['git-review-artifacts', 'commands-md', 'workflow-md', 'clawd-yolo', 'clawd-runner', 'run-status-yaml', 'locales-json', 'locale-bundle', 'controlled-vibe-coding', 'implementation-sprint-plan']
   },
   {
     label: 'Перевірити, передати й доставити',
     description: 'Evidence, review, handoff і delivery records для завершення роботи.',
-    artifactIds: ['evidence', 'handoff-note', 'handoff-review', 'review-notes', 'diagnosis-json', 'pr-description', 'commit-message', 'changelog', 'postmortem', 'runbook-md']
+    artifactIds: ['evidence', 'evidence-log', 'handoff-note', 'handoff-review', 'review-notes', 'diagnosis-json', 'pr-description', 'commit-message', 'changelog', 'postmortem', 'runbook-md', 'demo', 'demo-quality-gate', 'demo-readiness', 'capstone-defense-handoff', 'handoff-package']
   },
   {
     label: 'Дослідити legacy й ризики',

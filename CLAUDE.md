@@ -19,11 +19,11 @@
 - Astro static output: `output: 'static'`.
 - HTML compression: `compressHTML: true`.
 - Поточний `site` у `astro.config.mjs`: `https://claude-code-guide.example.com`.
-- 30 зареєстрованих рівнів.
-- 150 source-backed lesson routes: 30 рівнів × 5 уроків.
-- 68 records у central artifact catalog.
+- 31 зареєстрований рівень.
+- 155 source-backed lesson routes: 31 рівень × 5 уроків.
+- 76 records у central artifact catalog.
 - 24 records у task catalog.
-- Search index охоплює 242 records (150 lessons, 68 artifacts, 24 tasks) і 8158 indexed terms у build-time projection.
+- Search index охоплює 255 records (155 lessons, 76 artifacts, 24 tasks) і 8230 indexed terms у build-time projection.
 - Увесь authored lesson content зберігається в TypeScript registries.
 
 Архітектура не містить і не повинна отримати без окремого запиту:
@@ -122,7 +122,7 @@ npm run build
     ├── data/
     │   ├── guide.ts
     │   ├── content.ts
-    │   ├── level-01.ts … level-30.ts
+    │   ├── level-01.ts … level-31.ts
     │   ├── artifacts.ts
     │   └── task-specs.ts
     ├── layouts/
@@ -156,7 +156,7 @@ npm run build
 Стабільні routes:
 
 - `/` — homepage: hero, counts, navigation і level cards.
-- `/guide` — каталог 30 рівнів і 150 lesson routes.
+- `/guide` — каталог 31 рівня і 155 lesson routes.
 - `/guide/<page.slug>` — конкретний lesson; routes генеруються через `getStaticPaths()` із `guidePages`.
 - `/artifacts` — central artifact catalog.
 - `/tasks` — central task specification catalog.
@@ -194,7 +194,7 @@ type GuideLevel = {
 };
 ```
 
-Зараз є `level-01` … `level-30`, кожен із `planned: 5`. Кожен рівень має пʼять lesson records.
+Зараз є `level-01` … `level-31`, кожен із `planned: 5`. Кожен рівень має пʼять lesson records.
 
 `GuidePage`:
 
@@ -227,13 +227,13 @@ type GuidePage = {
 - `src/data/search.ts` будує компактний build-time projection із guide, artifact і task registries; client-side runtime не імпортує повні registries.
 - `src/lib/search.ts` є pure search layer із Unicode normalization, tokenization, explicit Ukrainian/Cyrillic-to-Latin transliteration та alias mapping. Запит `евіденс` повинен знаходити artifact `EVIDENCE.md`.
 - Пошук є deterministic lexical/semantic layer із weighted title/context matching, phrase bonuses, prefix/substring support і bounded results; embeddings, external search services, backend/API/database та persistence не додаються.
-- `scripts/validate-search.ts` перевіряє 242 documents, postings, destination hrefs, compact payload і evidence regression query.
+- `scripts/validate-search.ts` перевіряє 255 documents, postings, destination hrefs, compact payload і evidence regression query.
 
 Не вигадуй відсутні JavaRush lectures і не додавай неіснуючий `l1-06` plugin lesson. Якщо external URL не підтверджений, залиш його `Unknown`, а не створюй правдоподібний URL.
 
 ### `src/data/content.ts` і `src/data/level-*.ts`
 
-`content.ts` імпортує `level-01.ts` … `level-30.ts` і експортує `guideContentByLevel`. Це central authored-content registry:
+`content.ts` імпортує `level-01.ts` … `level-31.ts` і експортує `guideContentByLevel`. Це central authored-content registry:
 
 ```ts
 const guideContentByLevel = {
@@ -361,7 +361,7 @@ type Artifact = {
 };
 ```
 
-Поточний каталог має 68 records у 8 categories. Він має 8 purpose-based quick-jump groups. Кожен artifact ID повинен зʼявлятися в quick-jump рівно один раз.
+Поточний каталог має 76 records у 8 categories. Він має 8 purpose-based quick-jump groups. Кожен artifact ID повинен зʼявлятися в quick-jump рівно один раз.
 
 Поточні artifact IDs:
 
@@ -692,7 +692,7 @@ Task і artifact template blocks мають copy buttons. Existing behavior:
 - unique fields у record;
 - valid artifact references;
 - valid lesson/lab references;
-- quick-jump coverage: усі 68 IDs рівно один раз;
+- quick-jump coverage: усі 76 IDs рівно один раз;
 - відсутність forbidden `validation-script` artifact.
 
 ### `scripts/validate-task-specs.ts`
@@ -721,7 +721,7 @@ Task і artifact template blocks мають copy buttons. Existing behavior:
 3. Перевір tree; збережи `archive/task-specs/` як archive і не повертай files у root.
 4. Віднови `src/types/guide.ts`, `artifact.ts`, `task-spec.ts`.
 5. Віднови `src/data/guide.ts` із 30 levels і 150 canonical pages.
-6. Віднови `src/data/level-01.ts` … `level-30.ts` і central `src/data/content.ts`.
+6. Віднови `src/data/level-01.ts` … `level-31.ts` і central `src/data/content.ts`.
 7. Віднови `src/data/artifacts.ts`, artifact types, categories і quick-jump groups.
 8. Віднови `src/data/task-specs.ts`, task types, source mappings і filled documented examples.
 9. Віднови `BaseLayout.astro`, shared components і `global.css`.
